@@ -121,7 +121,7 @@ export default function Navbar({ user }: { user: any }) {
                                 active ? 'bg-gray-100' : '',
                                 'flex w-full px-4 py-2 text-sm text-gray-700'
                               )}
-                              onClick={() => signIn('github')}
+                              onClick={() => signIn()}
                             >
                               Sign in
                             </button>
@@ -188,6 +188,7 @@ export default function Navbar({ user }: { user: any }) {
                   </div>
                   <div className="mt-3 space-y-1">
                     <Disclosure.Button
+                      // @ts-ignore
                       onClick={() => signOut()}
                       className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
                     >
@@ -198,7 +199,8 @@ export default function Navbar({ user }: { user: any }) {
               ) : (
                 <div className="mt-3 space-y-1">
                   <Disclosure.Button
-                    onClick={() => signIn('github')}
+                    // @ts-ignore
+                    onClick={() => signIn()}
                     className="flex w-full px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
                   >
                     Sign in
