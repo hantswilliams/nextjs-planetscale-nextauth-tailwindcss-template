@@ -16,6 +16,8 @@
 
 ## Overview
 
+Original repo: https://github.com/vercel/nextjs-planetscale-nextauth-tailwindcss-template
+
 This is a starter template using the following stack:
 
 - Framework - [Next.js 13](https://nextjs.org/13)
