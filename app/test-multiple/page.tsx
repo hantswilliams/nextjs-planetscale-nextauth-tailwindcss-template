@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Card from './card';
 
 
@@ -31,6 +31,7 @@ const MyPage = () => {
 
   const clearData = () => {
     setData([]);
+    console.log('data cleared')
   };
 
   const fetchData = async () => {
@@ -39,6 +40,7 @@ const MyPage = () => {
     try {
       const response = await fetch('https://jsonplaceholder.typicode.com/users');
       const data = await response.json();
+      console.log('data fetched')
       setData(data);
     } catch (error) {
       console.error(error);
@@ -49,16 +51,18 @@ const MyPage = () => {
 
   return (
     <div>
-      <button 
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
-        onClick={fetchData}>
-          Load data
-      </button>
-      <button 
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
-        onClick={clearData}>
-          Clear data
-      </button>
+      <div className="flex justify-center items-center mt-10 mb-10">
+        <button 
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+          onClick={fetchData}>
+            Load data
+        </button>
+        <button 
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+          onClick={clearData}>
+            Clear data
+        </button>
+      </div>
       {loading ? (
         <div className="flex justify-center items-center h-screen">
           <div className="flex items-center justify-center">
@@ -72,17 +76,21 @@ const MyPage = () => {
           </div>
         </div>
       ) : (
-        <ul>
-          {data.map((item) => (
-            <Card
-              key={item.id}
-              name={item.name}
-              email={item.email}
-              lat={item.address.geo.lat}
-              lng={item.address.geo.lng}
-            />
-          ))}
-        </ul>
+        <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
+            <ul>
+              {data.map((item) => (
+                <Card 
+                  key={item.id}
+                  name={item.name}
+                  email={item.email}
+                  lat={item.address.geo.lat}
+                  lng={item.address.geo.lng}
+                />
+              ))}
+            </ul>
+          </div>
+        </div>
       )}
     </div>
   );
