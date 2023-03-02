@@ -8,8 +8,9 @@ import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 
 const navigation = [
-  { name: 'Dashboard', href: '/' },
-  { name: 'Playground', href: '/playground' }
+  { name: 'Demo (Users)', href: '/' },
+  { name: 'Demo (Upload)', href: '/demo' },
+  { name: 'Demo (Dashboard)', href: '/dashboard' },
 ];
 
 function classNames(...classes: string[]) {
@@ -100,19 +101,34 @@ export default function Navbar({ user }: { user: any }) {
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       {user ? (
-                        <Menu.Item>
+                        <div>
+                          <Menu.Item>
+                            {({ active }) => (
+                                <button
+                                  className={classNames(
+                                    active ? 'bg-gray-100' : '',
+                                    'flex w-full px-4 py-2 text-sm text-gray-700'
+                                  )}
+                                  onClick={() => signOut()}
+                                >
+                                  Sign out
+                                </button>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
                           {({ active }) => (
-                            <button
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'flex w-full px-4 py-2 text-sm text-gray-700'
-                              )}
-                              onClick={() => signOut()}
-                            >
-                              Sign out
-                            </button>
+                              <button
+                                className={classNames(
+                                  active ? 'bg-gray-100' : '',
+                                  'flex w-full px-4 py-2 text-sm text-gray-700'
+                                )}
+                              >
+                                Settings
+                              </button>
                           )}
-                        </Menu.Item>
+                          </Menu.Item>
+                        </div>
+
                       ) : (
                         <Menu.Item>
                           {({ active }) => (
