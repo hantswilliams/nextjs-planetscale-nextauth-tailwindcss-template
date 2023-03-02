@@ -3,6 +3,8 @@
 // pages/admin.tsx
 import React from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
+import toast, { Toaster } from 'react-hot-toast'
+
 
 type FormValues = {
   image: FileList;
@@ -32,14 +34,19 @@ const Image = () => {
     })
     console.log(data)
 
-    const upload = await fetch(data.url, {
-      method: 'POST',
-      body: formData,
-    })
+    toast.promise(
+      fetch(data.url, {
+        method: 'POST',
+        body: formData,
+      }),
+      {
+        loading: 'Checking image...',
+        success: 'Image is ready for processing!🎉',
+        error: `Something happened with that image 😥 Please try again`,
+      },
+    )
+    console.log(data)
 
-    if (upload.ok) {
-      console.log('Uploaded successfully to AWS!')
-    }
   }
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -48,6 +55,7 @@ const Image = () => {
 
   return (
     <div className="container mx-auto max-w-md py-1">
+      <Toaster />
       <form className="grid grid-cols-1 gap-y-6 shadow-lg p-8 rounded-lg" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="text-3xl font-medium my-5">Select a single image</h1>
         <label className="block">
