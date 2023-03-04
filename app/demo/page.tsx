@@ -1,15 +1,30 @@
+'use client';
+
+
 import {
     Text,
     ColGrid,
     Title,
   } from '@tremor/react';
 
+import React, { useState } from 'react';
 import Instructions from './instructions';
-import Image from './imageUpload';
-import { Analysis } from './analysis';
-import { DummyData } from './dummyData';
+// import Image from './imageUploadCard';
+// import { Analysis } from './analysisCard';
+// import { DummyData } from './dummyData';
+import Image2 from './imageUploadCard2';
+import Display from './displayCard';
+import { CognitionResults } from './apiAmazon';
+
 
 export default function DemoPage() {
+
+  const [results, setResults] = useState<CognitionResults | null>(null);
+
+  const handleResults = async (data: CognitionResults) => {
+    setResults(data);
+  };
+
     return(
         <main className="p-4 md:p-10 mx-auto max-w-7xl">
         <Title>Demo of Single Image Upload Content Moderation</Title>
@@ -29,32 +44,18 @@ export default function DemoPage() {
           <div className="flex-1 bg-gray-100 p-4">
             <div className="mb-8">
               <h2 className="text-lg font-bold">2. Upload</h2>
-              <Image />
+              {/* <Image /> */}
+              {/* <Image2 onResults={handleResults}/> */}
+              <Image2 onResults={handleResults} />
+              {/* {!results && <Image2 onResults={handleResults} />} */}
+              {/* {!results && <Image2 onResults={handleResults} />} */}
             </div>
             <div>
               <h2 className="text-lg font-bold">3. Results</h2>
-                <Analysis 
-                  id={DummyData[0].id}
-                  imageUrl={DummyData[0].imageUrl}
-                  imageName="Test File"
-                  imageTimeStamp="2021-08-01T00:00:00.000Z"
-                  totalScore={DummyData[0].totalScore}
-                  subscoreDrugs={DummyData[0].subscoreDrugs}
-                  subscoreNudity={DummyData[0].subscoreNudity}
-                  subscoreRacy={DummyData[0].subscoreRacy}
-                  />            
+                {results && <Display results={results} />}
             </div>
           </div>
         </div>
-
-
-
-        
-
-
-
-        {/* <ColGrid numColsSm={2} numColsLg={2} gapX="gap-x-6" gapY="gap-y-6" marginTop='mt-8'>
-        </ColGrid> */}
       </main>
     )
 }

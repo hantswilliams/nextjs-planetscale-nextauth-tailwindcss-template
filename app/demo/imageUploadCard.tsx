@@ -4,11 +4,49 @@
 import React from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
+import { v4 as uuidv4 } from 'uuid'
 
 
 type FormValues = {
   image: FileList;
 }
+
+type CognitionResults = {
+  binary: BinaryCogResults;
+  category:CategoryCogResults;
+  numeric: NumericCogResults;
+}
+
+type BinaryCogResults = {
+  binary: String
+}
+
+type CategoryCogResults = {
+  Alcohol: Boolean;
+  Drugs: Boolean;
+  ExplicitNudity: Boolean;
+  Gambling: Boolean;
+  HateSymbols: Boolean;
+  RudeGestures: Boolean;
+  Suggestive: Boolean;
+  Tabacco: Boolean;
+  Violence: Boolean;
+  VisuallyDisturbing: Boolean;
+}
+
+type NumericCogResults = {
+  Alcohol: Number;
+  Drugs: Number;
+  ExplicitNudity: Number;
+  Gambling: Number;
+  HateSymbols: Number;
+  RudeGestures: Number;
+  Suggestive: Number;
+  Tabacco: Number;
+  Violence: Number;
+  VisuallyDisturbing: Number;
+}
+
 
 const Image = () => {
   const {
@@ -46,11 +84,19 @@ const Image = () => {
       },
     )
     console.log(data)
+    console.log('Data URL: ', data.url + '/' + filename)
 
+    const response = await fetch('http://localhost:5005/cognition/amazon/moderation', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: data.url + '/' + filename }),
+    })
+    const result = await response.json()
+    console.log('Cognition Result: ', result)    
   }
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log('Button clicked: ', data)
+    console.log('User has requested to see results', data)
   }
 
   return (
@@ -69,12 +115,15 @@ const Image = () => {
           />
         </label>
 
+        {/* if image has not been selected, disable button */}
+        {errors.image && <span className="text-red-500">Image is required</span>}
         <button
           type="submit"
           className={`my-4 capitalize bg-purple-600 text-white font-medium py-2 px-4 rounded-md hover:bg-purple-900 animate-pulse`}
         >
-            <span>Analyze</span>
+            <span>Get your results!</span>
         </button>
+
       </form>
     </div>
   )
