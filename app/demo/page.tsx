@@ -10,7 +10,7 @@ import {
 import React, { useState } from 'react';
 import Instructions from './componentInstructions';
 import ImageUpload from './componentUploader';
-import DisplayResults from './componentResults';
+import DisplayResults2 from './componentsResults2';
 import { CognitionResults } from './dataTypes';
 
 
@@ -50,7 +50,7 @@ export default function DemoPage() {
             </div>
             <div>
               <h2 className="text-lg font-bold">3. Results</h2>
-                {results && <DisplayResults results={results} />}
+                {results && <DisplayResults2 results={results} />}
                 {results && 
                   <button
                     type="button"

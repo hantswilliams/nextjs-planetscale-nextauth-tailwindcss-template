@@ -28,14 +28,14 @@ export type CategoryCogResults = {
   }
   
 export type NumericCogResults = {
-    Alcohol: Number;
-    Drugs: Number;
-    'Explicit Nudity': Number;
-    Gambling: Number;
-    'Hate Symbols': Number;
-    'Rude Gestures': Number;
-    Suggestive: Number;
-    Tabacco: Number;
-    Violence: Number;
-    'Visually Disturbing': Number;
+    Alcohol: number;
+    Drugs: number;
+    'Explicit Nudity': number;
+    Gambling: number;
+    'Hate Symbols': number;
+    'Rude Gestures': number;
+    Suggestive: number;
+    Tabacco: number;
+    Violence: number;
+    'Visually Disturbing': number;
   }

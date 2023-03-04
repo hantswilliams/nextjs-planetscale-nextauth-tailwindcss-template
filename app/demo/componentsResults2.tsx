@@ -103,44 +103,44 @@ const DisplayResults2: React.FC<Props> = ({ results }) => {
                 <div className="flex flex-col mb-2">
                     <span className="text-gray-700 text-sm">Explicit Nudity: {results?.analytics?.numeric?.['Explicit Nudity'].toString()}</span>
                     <div className="flex items-center">
-                    {subscoreNudity >= 30 ? (
+                    {results?.analytics?.numeric?.['Explicit Nudity'] >= 30 ? (
                         <span className="rounded-full h-4 w-4 bg-red-500"></span>
-                    ) : subscoreNudity >= 20 && subscoreNudity <= 29 ? (
+                    ) : results?.analytics?.numeric?.['Explicit Nudity'] >= 20 && results?.analytics?.numeric?.['Explicit Nudity'] <= 29 ? (
                         <span className="rounded-full h-4 w-4 bg-yellow-500"></span>
                     ) : (
                         <span className="rounded-full h-4 w-4 bg-green-500"></span>
                     )}
-                    <span className="ml-2 text-gray-700">{subscoreNudity >= 30 ? 'Very Likely' : subscoreNudity >= 20 && subscoreNudity <= 29 ? 'Likely' : 'Not Likely'}</span>
+                    <span className="ml-2 text-gray-700">{results?.analytics?.numeric?.['Explicit Nudity'] >= 30 ? 'Very Likely' : results?.analytics?.numeric?.['Explicit Nudity'] >= 20 && results?.analytics?.numeric?.['Explicit Nudity'] <= 29 ? 'Likely' : 'Not Likely'}</span>
                     </div>
                 </div>
 
                 {/* div tag for the violent or repulsive content */}
                 <div className="flex flex-col mb-2">
-                    <span className="text-gray-700 text-sm">Racy Content: {subscoreRacy}%</span>
+                    <span className="text-gray-700 text-sm">Suggestive Content: {results?.analytics?.numeric?.Suggestive}%</span>
                     <div className="flex items-center">
-                    {subscoreRacy >= 30 ? (
+                    {results?.analytics?.numeric?.Suggestive >= 30 ? (
                         <span className="rounded-full h-4 w-4 bg-red-500"></span>
-                    ) : subscoreRacy >= 20 && subscoreRacy <= 29 ? (
+                    ) : results?.analytics?.numeric?.Suggestive >= 20 && results?.analytics?.numeric?.Suggestive <= 29 ? (
                         <span className="rounded-full h-4 w-4 bg-yellow-500"></span>
                     ) : (
                         <span className="rounded-full h-4 w-4 bg-green-500"></span>
                     )}
-                    <span className="ml-2 text-gray-700">{subscoreRacy >= 30 ? 'Very Likely' : subscoreRacy >= 20 && subscoreRacy <= 29 ? 'Likely' : 'Not Likely'}</span>
+                    <span className="ml-2 text-gray-700">{results?.analytics?.numeric?.Suggestive >= 30 ? 'Very Likely' : results?.analytics?.numeric?.Suggestive >= 20 && results?.analytics?.numeric?.Suggestive <= 29 ? 'Likely' : 'Not Likely'}</span>
                     </div>
                 </div>
 
                 {/* div tag for drug content */}
                 <div className="flex flex-col mb-2">
-                    <span className="text-gray-700 text-sm">Drug Content: {subscoreDrugs}%</span>
+                    <span className="text-gray-700 text-sm">Drug Content: {results?.analytics?.numeric?.Drugs}%</span>
                     <div className="flex items-center">
-                    {subscoreDrugs >= 30 ? (
+                    {results?.analytics?.numeric?.Drugs >= 30 ? (
                         <span className="rounded-full h-4 w-4 bg-red-500"></span>
-                    ) : subscoreDrugs >= 20 && subscoreDrugs <= 29 ? (
+                    ) : results?.analytics?.numeric?.Drugs >= 20 && results?.analytics?.numeric?.Drugs <= 29 ? (
                         <span className="rounded-full h-4 w-4 bg-yellow-500"></span>
                     ) : (
                         <span className="rounded-full h-4 w-4 bg-green-500"></span>
                     )}
-                    <span className="ml-2 text-gray-700">{subscoreDrugs >= 30 ? 'Very Likely' : subscoreDrugs >= 20 && subscoreDrugs <= 29 ? 'Like' : 'Not Likely'}</span>
+                    <span className="ml-2 text-gray-700">{results?.analytics?.numeric?.Drugs >= 30 ? 'Very Likely' : results?.analytics?.numeric?.Drugs >= 20 && results?.analytics?.numeric?.Drugs <= 29 ? 'Like' : 'Not Likely'}</span>
                     </div>
                 </div>
 
