@@ -4,7 +4,9 @@
 import React, { useState } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
-import { CognitionResults, uploadImage, fetchCognitionResults } from './apiAmazon';
+import { fetchCognitionResults } from './apiAmazon';
+import { uploadImage } from './apiS3Upload';
+import { CognitionResults } from './dataTypes';
 
 type FormValues = {
   image: FileList;
@@ -14,7 +16,7 @@ type Props = {
     onResults: (data: CognitionResults) => void;
 };
 
-export const Image2: React.FC<Props> = ({ onResults }) => {
+export const ImageUpload: React.FC<Props> = ({ onResults }) => {
   const {
     register,
     handleSubmit,
@@ -88,7 +90,7 @@ export const Image2: React.FC<Props> = ({ onResults }) => {
             <span>Get your results!</span>
         </button>
 
-        {cognitionResults && (
+        {/* {cognitionResults && (
           <>
             <h2>Cognition Results:</h2>
             <pre>{JSON.stringify(cognitionResults, null, 2)}</pre>
@@ -100,12 +102,12 @@ export const Image2: React.FC<Props> = ({ onResults }) => {
               Clear Data
             </button>
           </>
-        )}
+        )} */}
 
       </form>
     </div>
   )
 }
 
-export default Image2
+export default ImageUpload
 
