@@ -10,18 +10,32 @@ import {
 import React, { useState } from 'react';
 import Instructions from './componentInstructions';
 import ImageUpload from './componentUploader';
-import DisplayResults2 from './componentsResults2';
-import { CognitionResults } from './dataTypes';
-
+import DisplayResults from './componentsResults';
+import { CognitionResults, urlCaptured } from './dataTypes';
 
 export default function DemoPage() {
 
   const [results, setResults] = useState<CognitionResults | null>(null);
+  const [url, setUrl] = useState<urlCaptured | null>(null);
+
+
+  // const handleResults = async (data: CognitionResults, url: urlCaptured) => {
+  //   console.log('Captured Results: ', JSON.stringify(data))
+  //   setResults(data);
+  //   console.log('Captured url: ', JSON.stringify(url))
+  //   setUrl(url);
+  // };
+
 
   const handleResults = async (data: CognitionResults) => {
-    console.log('Captured results: ', JSON.stringify(data))
+    console.log('Captured Results: ', JSON.stringify(data))
     setResults(data);
   };
+
+  // const handleUrl = async (data: urlCaptured) => {
+  //   console.log('Captured url: ', JSON.stringify(data))
+  //   setUrl(data);
+  // };
 
   const clearResults = () => {
     setResults(null);
@@ -50,7 +64,7 @@ export default function DemoPage() {
             </div>
             <div>
               <h2 className="text-lg font-bold">3. Results</h2>
-                {results && <DisplayResults2 results={results} />}
+                {results && <DisplayResults results={results} />}
                 {results && 
                   <button
                     type="button"

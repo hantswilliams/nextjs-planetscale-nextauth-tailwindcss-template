@@ -6,7 +6,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
 import { fetchCognitionResults } from './apiAmazon';
 import { uploadImage } from './apiS3Upload';
-import { CognitionResults } from './dataTypes';
+import { CognitionResults, urlCaptured} from './dataTypes';
 
 type FormValues = {
   image: FileList;

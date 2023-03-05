@@ -7,7 +7,7 @@ type Props = {
   results: CognitionResults;
 }
 
-const DisplayResults2: React.FC<Props> = ({ results }) => {
+const DisplayResults: React.FC<Props> = ({ results }) => {
     return (
     <div className="container mx-auto max-w-md py-1">
     {/* <div key={id} className="shadow max-w-md rounded"> */}
@@ -75,7 +75,7 @@ const DisplayResults2: React.FC<Props> = ({ results }) => {
                             ? 'bg-yellow-500'
                             : 'bg-green-500'
                         } h-full rounded-full`}
-                        style={{ width: `${results.analytics.totalConfidence}%` }}
+                        style={{ width: `${results.analytics.totalConfidence * 100}%` }}
                     />
                 </div>
 
@@ -97,7 +97,7 @@ const DisplayResults2: React.FC<Props> = ({ results }) => {
                 </div>
 
                 {/* div tag for the concern level */}
-                <div className="font-bold text-xl mb-2 mt-2">Concern level: {results.analytics.totalConfidence}/100</div>
+                <div className="font-bold text-xl mb-2 mt-2">Concern level: {results.analytics.totalConfidence / 100} </div>
 
                 {/* div tag for the explicit nudity */}
                 <div className="flex flex-col mb-2">
@@ -197,4 +197,4 @@ const DisplayResults2: React.FC<Props> = ({ results }) => {
   );
 };
 
-export default DisplayResults2;
+export default DisplayResults;

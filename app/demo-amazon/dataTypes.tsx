@@ -39,3 +39,7 @@ export type NumericCogResults = {
     Violence: number;
     'Visually Disturbing': number;
   }
+
+export type urlCaptured = {
+    url: String;
+  }
