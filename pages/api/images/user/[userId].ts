@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import client from '../../../../lib/prismadb'
 
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const { userId } = req.query
