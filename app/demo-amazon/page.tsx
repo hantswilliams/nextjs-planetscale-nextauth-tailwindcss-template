@@ -8,34 +8,22 @@ import {
   } from '@tremor/react';
 
 import React, { useState } from 'react';
-import Instructions from './componentInstructions';
-import ImageUpload from './componentUploader';
-import DisplayResults from './componentsResults';
-import { CognitionResults, urlCaptured } from './dataTypes';
+import Instructions from './(components)/instructions';
+import ImageUpload from './(components)/uploader';
+import DisplayResults from './(components)/results';
+import { CognitionResults } from './typesAmazon';
 
 export default function DemoPage() {
 
   const [results, setResults] = useState<CognitionResults | null>(null);
-  const [url, setUrl] = useState<urlCaptured | null>(null);
+  const [url, setUrl] = useState<string>('');
 
-
-  // const handleResults = async (data: CognitionResults, url: urlCaptured) => {
-  //   console.log('Captured Results: ', JSON.stringify(data))
-  //   setResults(data);
-  //   console.log('Captured url: ', JSON.stringify(url))
-  //   setUrl(url);
-  // };
-
-
-  const handleResults = async (data: CognitionResults) => {
+  const handleResults = async (data: CognitionResults, url: string) => {
     console.log('Captured Results: ', JSON.stringify(data))
+    console.log('URL is: ', url)
     setResults(data);
+    setUrl(url);
   };
-
-  // const handleUrl = async (data: urlCaptured) => {
-  //   console.log('Captured url: ', JSON.stringify(data))
-  //   setUrl(data);
-  // };
 
   const clearResults = () => {
     setResults(null);
@@ -64,7 +52,7 @@ export default function DemoPage() {
             </div>
             <div>
               <h2 className="text-lg font-bold">3. Results</h2>
-                {results && <DisplayResults results={results} />}
+                {results && <DisplayResults results={results} url={url} />}
                 {results && 
                   <button
                     type="button"

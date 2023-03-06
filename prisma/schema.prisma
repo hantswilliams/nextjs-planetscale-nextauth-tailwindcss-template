@@ -6,24 +6,36 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  username      String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  Media         Media[]
+}
+
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -38,17 +50,6 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  username      String?   
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-}
-
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -56,3 +57,30 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Media {
+  id             Int         @id @default(autoincrement())
+  userId         String
+  media_uid      String?     @unique // this is the image uid of the media
+  media_type     String? // this is the type of media (image, video, etc...)
+  origin         String?
+  medial_url     String?     @db.Text // set max length to 1000 
+  s3bucket_key   String?     @db.Text // set max length to 1000
+  permalink      String?
+  title          String?
+  content        String?
+  timestampMedia DateTime?
+  cognitions     Cognition[] // this is the media that was analyzed for this specific user 
+  user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Cognition {
+  id            Int     @id @default(autoincrement())
+  model         String? // this should be a value like google, clarifai, nanonets, sightengine 
+  modelsubtype  String? // this should be a value like google_vision, clarifai_general, nanonets_object, sightengine_nudity
+  output        Json? // this is the output of the model
+  outputcleaned Json? // this is the output of the model cleaned up
+  media         Media   @relation(fields: [mediaId], references: [media_uid]) // this is the media that was analyzed
+  mediaId       String // this is the media that was analyzed
+}
+

@@ -4,16 +4,16 @@
 import React, { useState } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import toast, { Toaster } from 'react-hot-toast'
-import { fetchCognitionResults } from './apiAmazon';
-import { uploadImage } from './apiS3Upload';
-import { CognitionResults, urlCaptured} from './dataTypes';
+import { fetchCognitionResults } from '../cognition';
+import { uploadImage } from '../s3';
+import { CognitionResults } from '../typesAmazon';
 
 type FormValues = {
   image: FileList;
 }
 
 type Props = {
-    onResults: (data: CognitionResults) => void;
+    onResults: (data: CognitionResults, url: string) => void;
 };
 
 export const ImageUpload: React.FC<Props> = ({ onResults }) => {
@@ -43,7 +43,7 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
     try {
       const results = await fetchCognitionResults(url);
       setCognitionResults(results);
-      onResults(results); // pass the results back to parent component
+      onResults(results, url); // pass the results back to parent component
     } catch (error) {
       console.error(error);
     }
@@ -61,6 +61,9 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
     } catch (error) {
       console.error(error);
     }
+
+
+    
   }
 
   return (
@@ -79,7 +82,7 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
           />
         </label>
 
-        {url && <p>Image URL: {url}</p>}
+        {/* {url && <p>Image URL: {url}</p>} */}
 
         {/* if image has not been selected, disable button */}
         {errors.image && <span className="text-red-500">Image is required</span>}

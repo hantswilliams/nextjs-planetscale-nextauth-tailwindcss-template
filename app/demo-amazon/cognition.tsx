@@ -1,4 +1,4 @@
-import { CognitionResults } from './dataTypes';
+import { CognitionResults } from './typesAmazon';
     
 export const fetchCognitionResults = async (url: string): Promise<CognitionResults> => {
     const response = await fetch('http://localhost:5005/cognition/amazon/moderation', {

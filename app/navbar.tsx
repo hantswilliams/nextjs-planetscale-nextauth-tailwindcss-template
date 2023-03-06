@@ -9,7 +9,8 @@ import Image from 'next/image';
 
 const navigation = [
   { name: 'Demo (Users)', href: '/' },
-  { name: 'Demo (Upload)', href: '/demo' },
+  { name: 'Demo (Upload)', href: '/demo-amazon' },
+  { name: 'Demo (Gallery)', href: '/gallery' },
   { name: 'Demo (Dashboard)', href: '/dashboard' },
 ];
 
@@ -103,19 +104,6 @@ export default function Navbar({ user }: { user: any }) {
                       {user ? (
                         <div>
                           <Menu.Item>
-                            {({ active }) => (
-                                <button
-                                  className={classNames(
-                                    active ? 'bg-gray-100' : '',
-                                    'flex w-full px-4 py-2 text-sm text-gray-700'
-                                  )}
-                                  onClick={() => signOut()}
-                                >
-                                  Sign out
-                                </button>
-                            )}
-                          </Menu.Item>
-                          <Menu.Item>
                           {({ active }) => (
                               <button
                                 className={classNames(
@@ -128,6 +116,19 @@ export default function Navbar({ user }: { user: any }) {
                                 Settings
                               </button>
                           )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                                <button
+                                  className={classNames(
+                                    active ? 'bg-gray-100' : '',
+                                    'flex w-full px-4 py-2 text-sm text-gray-700'
+                                  )}
+                                  onClick={() => signOut()}
+                                >
+                                  Sign out
+                                </button>
+                            )}
                           </Menu.Item>
                         </div>
 

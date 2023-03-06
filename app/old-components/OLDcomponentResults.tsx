@@ -1,5 +1,5 @@
 import React from 'react';
-import { CognitionResults } from './dataTypes';
+import { CognitionResults } from '../demo-amazon/typesAmazon';
 
 type Props = {
   results: CognitionResults;

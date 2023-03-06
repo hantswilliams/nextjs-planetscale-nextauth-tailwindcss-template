@@ -9,44 +9,44 @@ import {
 } from '@tremor/react';
 import Chart from './chart';
 
-const website = [
-  { name: '/home', value: 1230 },
-  { name: '/contact', value: 751 },
-  { name: '/gallery', value: 471 },
-  { name: '/august-discount-offer', value: 280 },
-  { name: '/case-studies', value: 78 }
+const suggestiveContent = [
+  { name: '/instagram', value: 1230 },
+  { name: '/twitter', value: 751 },
+  { name: '/tiktok', value: 471 },
+  { name: '/facebook', value: 280 },
+  { name: '/linkedin', value: 78 }
 ];
 
-const shop = [
-  { name: '/home', value: 453 },
-  { name: '/imprint', value: 351 },
-  { name: '/shop', value: 271 },
-  { name: '/pricing', value: 191 }
+const drugsAlcohol = [
+  { name: '/instagram', value: 453 },
+  { name: '/tiktok', value: 351 },
+  { name: '/facebook', value: 271 },
+  { name: '/linkedin', value: 191 }
 ];
 
-const app = [
-  { name: '/shop', value: 789 },
-  { name: '/product-features', value: 676 },
-  { name: '/about', value: 564 },
-  { name: '/login', value: 234 },
-  { name: '/downloads', value: 191 }
+const rudeGestures = [
+  { name: '/instagram', value: 789 },
+  { name: '/twitter', value: 676 },
+  { name: '/tiktok', value: 564 },
+  { name: '/facebook', value: 234 },
+  { name: '/linkedin', value: 191 }
 ];
 
 const data = [
   {
-    category: 'Website',
-    stat: '10,234',
-    data: website
+    category: 'Suggestive Content',
+    stat: '2,456',
+    data: suggestiveContent
   },
   {
-    category: 'Online Shop',
-    stat: '12,543',
-    data: shop
+    category: 'Drugs and Alcohol',
+    stat: '3,456',
+    data: drugsAlcohol
   },
   {
-    category: 'Mobile App',
+    category: 'Rude Gestures',
     stat: '2,543',
-    data: app
+    data: rudeGestures
   }
 ];
 
@@ -59,26 +59,27 @@ const categories: {
   metricPrev: string;
 }[] = [
   {
-    title: 'Sales',
-    metric: '$ 12,699',
-    metricPrev: '$ 9,456'
+    title: 'Users',
+    metric: '3,456',
+    metricPrev: '1,234'
   },
   {
-    title: 'Profit',
-    metric: '$ 40,598',
-    metricPrev: '$ 45,564'
+    title: 'Images Moderated',
+    metric: '34,567',
+    metricPrev: '23,456'
   },
   {
-    title: 'Customers',
-    metric: '1,072',
-    metricPrev: '856'
+    title: 'Identified NSFW posts',
+    metric: '7,678',
+    metricPrev: '3,456'
   }
 ];
 
 export default function DashboardPage() {
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
-      <ColGrid numColsSm={2} numColsLg={3} gapX="gap-x-6" gapY="gap-y-6">
+      <Title>Social Comprehend: Moderation Statistics</Title>
+      <ColGrid marginTop='mt-5' numColsSm={2} numColsLg={3} gapX="gap-x-6" gapY="gap-y-6">
         {categories.map((item) => (
           <Card key={item.title}>
             <Flex alignItems="items-start">

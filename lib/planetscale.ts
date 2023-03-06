@@ -9,8 +9,23 @@ interface UserTable {
   email: string;
 }
 
+interface MediaTable {
+  id: Generated<number>;
+  userId: string;
+  media_uid: string;
+  media_type: string;
+  origin: string;
+  medial_url: string;
+  s3bucket_key: string;
+  permalink: string;
+  title: string;
+  content: string;
+  timestampMedia: Date;
+} 
+
 interface Database {
   User: UserTable;
+  Media: MediaTable;
   // https://github.com/nextauthjs/next-auth/issues/4922
 }
 

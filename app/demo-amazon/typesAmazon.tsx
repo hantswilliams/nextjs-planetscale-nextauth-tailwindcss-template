@@ -8,6 +8,8 @@ export type AnalyticsCogResults = {
     category:CategoryCogResults;
     numeric: NumericCogResults;
     totalConfidence: number;
+    imageUUID: String;
+    dateProcessed: String;
     }
 
 export type BinaryCogResults = {
@@ -38,8 +40,4 @@ export type NumericCogResults = {
     Tabacco: number;
     Violence: number;
     'Visually Disturbing': number;
-  }
-
-export type urlCaptured = {
-    url: String;
   }
