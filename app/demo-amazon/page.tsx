@@ -16,13 +16,16 @@ import { CognitionResults } from './typesAmazon';
 export default function DemoPage() {
 
   const [results, setResults] = useState<CognitionResults | null>(null);
+  const [uuid, setUuid] = useState<string>('');
   const [url, setUrl] = useState<string>('');
 
-  const handleResults = async (data: CognitionResults, url: string) => {
-    console.log('Captured Results: ', JSON.stringify(data))
-    console.log('URL is: ', url)
+  const handleResults = async (data: CognitionResults, url: string, uuid: string) => {
+    console.log('Captured Results (page): ', JSON.stringify(data))
+    console.log('URL is (page): ', url)
+    console.log('UUID is (page): ', uuid)
     setResults(data);
     setUrl(url);
+    setUuid(uuid);
   };
 
   const clearResults = () => {
@@ -52,7 +55,7 @@ export default function DemoPage() {
             </div>
             <div>
               <h2 className="text-lg font-bold">3. Results</h2>
-                {results && <DisplayResults results={results} url={url} />}
+                {results && <DisplayResults results={results} url={url} uuid={uuid} />}
                 {results && 
                   <button
                     type="button"

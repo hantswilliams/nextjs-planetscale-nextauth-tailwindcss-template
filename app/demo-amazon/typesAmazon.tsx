@@ -8,7 +8,7 @@ export type AnalyticsCogResults = {
     category:CategoryCogResults;
     numeric: NumericCogResults;
     totalConfidence: number;
-    imageUUID: String;
+    serverUUID: String;
     dateProcessed: String;
     }
 

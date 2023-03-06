@@ -8,9 +8,10 @@ import AccuracyCapture from './resultsAccuracy';
 type Props = {
   results: CognitionResults;
   url: string;
+  uuid: string;
 }
 
-const DisplayResults: React.FC<Props> = ({ results, url }) => {
+const DisplayResults: React.FC<Props> = ({ results, url, uuid }) => {
     return (
     <div className="container mx-auto max-w-md py-1">
     {/* <div key={id} className="shadow max-w-md rounded"> */}
@@ -62,7 +63,8 @@ const DisplayResults: React.FC<Props> = ({ results, url }) => {
             {/* add in the imageName as small text directly under the image */}
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2"> {results.analytics?.dateProcessed} </div>
-                <div className="text-gray-700 text-base"> ID for troubleshooting: {results.analytics?.imageUUID} </div>
+                <div className="text-gray-700 text-base"> Client ID for troubleshooting: {uuid} </div>
+                <div className="text-gray-700 text-base"> Server ID for troubleshooting: {results.analytics?.serverUUID} </div>
             </div>
 
             {/* this is the div section that contains the result details */}

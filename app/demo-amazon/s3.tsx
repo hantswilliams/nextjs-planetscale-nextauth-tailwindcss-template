@@ -16,19 +16,19 @@ export const uploadImage = async (file: File): Promise<{fields: Record<string, s
     }
 
     const media_uid_frontend = uuid()
-    console.log('frontend_media_uid: ', media_uid_frontend)
+    // console.log('frontend_media_uid: ', media_uid_frontend)
     
     // #1 Uploading to S3 bucket 
     const res = await fetch(`/api/images/upload-image-s3?file=${filename}`)
     const data = await res.json()
     const formData = new FormData()
-  
+
     // @ts-ignore
     Object.entries({ ...data.fields, file }).forEach(([key, value]) => {
       // @ts-ignore
       formData.append(key, value)
     })
-    console.log(data)
+    console.log('Data view from S3 file: ', data)
   
     toast.promise(
       fetch(data.url, {
@@ -73,6 +73,10 @@ export const uploadImage = async (file: File): Promise<{fields: Record<string, s
         error: `Something happened with that image 😥 Please try again`,
       },
     )  
+
+    // append the data fields to include the media_uid_frontend after processed by S3, 
+    // otherwise you will get a 400 error 
+    data.fields.media_uid_frontend = media_uid_frontend
 
     return data;
   };

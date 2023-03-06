@@ -8,10 +8,10 @@ import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 
 const navigation = [
-  { name: 'Demo (Users)', href: '/' },
-  { name: 'Demo (Upload)', href: '/demo-amazon' },
-  { name: 'Demo (Gallery)', href: '/gallery' },
-  { name: 'Demo (Dashboard)', href: '/dashboard' },
+  { name: 'Demo (All Users)', href: '/' },
+  { name: 'Demo (Single Image Upload)', href: '/demo-amazon' },
+  { name: 'Demo (Your Gallery)', href: '/gallery' },
+  { name: 'Demo (Your Dashboard)', href: '/dashboard' },
 ];
 
 function classNames(...classes: string[]) {

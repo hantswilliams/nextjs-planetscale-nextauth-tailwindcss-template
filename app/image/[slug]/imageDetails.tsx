@@ -8,18 +8,26 @@ return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
         <div className="overflow-hidden bg-white shadow sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6">
-                <h3 className="text-base font-semibold leading-6 text-gray-900">Applicant Information</h3>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details and application.</p>
+                <h3 className="text-base font-semibold leading-6 text-gray-900">Post Information</h3>
+                <p className="mt-1 max-w-2xl text-sm text-gray-500">Content details and meta data.</p>
+                {/* center image */}
+                <div className="flex justify-center">
+                    <img 
+                        src={users[0]?.medial_url} 
+                        className='rounded-full w-96 h-96 border-solid border-4 border-grey-500' 
+                        alt="Image" 
+                    />
+                </div>
             </div>
             <div className="border-t border-gray-200">
                 <dl>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt className="text-sm font-medium text-gray-500">Full name</dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Margot Foster</dd>
+                    <dt className="text-sm font-medium text-gray-500">Image UID</dt>
+                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{users[0]?.media_uid}</dd>
                 </div>
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt className="text-sm font-medium text-gray-500">Application for</dt>
-                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Backend Developer</dd>
+                    <dt className="text-sm font-medium text-gray-500">Media URL</dt>
+                    <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"> {users[0]?.medial_url}</dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt className="text-sm font-medium text-gray-500">Email address</dt>

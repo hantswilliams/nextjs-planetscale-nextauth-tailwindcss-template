@@ -13,10 +13,11 @@ type FormValues = {
 }
 
 type Props = {
-    onResults: (data: CognitionResults, url: string) => void;
+    onResults: (data: CognitionResults, url: string, uuid: string) => void;
 };
 
 export const ImageUpload: React.FC<Props> = ({ onResults }) => {
+
   const {
     register,
     handleSubmit,
@@ -24,12 +25,14 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
   } = useForm<FormValues>()
 
   const [url, setUrl] = useState<string>('');
+  const [uuid, setUuid] = useState<string>('');
   const [cognitionResults, setCognitionResults] = useState<CognitionResults | null>(null);
 
   // Upload photo function
   const clearData = () => {
     setUrl('');
     setCognitionResults(null);
+    setUuid('');
     console.log('data cleared')
   };
 
@@ -41,9 +44,9 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
     }
 
     try {
-      const results = await fetchCognitionResults(url);
+      const results = await fetchCognitionResults(url, uuid);
       setCognitionResults(results);
-      onResults(results, url); // pass the results back to parent component
+      onResults(results, url, uuid); // pass the results back to parent component
     } catch (error) {
       console.error(error);
     }
@@ -57,6 +60,8 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
 
     try {
       const data = await uploadImage(file);
+      console.log('Data UUID returned from uploadImage: ', data?.fields?.media_uid_frontend);
+      setUuid(data?.fields?.media_uid_frontend);
       setUrl(data.url + '/' + encodeURIComponent(file.name));
     } catch (error) {
       console.error(error);

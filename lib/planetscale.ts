@@ -23,9 +23,20 @@ interface MediaTable {
   timestampMedia: Date;
 } 
 
+interface CognitionTable {
+  id: Generated<number>;
+  model: string;
+  modelsubtype: string;
+  output: JSON;
+  outputcleaned: JSON;
+  mediaId: string;
+}
+
+
 interface Database {
   User: UserTable;
   Media: MediaTable;
+  Cognition: CognitionTable;
   // https://github.com/nextauthjs/next-auth/issues/4922
 }
 
