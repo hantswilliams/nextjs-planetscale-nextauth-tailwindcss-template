@@ -1,11 +1,11 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from "next-auth/providers/credentials";
-import GithubProvider from 'next-auth/providers/github';
-import InstagramProvider from 'next-auth/providers/instagram';
-import FacebookProvider from "next-auth/providers/facebook";
-import LinkedInProvider from "next-auth/providers/linkedin";
-import TwitterProvider from "next-auth/providers/twitter";
+// import GithubProvider from 'next-auth/providers/github';
+// import InstagramProvider from 'next-auth/providers/instagram';
+// import FacebookProvider from "next-auth/providers/facebook";
+// import LinkedInProvider from "next-auth/providers/linkedin";
+// import TwitterProvider from "next-auth/providers/twitter";
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from "../../../lib/prismadb"
 
@@ -49,30 +49,30 @@ export const authOptions: NextAuthOptions = {
       }
     }),
 
-    GithubProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
-    }),
+    // GithubProvider({
+    //   clientId: process.env.GITHUB_ID as string,
+    //   clientSecret: process.env.GITHUB_SECRET as string,
+    // }),
 
-    InstagramProvider({
-      clientId: process.env.INSTAGRAM_CLIENT_ID as string,
-      clientSecret: process.env.INSTAGRAM_CLIENT_SECRET as string,
-    }),
+    // InstagramProvider({
+    //   clientId: process.env.INSTAGRAM_CLIENT_ID as string,
+    //   clientSecret: process.env.INSTAGRAM_CLIENT_SECRET as string,
+    // }),
 
-    LinkedInProvider({
-      clientId: process.env.LINKEDIN_CLIENT_ID as string,
-      clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
-    }),
+    // LinkedInProvider({
+    //   clientId: process.env.LINKEDIN_CLIENT_ID as string,
+    //   clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
+    // }),
 
-    TwitterProvider({
-      clientId: process.env.TWITTER_CLIENT_ID as string,
-      clientSecret: process.env.TWITTER_CLIENT_SECRET as string,
-    }),
+    // TwitterProvider({
+    //   clientId: process.env.TWITTER_CLIENT_ID as string,
+    //   clientSecret: process.env.TWITTER_CLIENT_SECRET as string,
+    // }),
 
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID as string,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
-    }),
+    // FacebookProvider({
+    //   clientId: process.env.FACEBOOK_CLIENT_ID as string,
+    //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+    // }),
 
     CredentialsProvider({
       name: "Credentials",

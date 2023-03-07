@@ -3,7 +3,7 @@
 import { Json } from "aws-sdk/clients/robomaker";
 import toast, { Toaster } from 'react-hot-toast'
 import { useState } from 'react';
-
+import ResultsCategory from './resultsCategory';
 
 interface UserMedia {
     users: User[];
@@ -27,7 +27,31 @@ interface Cognition {
 interface UseroutputCleaned {
     binary: {
         binary: string;
-    }
+    };
+    category: {
+        Alcohol: Boolean;
+        Drugs: Boolean;
+        'Explicit Nudity': Boolean;
+        Gambling: Boolean;
+        'Hate Symbols': Boolean;
+        'Rude Gestures': Boolean;
+        Suggestive: Boolean;
+        Tabacco: Boolean;
+        Violence: Boolean;
+        'Visually Disturbing': Boolean;
+    };
+    numeric: {
+        Alcohol: number;
+        Drugs: number;
+        'Explicit Nudity': number;
+        Gambling: number;
+        'Hate Symbols': number;
+        'Rude Gestures': number;
+        Suggestive: number;
+        Tabacco: number;
+        Violence: number;
+        'Visually Disturbing': number;
+    };        
 }
 
 export default function ImageDetailsTable(users: UserMedia) {
@@ -109,6 +133,19 @@ return (
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt className="text-sm font-medium text-gray-500">Model Meta Data Clean</dt>
                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"> {JSON.stringify(users?.cognitions[0]?.outputcleaned)} </dd>
+                </div>
+                <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    {/* <dt className="text-sm font-medium text-gray-500">Clean Interpretations</dt> */}
+                        <ResultsCategory categoryName="Explicit Nudity" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Explicit Nudity']} />
+                        <ResultsCategory categoryName="Drug Content" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Drugs']} />
+                        <ResultsCategory categoryName="Violence" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Violence']} />
+                        <ResultsCategory categoryName="Visually Disturbing" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Visually Disturbing']} />
+                        <ResultsCategory categoryName="Hate Symbols" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Hate Symbols']} />
+                        <ResultsCategory categoryName="Suggestive Content" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Suggestive']} />
+                        <ResultsCategory categoryName="Tabacco" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Tabacco']} />
+                        <ResultsCategory categoryName="Alcohol Content" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Alcohol']} />
+                        <ResultsCategory categoryName="Gambling" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Gambling']} />
+                        <ResultsCategory categoryName="Rude Gestures" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Rude Gestures']} />
                 </div>
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt className="text-sm font-medium text-gray-500">Take a Action</dt>
