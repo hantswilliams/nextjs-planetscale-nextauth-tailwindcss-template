@@ -1,18 +1,31 @@
-import { queryBuilder } from '../../../lib/planetscale';
+// import { queryBuilder } from '../../../lib/planetscale';
 import ImageDetailsTable from './imageDetails';
 
 export default async function({params}: {params: { slug: string }}) {
 
-    console.log(params);
-    console.log('Slug: ', params.slug);
+    // console.log(params);
+    // console.log('Slug: ', params.slug);
 
-    const userImages = await queryBuilder
-        .selectFrom('Media')
-        .select(['media_uid', 'medial_url'])
-        .where('media_uid', 'like', `%${params.slug}%`)
-        .execute();
+    // const userImages = await queryBuilder
+    //     .selectFrom('Media')
+    //     .select(['media_uid', 'medial_url', 'viewable'])
+    //     .where('media_uid', 'like', `%${params.slug}%`)
+    //     .execute();
 
-    console.log('imageDetails: ', userImages);
+    const userImages2 = await fetch(`http://localhost:3000/api/images/image/${params.slug}`)
+        .then((res) => res.json())
+    
+    // const userCognitions = await queryBuilder
+    //     .selectFrom('Cognition')
+    //     .select(['model', 'modelsubtype', 'output', 'outputcleaned', 'mediaId'])
+    //     .where('mediaId', 'like', `%${params.slug}%`)
+    //     .execute();
+
+    const userCognitions2 = await fetch(`http://localhost:3000/api/cognitions/image/${params.slug}`)
+        .then((res) => res.json())
+        
+    console.log('imageDetails2: ', userImages2);
+    // console.log('userCognitions2: ', userCognitions2);
 
     return (
         <div>
@@ -27,7 +40,7 @@ export default async function({params}: {params: { slug: string }}) {
               ))} */}
 
             {/* @ts-expect-error Server Component */}
-            <ImageDetailsTable users={userImages} />
+            <ImageDetailsTable users={userImages2} cognitions={userCognitions2} />
             
         </div>
     )

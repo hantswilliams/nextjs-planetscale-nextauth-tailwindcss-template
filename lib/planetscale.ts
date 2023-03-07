@@ -11,6 +11,7 @@ interface UserTable {
 
 interface MediaTable {
   id: Generated<number>;
+  viewable: number;
   userId: string;
   media_uid: string;
   media_type: string;

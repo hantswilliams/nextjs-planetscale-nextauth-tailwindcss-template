@@ -60,6 +60,7 @@ model VerificationToken {
 
 model Media {
   id             Int         @id @default(autoincrement())
+  viewable       Boolean?    @default(true)
   userId         String
   media_uid      String?     @unique // this is the image uid of the media
   media_type     String? // this is the type of media (image, video, etc...)
