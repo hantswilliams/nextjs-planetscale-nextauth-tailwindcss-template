@@ -4,7 +4,8 @@ import { queryBuilder } from '../../lib/planetscale';
 
 export const fetchCognitionResults = async (url: string, uuid: string): Promise<CognitionResults> => {
     console.log('fetchCognitionResults parameters: ', url, uuid)
-    const response = await fetch(`http://localhost:5005/cognition/amazon/moderation`, {
+    console.log('process.env.DEV_BACKEND_COGNITION: ', process.env.NEXT_PUBLIC_DEV_BACKEND_COGNITION)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_DEV_BACKEND_COGNITION}/amazon/moderation`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url: url }),

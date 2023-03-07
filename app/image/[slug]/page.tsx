@@ -18,10 +18,10 @@ export default async function({params}: {params: { slug: string }}) {
     //     .where('mediaId', 'like', `%${params.slug}%`)
     //     .execute();
 
-    const userImages2 = await fetch(`${process.env.LOCAL_HOST}/api/images/image/${params.slug}`, { cache: 'no-store' })
+    const userImages2 = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_HOST}/api/images/image/${params.slug}`, { cache: 'no-store' })
         .then((res) => res.json())
     
-    const userCognitions2 = await fetch(`${process.env.LOCAL_HOST}/api/cognitions/image/${params.slug}`, { cache: 'no-store' })
+    const userCognitions2 = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_HOST}/api/cognitions/image/${params.slug}`, { cache: 'no-store' })
         .then((res) => res.json())
         
     // console.log('imageDetails2: ', userImages2);
