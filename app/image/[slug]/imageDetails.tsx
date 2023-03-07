@@ -4,6 +4,8 @@ import { Json } from "aws-sdk/clients/robomaker";
 import toast, { Toaster } from 'react-hot-toast'
 import { useState } from 'react';
 import ResultsCategory from './resultsCategory';
+import { useRouter } from 'next/router';
+
 
 interface UserMedia {
     users: User[];
@@ -11,7 +13,7 @@ interface UserMedia {
   }
 
 interface User {
-    media_uid: number;
+    media_uid: string;
     medial_url: string;
     viewable: boolean;
 }
@@ -54,13 +56,32 @@ interface UseroutputCleaned {
     };        
 }
 
+
+
 export default function ImageDetailsTable(users: UserMedia) {
 
     // console.log('users from client side: ', users);
     // console.log('cognitions from client side: ', users.cognitions[0]);
-
-    const softdeleteImage = async (media_uid: number) => {
+    
+    const softdeleteImage = async (media_uid: string) => {
+        const bodySend = {
+            image_uid: media_uid
+        }
         console.log('Soft Delete Image: ', media_uid);
+        toast.promise(
+            fetch(`/api/images/view-off`, {
+              method: 'POST',
+              body: JSON.stringify(bodySend),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }),
+            {
+              loading: 'Checking image...',
+              success: 'Image is ready for processing!🎉',
+              error: `Something happened with that image 😥 Please try again`,
+            },
+          )
     }
 
 return (

@@ -27,6 +27,8 @@ export default async function GalleryPage() {
         .selectFrom('Media')
         .select(['media_uid', 'medial_url'])
         .where('userId', 'like', `%${userId}%`)
+        .where('viewable', 'like', 1)
+        .orderBy('timestampMedia', 'desc')
         .execute();
 
     console.log('userImages from PlanetDB: ', userImages);

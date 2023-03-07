@@ -6,7 +6,7 @@ type CategoryProps = {
 const ResultsCategory = ({ categoryName, categoryScore }: CategoryProps) => {
   return (
     <div className="flex flex-col items-center">
-        <span className="text-gray-700 text-sm">{categoryName}: {categoryScore.toString()}</span>
+        <span className="text-gray-700 text-sm">{categoryName}: {categoryScore?.toString()}</span>
         <div className="flex items-center">
             {categoryScore >= 30 ? (
                 <span className="rounded-full h-4 w-4 bg-red-500"></span>
