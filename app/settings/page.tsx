@@ -5,7 +5,8 @@ import { UserDetails } from './types';
 import UserDetailsTable from './userDetails';
 import UserSocialAccounts from './socialaccounts';
 
-export default async function SettingsPage({ user }: { user: any }) {
+// export default async function SettingsPage({ user }: { user: any }) {
+export default async function SettingsPage() {
 
     const session = await getServerSession(authOptions);
 
