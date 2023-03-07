@@ -19,9 +19,6 @@
 .DS_Store
 *.pem
 
-# ignore pnpm for now
-pnpm-lock.yaml
-
 # debug
 npm-debug.log*
 yarn-debug.log*
