@@ -19,7 +19,7 @@ export default function Instructions() {
                             </div>
                             <div className="ml-6">
                                 <h3 className="text-lg font-semibold text-black">Select a single image</h3>
-                                <p className="mt-4 text-base text-gray-600">Choose either a png or jpeg image that you would like to to process. Once selected, hit the 'Analyze Image' button </p>
+                                <p className="mt-4 text-base text-gray-600">Choose either a png or jpeg image that you would like to to process. Once selected, hit the Analyze Image button </p>
                             </div>
                         </li>
                         <li className="relative flex items-start">
