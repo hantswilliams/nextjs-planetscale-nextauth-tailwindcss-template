@@ -91,6 +91,9 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
 
         {/* if image has not been selected, disable button */}
         {errors.image && <span className="text-red-500">Image is required</span>}
+
+        {/* if image has been selected, enable button */}
+        
         <button
           type="submit"
           className={`my-4 capitalize bg-purple-600 text-white font-medium py-2 px-4 rounded-md hover:bg-purple-900 animate-pulse`}

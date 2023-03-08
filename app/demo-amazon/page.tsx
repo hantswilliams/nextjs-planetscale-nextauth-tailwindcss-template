@@ -45,14 +45,19 @@ export default function DemoPage() {
           {/* First Column */}
           <div className="bg-white-100 p-4">
             {/* <h2 className="text-lg font-bold">1. Instructions</h2> */}
-            <Instructions />
+            
           </div>
 
           {/* Second Column */}
           <div className="bg-grey-100 p-4">
             {/* <div className="mb-8"> */}
               {/* <h2 className="text-lg font-bold">2. Upload</h2> */}
-              <ImageUpload onResults={handleResults} />
+              <div>
+                <Instructions />
+              </div>
+              <div className="mt-5">
+                <ImageUpload onResults={handleResults} />
+              </div>
             {/* </div> */}
             <div>
               {/* <h2 className="text-lg font-bold">3. Results</h2> */}
