@@ -68,7 +68,7 @@ export default function DemoPage() {
                     className={`my-4 capitalize bg-purple-600 text-white font-medium py-2 px-4 rounded-md hover:bg-purple-900 animate-pulse`}
                     onClick={clearResults}
                   >
-                  Clear Data
+                  Clear Output
                 </button>
                 }
             </div>

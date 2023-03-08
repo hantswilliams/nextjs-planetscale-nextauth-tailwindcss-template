@@ -18,7 +18,7 @@ export default function Instructions() {
         onClick={handleClick}
         className={`bg-${showComponent ? 'purple' : 'purple'}-500 hover:bg-${showComponent ? 'purple' : 'purple'}-700 text-white font-bold py-2 px-4 rounded block mx-auto`}
       >
-        {showComponent ? 'Hide X' : 'Instructions +'}
+        {showComponent ? 'Hide X' : 'Read instructions +'}
       </button>
         
         {showComponent && 
