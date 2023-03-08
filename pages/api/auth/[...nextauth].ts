@@ -1,6 +1,6 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import CredentialsProvider from "next-auth/providers/credentials";
+// import CredentialsProvider from "next-auth/providers/credentials";
 // import GithubProvider from 'next-auth/providers/github';
 // import InstagramProvider from 'next-auth/providers/instagram';
 // import FacebookProvider from "next-auth/providers/facebook";
@@ -74,22 +74,22 @@ export const authOptions: NextAuthOptions = {
     //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
     // }),
 
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        username: { label: "Username", type: "text", placeholder: "" },
-        password: { label: "Password", type: "password" }
-      },
-      async authorize(credentials, req) {
-        //@ts-expect-error
-        if (credentials.username === 'admin' && credentials.password === 'admin') {
-          const user = { id: "1", name: "Admin User", email: "admin@example.com", isAdmin: true, image: "https://i.pravatar.cc/150?img=3" }
-          return user
-        } else {
-          return null
-        }
-      }
-    })
+    // CredentialsProvider({
+    //   name: "Credentials",
+    //   credentials: {
+    //     username: { label: "Username", type: "text", placeholder: "" },
+    //     password: { label: "Password", type: "password" }
+    //   },
+    //   async authorize(credentials, req) {
+    //     //@ts-expect-error
+    //     if (credentials.username === 'admin' && credentials.password === 'admin') {
+    //       const user = { id: "1", name: "Admin User", email: "admin@example.com", isAdmin: true, image: "https://i.pravatar.cc/150?img=3" }
+    //       return user
+    //     } else {
+    //       return null
+    //     }
+    //   }
+    // })
 
   ],
 };

@@ -7,9 +7,9 @@ import Toast from './toast';
 import { Suspense } from 'react';
 
 export const metadata = {
-  title: 'Next.js 13 + PlanetScale + NextAuth + Tailwind CSS',
+  title: 'Social Comprehend',
   description:
-    'A user admin dashboard configured with Next.js, PlanetScale, NextAuth, Tailwind CSS, TypeScript, ESLint, and Prettier.'
+    'Content moderation for social media. Identify and remove inappropriate content from your social media feeds.'
 };
 
 export default async function RootLayout({

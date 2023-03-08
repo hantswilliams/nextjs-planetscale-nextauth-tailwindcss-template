@@ -8,10 +8,10 @@ import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 
 const navigation = [
-  { name: 'Single Image Upload', href: '/demo-amazon' },
-  { name: 'Your Gallery', href: '/gallery' },
-  { name: 'Your Dashboard', href: '/dashboard' },
-  { name: 'All Users', href: '/' },
+  { name: 'Upload', href: '/demo-amazon' },
+  { name: 'Posts', href: '/gallery' },
+  { name: 'Dashboard', href: '/dashboard' },
+  { name: 'Users', href: '/' },
 ];
 
 function classNames(...classes: string[]) {
@@ -36,7 +36,7 @@ export default function Navbar({ user }: { user: any }) {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 justify-between">
               <div className="flex">
-                <div className="flex flex-shrink-0 items-center">
+                {/* <div className="flex flex-shrink-0 items-center">
                   <svg
                     width="32"
                     height="32"
@@ -58,7 +58,7 @@ export default function Navbar({ user }: { user: any }) {
                       fill="black"
                     />
                   </svg>
-                </div>
+                </div> */}
                 <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                   {navigation.map((item) => (
                     <a

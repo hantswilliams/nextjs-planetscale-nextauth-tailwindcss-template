@@ -30,46 +30,40 @@ export default async function SettingsPage() {
     }
 
     return(
-        <main className="p-4 md:p-10 mx-auto max-w-7xl">
+        <main className="p-1 md:p-12 mx-auto max-w-7xl">
             { session && (
                     <div className="flex flex-row">
                         {/* Second Column */}
-                            <div className="flex-1 bg-gray-100 p-4">
+                            <div className="flex-1 p-4">
                                 <div className="mb-8">
-                                <h2 className="text-lg font-bold">Element 1</h2>
-                                    <p className="mt-2">User Details</p>
+                                {/* <h2 className="text-lg font-bold">Element 1</h2>
+                                    <p className="mt-2">User Details</p> */}
                                     {/* @ts-expect-error Server Component */}
                                     <UserDetailsTable userdetails={userDetails} />
                                 </div>
                                 <div>
-                                    <h2 className="text-lg font-bold">Element 2</h2>
-                                    <p className="mt-2">Account Type and Payment.</p>
+                                    {/* <h2 className="text-lg font-bold">Element 2</h2>
+                                    <p className="mt-2">Account Type and Payment.</p> */}
                                     <div className="mt-5 relative flex flex-col items-center rounded-[20px] w-[400px] mx-auto p-4 bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none">
                                         <div className="relative flex w-full justify-center rounded-xl bg-cover" >
                                             <button
                                                 type="button"
                                                 className={`my-4 capitalize bg-purple-600 text-white font-medium py-2 px-4 rounded-md hover:bg-purple-900`}
                                             >
-                                                Manage membership
+                                                Change membership type
                                             </button>
                                         </div>
                                     </div>
                                 </div>
+                                <div>
+                                    <div className="mt-5 relative flex flex-col items-center rounded-[20px] w-[400px] mx-auto p-4 bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none">
+                                        {/* @ts-expect-error Server Component */}
+                                        <UserSocialAccounts/>
+                                    </div>
+                                </div>
                             </div>
-                        {/* First Column */}
-                        <div className="flex-1 bg-gray-200 p-4">
-                            <h2 className="text-lg font-bold">Element 3</h2>
-                            <p className="mt-2">Connected Social Media Accounts.</p>
-                            {/* @ts-expect-error Server Component */}
-                            <UserSocialAccounts/>
-                        </div>
                     </div>
-
-                        
-            
             )} 
-                
-            
         </main>
     )
 }

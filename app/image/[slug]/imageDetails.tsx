@@ -94,7 +94,7 @@ return (
                 <div className="flex justify-center">
                     <img 
                         src={users?.users[0]?.medial_url} 
-                        className='rounded-full w-96 h-96 border-solid border-4 border-grey-500' 
+                        className='w-100 h-80 rounded-tl-3xl object-cover border-solid border-4 border-grey-500' 
                         alt="Image" 
                     />
                 </div>
