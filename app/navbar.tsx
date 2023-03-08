@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 const navigation = [
   { name: 'Upload', href: '/demo-amazon' },
-  { name: 'Posts', href: '/gallery' },
+  { name: 'Posts', href: '/posts' },
   { name: 'Dashboard', href: '/dashboard' },
   { name: 'Users', href: '/users' },
 ];

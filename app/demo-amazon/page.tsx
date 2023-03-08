@@ -1,6 +1,5 @@
 'use client';
 
-
 import {
     Text,
     ColGrid,
@@ -30,6 +29,8 @@ export default function DemoPage() {
 
   const clearResults = () => {
     setResults(null);
+    // reload the component ImageUpload to clear the file input
+    
   };
 
     return(
@@ -38,7 +39,6 @@ export default function DemoPage() {
         <Text>  
           This is a basic MVP version of only uploading a single image for content moderation.
         </Text> */}
-
 
         <div className="flex flex-col md:flex-row justify-center">
           

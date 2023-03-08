@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import { fetchCognitionResults } from '../cognition';
 import { uploadImage } from '../s3';
 import { CognitionResults } from '../typesAmazon';
+import { Text } from '@tremor/react';
 
 type FormValues = {
   image: FileList;
@@ -27,14 +28,8 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
   const [url, setUrl] = useState<string>('');
   const [uuid, setUuid] = useState<string>('');
   const [cognitionResults, setCognitionResults] = useState<CognitionResults | null>(null);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
-  // Upload photo function
-  const clearData = () => {
-    setUrl('');
-    setCognitionResults(null);
-    setUuid('');
-    console.log('data cleared')
-  };
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     console.log('User has requested to see results', data)
@@ -52,6 +47,11 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
     }
   }
 
+  // clear the file input
+  const clearFileInput = () => {
+    window.location.reload();
+  }
+
   // Upload photo function
   const uploadPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length <= 0) return;
@@ -63,12 +63,10 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
       console.log('Data UUID returned from uploadImage: ', data?.fields?.media_uid_frontend);
       setUuid(data?.fields?.media_uid_frontend);
       setUrl(data.url + '/' + encodeURIComponent(file.name));
+      setUploadedFile(file);
     } catch (error) {
       console.error(error);
     }
-
-
-    
   }
 
   return (
@@ -77,7 +75,7 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
       <form className="grid grid-cols-1 gap-y-6 shadow-lg p-8 rounded-lg" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="text-3xl font-medium my-5">Select a single image</h1>
         <label className="block">
-          <span className="text-gray-700">Upload a .png or .jpg image (max 1MB).</span>
+          <span className="text-gray-700">Upload a .png or .jpg image (max 10MB).</span>
           <input
             {...register('image', { required: true })}
             onChange={uploadPhoto}
@@ -87,33 +85,27 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
           />
         </label>
 
-        {/* {url && <p>Image URL: {url}</p>} */}
-
-        {/* if image has not been selected, disable button */}
         {errors.image && <span className="text-red-500">Image is required</span>}
 
-        {/* if image has been selected, enable button */}
-        
-        <button
-          type="submit"
-          className={`my-4 capitalize bg-purple-600 text-white font-medium py-2 px-4 rounded-md hover:bg-purple-900 animate-pulse`}
-        >
-            <span>Get your results!</span>
-        </button>
+        {url && (
+          <button
+            type="submit"
+            className={`my-1 capitalize bg-purple-600 text-white font-medium py-2 px-4 rounded-md hover:bg-purple-900 animate-pulse`}
+          >
+              <span>Get your results!</span>
+          </button>
+        )}
 
-        {/* {cognitionResults && (
-          <>
-            <h2>Cognition Results:</h2>
-            <pre>{JSON.stringify(cognitionResults, null, 2)}</pre>
-            <button
-              type="button"
-              className={`my-4 capitalize bg-purple-600 text-white font-medium py-2 px-4 rounded-md hover:bg-purple-900 animate-pulse`}
-              onClick={clearData}
-            >
-              Clear Data
-            </button>
-          </>
-        )} */}
+        {uploadedFile && (
+          <button
+            className="my-1 capitalize bg-gray-500 text-white font-medium py-2 px-4 rounded-md hover:bg-gray-700"
+            onClick={() => {
+              clearFileInput();
+            }}
+          >
+            Clear Uploaded File
+          </button>
+        )}
 
       </form>
     </div>

@@ -1,7 +1,7 @@
 import toast, { Toaster } from 'react-hot-toast'
 
 export const uploadImage = async (file: File): Promise<{fields: Record<string, string>, url: string}> => {
-    
+
     const filename = encodeURIComponent(file.name)
 
     // create a unique id for the image (UUID v4)
@@ -30,6 +30,11 @@ export const uploadImage = async (file: File): Promise<{fields: Record<string, s
     })
     console.log('Data view from S3 file: ', data)
   
+
+
+
+
+
     toast.promise(
       fetch(data.url, {
         method: 'POST',
@@ -41,6 +46,12 @@ export const uploadImage = async (file: File): Promise<{fields: Record<string, s
         error: `Something happened with that image 😥 Please try again`,
       },
     )
+
+
+
+
+
+
 
     console.log('Data URL: ', data.url + '/' + filename)
 

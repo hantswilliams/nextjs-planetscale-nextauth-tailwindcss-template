@@ -2,6 +2,9 @@ import { Card, Title, Text } from '@tremor/react';
 import { queryBuilder } from '../../lib/planetscale';
 import Search from './search';
 import UsersTable from './table';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '../../pages/api/auth/[...nextauth]';
+
 
 export const dynamic = 'force-dynamic';
 
@@ -10,6 +13,28 @@ export default async function IndexPage({
 }: {
   searchParams: { q: string };
 }) {
+
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+      return (
+          <main className="p-10 md:p-10 mx-auto max-w-2xl">
+          <Card>
+            <Title >You are not logged in</Title>
+            <Text>
+              To see dashboard, please log in.
+            </Text>
+            <div className="flex justify-center">
+              <a href="/api/auth/signin"target="_blank" className="group mt-5 rounded-2xl h-12 w-40 bg-purple-500 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
+                 Get started! 
+              </a>
+            </div>
+          </Card>
+        </main>
+      )
+  }
+
+
   const search = searchParams.q ?? '';
   const users = await queryBuilder
     .selectFrom('User')

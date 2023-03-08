@@ -11,11 +11,19 @@ export default async function GalleryPage() {
 
     if (!session) {
         return (
-            <main className="p-4 md:p-10 mx-auto max-w-7xl">
-                <Text>
-                    You are not logged in.
-                </Text>
-            </main>
+            <main className="p-10 md:p-10 mx-auto max-w-2xl">
+            <Card>
+              <Title >You are not logged in</Title>
+              <Text>
+                To see your posts, please log in.
+              </Text>
+              <div className="flex justify-center">
+                <a href="/api/auth/signin"target="_blank" className="group mt-5 rounded-2xl h-12 w-40 bg-purple-500 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
+                   Get started! 
+                </a>
+              </div>
+            </Card>
+          </main>
         )
     }
 
