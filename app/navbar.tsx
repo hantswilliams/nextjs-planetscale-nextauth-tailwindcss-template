@@ -11,7 +11,7 @@ const navigation = [
   { name: 'Upload', href: '/demo-amazon' },
   { name: 'Posts', href: '/gallery' },
   { name: 'Dashboard', href: '/dashboard' },
-  { name: 'Users', href: '/' },
+  { name: 'Users', href: '/users' },
 ];
 
 function classNames(...classes: string[]) {
