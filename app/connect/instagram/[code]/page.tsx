@@ -1,12 +1,10 @@
 
 
 
-import type { NextApiRequest, NextApiResponse } from 'next';
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function({params}: {params: { slug: string }}) {
 
   // Get the authorization code from the query string
-  const { code } = req.query;
+  const code = params.slug;
 
   // Make a request to exchange the authorization code for an access token
   const response = await fetch('https://api.instagram.com/oauth/access_token', {
@@ -28,6 +26,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const accessToken = data.access_token;
 
   // Return a response to the client
-  res.status(200).json({ access_token: accessToken });
+  return (
+    <div>
+      <h1>Success!</h1>
+      <p>Access token: {accessToken}</p>
+    </div>
+  )
   
 }
