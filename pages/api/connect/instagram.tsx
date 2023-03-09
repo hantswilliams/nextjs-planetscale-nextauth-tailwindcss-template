@@ -47,8 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('instagram data2 callback: ', data2)
 
     try {
-      const datapush = await client.$transaction ([
-          //@ts-ignore
+      await client.$transaction ([
           client.instagram.create({
             //@ts-expect-error
             data: {
