@@ -13,6 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const session_user_id = session?.user?.id
+  console.log('session user id: ', session_user_id)
 
   const { code } = req.query;
   console.log('code: ', code);
@@ -24,11 +25,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const body = new FormData();
     
     if (typeof process.env.INSTAGRAM_CLIENT_ID === 'string') { // Type guard to check if the code variable is defined
-      body.append('code', process.env.INSTAGRAM_CLIENT_ID);
+      body.append('client_id', process.env.INSTAGRAM_CLIENT_ID);
     }
     
     if (typeof process.env.INSTAGRAM_CLIENT_SECRET === 'string') { // Type guard to check if the code variable is defined
-      body.append('code', process.env.INSTAGRAM_CLIENT_SECRET);
+      body.append('client_secret', process.env.INSTAGRAM_CLIENT_SECRET);
     }
     
     body.append('grant_type', 'authorization_code');
@@ -58,41 +59,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const instagram_accessToken = data?.access_token;
     const instagram_oauth_user_id = data?.user_id;
 
-    // see if user already has an instagram account connected
-    const user_instagram = await await client.$transaction ([
-      client.instagram.findUnique({
-        where: {
-          //@ts-expect-error
-          userId: session_user_id
-        }
-      })
-    ])
+    // // see if user already has an instagram account connected
+    // const user_instagram = await await client.$transaction ([
+    //   client.instagram.findUnique({
+    //     where: {
+    //       //@ts-expect-error
+    //       userId: session_user_id
+    //     }
+    //   })
+    // ])
 
-    //@ts-expect-error
-    if (user_instagram?.instagram_user_id) {
-      // update the instagram access token
-      await client.instagram.update({
-        where: {
-          //@ts-expect-error
-          userId: session_user_id
-        },
-        data: {
-          igtoken: instagram_accessToken
-        }
-      })
-    } else {
-      // add the instagram access token
-      await client.instagram.update({
-        where: {
-          //@ts-expect-error
-          userId: session_user_id
-        },
-        data: {
-          igtoken: instagram_accessToken,
-          igoauthid: instagram_oauth_user_id
-        }
-      })
-    }
+    // //@ts-expect-error
+    // if (user_instagram?.instagram_user_id) {
+    //   // update the instagram access token
+    //   await client.instagram.update({
+    //     where: {
+    //       //@ts-expect-error
+    //       userId: session_user_id
+    //     },
+    //     data: {
+    //       igtoken: instagram_accessToken
+    //     }
+    //   })
+    // } else {
+    //   // add the instagram access token
+    //   await client.instagram.update({
+    //     where: {
+    //       //@ts-expect-error
+    //       userId: session_user_id
+    //     },
+    //     data: {
+    //       igtoken: instagram_accessToken,
+    //       igoauthid: instagram_oauth_user_id
+    //     }
+    //   })
+    // }
 
 
     // Return a success response to the client with the access token
