@@ -34,3 +34,16 @@ This is a starter template using the following stack:
 ## Overview
 
 This template uses the new `app` directory in Next.js 13 (beta). This includes support for enhanced layouts, colocation of components, tests, and styles, component-level data fetching, and more.
+
+
+## Running with HTTPS locally 
+- based off of: 
+  - https://dev.to/nakib/using-https-on-next-js-local-development-server-bcd 
+  - https://ilango.hashnode.dev/serving-a-nextjs-application-over-https-in-localhost 
+  - on my own machine, they are stored: 
+    - `/Users/hantswilliams/localhost.pem` 
+    - `/Users/hantswilliams/localhost-key.pem`
+- have created a `server.js` file
+- need to have the local pem files availabile, routed over
+- to run it, can do `node server.js` 
+  - this means you do not use `npm run dev ` , juse use `node server.js` and that will get things going

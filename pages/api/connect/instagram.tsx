@@ -33,7 +33,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     
     body.append('grant_type', 'authorization_code');
-    body.append('redirect_uri', 'https://socialcomprehend.appliedhealthinformatics.com/api/connect/instagram');
+
+    if (typeof process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI === 'string') { // Type guard to check if the code variable is defined
+    body.append('redirect_uri', process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI);
+    }
     
     if (typeof code === 'string') { // Type guard to check if the code variable is defined
       body.append('code', code);
@@ -61,44 +64,44 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // // // removing this for right now
     // // see if user already has an instagram account connected
-    // const user_instagram = await await client.$transaction ([
-    //   client.instagram.findUnique({
-    //     where: {
-    //       //@ts-expect-error
-    //       userId: session_user_id
-    //     }
-    //   })
-    // ])
+    const user_instagram = await await client.$transaction ([
+      client.instagram.findUnique({
+        where: {
+          //@ts-expect-error
+          userId: session_user_id
+        }
+      })
+    ])
 
-    // //@ts-expect-error
-    // if (user_instagram?.instagram_user_id) {
-    //   // update the instagram access token
-    //   await client.instagram.update({
-    //     where: {
-    //       //@ts-expect-error
-    //       userId: session_user_id
-    //     },
-    //     data: {
-    //       igtoken: instagram_accessToken
-    //     }
-    //   })
-    // } else {
-    //   // add the instagram access token
-    //   await client.instagram.update({
-    //     where: {
-    //       //@ts-expect-error
-    //       userId: session_user_id
-    //     },
-    //     data: {
-    //       igtoken: instagram_accessToken,
-    //       igoauthid: instagram_oauth_user_id
-    //     }
-    //   })
-    // }
-
+    //@ts-expect-error
+    if (user_instagram?.instagram_user_id) {
+      // update the instagram access token
+      await client.instagram.update({
+        where: {
+          //@ts-expect-error
+          userId: session_user_id
+        },
+        data: {
+          igtoken: instagram_accessToken
+        }
+      })
+    } else {
+      // add the instagram access token
+      await client.instagram.update({
+        where: {
+          //@ts-expect-error
+          userId: session_user_id
+        },
+        data: {
+          igtoken: instagram_accessToken,
+          igoauthid: instagram_oauth_user_id
+        }
+      })
+    }
 
     // Return a success response to the client with the access token
     res.status(200).json({ message: 'user IG info added succesfully to DB', instagram_access_token: instagram_accessToken, instagram_user_id: instagram_oauth_user_id, user: session.user });
+  
   } catch (error) {
     console.error('Error while exchanging Instagram authorization code:', error);
     // Return an error response to the client
