@@ -64,41 +64,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const instagram_accessToken = data?.access_token;
     const instagram_oauth_user_id = data?.user_id;
 
-    // // // // removing this for right now
-    // // // see if user already has an instagram account connected
-    // const user_instagram = await client.$transaction ([
-    //   client.instagram.findFirst({
-    //     where: {
-    //       userId: session_user_id
-    //     }
-    //   })
-    // ])
+    // // // removing this for right now
+    // // see if user already has an instagram account connected
+    const user_instagram = await client.$transaction ([
+      client.instagram.findFirst({
+        where: {
+          userId: session_user_id
+        }
+      })
+    ])
 
-    // console.log('user instagram: ', user_instagram)
+    console.log('user instagram: ', user_instagram)
 
-    // //@ts-expect-error
-    // if (user_instagram?.instagram_user_id) {
-    //   await client.instagram.update({
-    //     where: {
-    //       //@ts-expect-error
-    //       userId: session_user_id
-    //     },
-    //     data: {
-    //       igtoken: instagram_accessToken
-    //     }
-    //   })
-    // } else {
-    //   await client.instagram.update({
-    //     where: {
-    //       //@ts-expect-error
-    //       userId: session_user_id
-    //     },
-    //     data: {
-    //       igtoken: instagram_accessToken,
-    //       igoauthid: instagram_oauth_user_id
-    //     }
-    //   })
-    // }
+    // if user_instagram is null, then create a new instagram Id for the user
+    if (user_instagram === null) {
+      await client.instagram.create({
+        //@ts-expect-error
+        data: {
+          igtoken: instagram_accessToken,
+          igoauthid: instagram_oauth_user_id,
+          userId: session_user_id
+        }
+      })
+    } else {
+      // if user_instagram is not null, then update the instagram account
+      await client.instagram.update({
+        where: {
+          //@ts-expect-error
+          userId: session_user_id
+        },
+        data: {
+          igtoken: instagram_accessToken,
+          igoauthid: instagram_oauth_user_id
+        }
+      })
+    }
 
     // Return a success response to the client with the access token
     res.status(200).json({ message: 'user IG info added succesfully to DB', instagram_access_token: instagram_accessToken, instagram_user_id: instagram_oauth_user_id, user: session?.user });
