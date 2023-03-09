@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
         grant_type: 'authorization_code',
         redirect_uri: 'https://socialcomprehend.appliedhealthinformatics.com/api/connect/instagram',
-        code,
+        code: code,
       }),
     });
 
