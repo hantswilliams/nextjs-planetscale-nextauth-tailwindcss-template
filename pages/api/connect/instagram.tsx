@@ -1,6 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { getSession } from 'next-auth/react';
+import client from '../../../lib/prismadb'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
+  const session = await getSession({ req });
+  console.log('FromAPIendpoint: ', session)
+
+  if (!session) {
+      res.status(401).json({ error: 'Not authenticated' })
+      return
+  }
+
   try {
     const { code } = req.query;
     console.log('code: ', code);
@@ -20,14 +31,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }),
     });
 
-    // Check if the response was successful
-    if (!response.ok) {
-      throw new Error(`Failed to exchange Instagram authorization code. Status: ${response.status}`);
-    }
+    // // Check if the response was successful
+    // if (!response.ok) {
+    //   throw new Error(`Failed to exchange Instagram authorization code. Status: ${response.status}`);
+    // }
 
     // Parse the response JSON and store the access token in the user's session or database
     const data = await response.json();
-    const accessToken = data.access_token;
+    console.log('instagram data callback: ', data)
+    const accessToken = data?.access_token;
 
     // Return a success response to the client with the access token
     res.status(200).json({ access_token: accessToken });
