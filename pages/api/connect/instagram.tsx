@@ -59,6 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const instagram_accessToken = data?.access_token;
     const instagram_oauth_user_id = data?.user_id;
 
+    // // // removing this for right now
     // // see if user already has an instagram account connected
     // const user_instagram = await await client.$transaction ([
     //   client.instagram.findUnique({
