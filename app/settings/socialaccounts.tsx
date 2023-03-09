@@ -2,7 +2,7 @@
 export default async function UserSocialAccounts () {
 
     const client_id = process.env.INSTAGRAM_CLIENT_ID;
-    const redirect_uri = 'https://socialcomprehend.appliedhealthinformatics.com/connect/instagram';
+    const redirect_uri = 'https://socialcomprehend.appliedhealthinformatics.com/api/connect/instagram';
 
 
     return(
