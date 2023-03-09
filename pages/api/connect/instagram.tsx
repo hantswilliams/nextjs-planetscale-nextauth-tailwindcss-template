@@ -31,14 +31,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }),
     });
 
-    // // Check if the response was successful
-    // if (!response.ok) {
-    //   throw new Error(`Failed to exchange Instagram authorization code. Status: ${response.status}`);
-    // }
-
-    // Parse the response JSON and store the access token in the user's session or database
     const data = await response.json();
     console.log('instagram data callback: ', data)
+
+    // Check if the response was successful
+    if (!response.ok) {
+      console.log(response.status)
+      throw new Error(`Failed to exchange Instagram authorization code. Status: ${response.status}`);
+    }
+
+    // Parse the response JSON and store the access token in the user's session or database
     const accessToken = data?.access_token;
 
     // Return a success response to the client with the access token
