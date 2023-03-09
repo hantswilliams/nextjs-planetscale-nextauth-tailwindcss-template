@@ -41,6 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Parse the response JSON and store the access token in the user's session or database
+    // token
     const accessToken = data?.access_token;
 
     // Return a success response to the client with the access token
