@@ -4,6 +4,8 @@ export default async function UserSocialAccounts () {
     const client_id = process.env.INSTAGRAM_CLIENT_ID;
     const redirect_uri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
 
+    console.log('redirect_uri: ', redirect_uri)
+
 
     return(
               <div className="pt--10 pr-0 pb-10 pl-0">

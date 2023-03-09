@@ -18,6 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const { code } = req.query;
   console.log('code: ', code);
   console.log('client ids and secrets: ', process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID, process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_SECRET)
+  console.log('redirect URI: ', process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI)
 
   try {
 
@@ -100,7 +101,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Return a success response to the client with the access token
-    res.status(200).json({ message: 'user IG info added succesfully to DB', instagram_access_token: instagram_accessToken, instagram_user_id: instagram_oauth_user_id, user: session.user });
+    res.status(200).json({ message: 'user IG info added succesfully to DB', instagram_access_token: instagram_accessToken, instagram_user_id: instagram_oauth_user_id, user: session?.user });
   
   } catch (error) {
     console.error('Error while exchanging Instagram authorization code:', error);
