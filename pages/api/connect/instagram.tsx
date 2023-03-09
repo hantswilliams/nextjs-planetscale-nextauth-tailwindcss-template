@@ -65,7 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // // // removing this for right now
     // // see if user already has an instagram account connected
-    const user_instagram = await await client.$transaction ([
+    const user_instagram = await client.$transaction ([
       client.instagram.findFirst({
         where: {
           userId: session_user_id
@@ -73,29 +73,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       })
     ])
 
-    //@ts-expect-error
-    if (user_instagram?.instagram_user_id) {
-      await client.instagram.update({
-        where: {
-          //@ts-expect-error
-          userId: session_user_id
-        },
-        data: {
-          igtoken: instagram_accessToken
-        }
-      })
-    } else {
-      await client.instagram.update({
-        where: {
-          //@ts-expect-error
-          userId: session_user_id
-        },
-        data: {
-          igtoken: instagram_accessToken,
-          igoauthid: instagram_oauth_user_id
-        }
-      })
-    }
+    console.log('user instagram: ', user_instagram)
+
+    // //@ts-expect-error
+    // if (user_instagram?.instagram_user_id) {
+    //   await client.instagram.update({
+    //     where: {
+    //       //@ts-expect-error
+    //       userId: session_user_id
+    //     },
+    //     data: {
+    //       igtoken: instagram_accessToken
+    //     }
+    //   })
+    // } else {
+    //   await client.instagram.update({
+    //     where: {
+    //       //@ts-expect-error
+    //       userId: session_user_id
+    //     },
+    //     data: {
+    //       igtoken: instagram_accessToken,
+    //       igoauthid: instagram_oauth_user_id
+    //     }
+    //   })
+    // }
 
     // Return a success response to the client with the access token
     res.status(200).json({ message: 'user IG info added succesfully to DB', instagram_access_token: instagram_accessToken, instagram_user_id: instagram_oauth_user_id, user: session?.user });
