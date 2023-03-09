@@ -66,7 +66,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // // // removing this for right now
     // // see if user already has an instagram account connected
     const user_instagram = await await client.$transaction ([
-      client.instagram.findUnique({
+      client.instagram.findFirst({
         where: {
           userId: session_user_id
         }
@@ -75,9 +75,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     //@ts-expect-error
     if (user_instagram?.instagram_user_id) {
-      // update the instagram access token
       await client.instagram.update({
         where: {
+          //@ts-expect-error
           userId: session_user_id
         },
         data: {
@@ -85,9 +85,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
       })
     } else {
-      // add the instagram access token
       await client.instagram.update({
         where: {
+          //@ts-expect-error
           userId: session_user_id
         },
         data: {
