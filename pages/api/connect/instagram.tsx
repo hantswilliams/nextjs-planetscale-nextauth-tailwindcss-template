@@ -78,26 +78,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // if user_instagram is null, then create a new instagram Id for the user
     if (user_instagram === null) {
-      await client.instagram.create({
-        //@ts-expect-error
-        data: {
-          igtoken: instagram_accessToken,
-          igoauthid: instagram_oauth_user_id,
-          userId: session_user_id
-        }
-      })
-    } else {
-      // if user_instagram is not null, then update the instagram account
-      await client.instagram.update({
-        where: {
+      await client.$transaction ([
+        client.instagram.create({
           //@ts-expect-error
-          userId: session_user_id
-        },
-        data: {
-          igtoken: instagram_accessToken,
-          igoauthid: instagram_oauth_user_id
-        }
-      })
+          data: {
+            igtoken: instagram_accessToken,
+            igoauthid: instagram_oauth_user_id,
+            userId: session_user_id
+          }
+        })
+      ])
+    } 
+    else {
+      // if user_instagram is not null, then update the instagram account
+      await client.$transaction ([
+        client.instagram.update({
+          where: {
+            //@ts-expect-error
+            userId: session_user_id
+          },
+          data: {
+            igtoken: instagram_accessToken,
+            igoauthid: instagram_oauth_user_id
+          }
+        })
+      ])
     }
 
     // Return a success response to the client with the access token

@@ -63,7 +63,7 @@ model Instagram {
   id            String    @id @default(cuid())
   userId        String
   igusername  String? @unique // this is the instagram username
-  igoauthid Int? // this is the instagram oauth id
+  igoauthid String? // this is the instagram oauth id
   igtoken String? // this is the instagram token
   iguserid String? // this is the id of the instagram user 
   igmediacount String? // this is the provided count of media from instagram
