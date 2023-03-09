@@ -18,7 +18,7 @@ export default async function UserSocialAccounts () {
                       </div>
                     </div>
                     <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-14 flex items-center sm:space-x-6 sm:pl-0 sm:mt-0">
-                      <a href={`https://api.instagram.com/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=user_profile,user_media&response_type=code`} 
+                      <a href={`https://api.instagram.com/oauth/authorize?client_id=${client_id}&scope=user_profile,user_media&redirect_uri=${redirect_uri}&response_type=code`} 
                           className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
                           duration-200 hover:bg-gray-700 rounded-lg">Connect</a>
                     </div>

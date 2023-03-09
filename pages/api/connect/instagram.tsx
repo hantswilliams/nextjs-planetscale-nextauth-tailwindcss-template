@@ -12,19 +12,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return
   }
 
-  try {
-    const { code } = req.query;
-    console.log('code: ', code);
+  const { code } = req.query;
+  console.log('code: ', code);
+  console.log('client ids and secrets: ', process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID, process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_SECRET)
 
+  try {
     // Make a request to exchange the authorization code for an access token
     const response = await fetch('https://api.instagram.com/oauth/access_token', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+        // 'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        client_id: process.env.INSTAGRAM_CLIENT_ID,
-        client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
+        client_id: process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID,
+        client_secret: process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_SECRET,
         grant_type: 'authorization_code',
         redirect_uri: 'https://socialcomprehend.appliedhealthinformatics.com/api/connect/instagram',
         code: code,
