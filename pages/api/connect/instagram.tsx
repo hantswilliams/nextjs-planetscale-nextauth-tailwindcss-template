@@ -7,6 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const session = await getSession({ req });
   console.log('FromAPIendpoint: ', session)
 
+  // added back
   if (!session) {
       res.status(401).json({ error: 'Not authenticated' })
       return
