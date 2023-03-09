@@ -5,52 +5,33 @@ import client from '../../../lib/prismadb';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const session = await getSession({ req });
-  console.log('FromAPIendpoint: ', session)
 
-  // added back
   if (!session) {
       res.status(401).json({ error: 'Not authenticated' })
       return
   }
 
   const session_user_id = session?.user?.id
-  console.log('session user id: ', session_user_id)
-
   const { code } = req.query;
-  console.log('code: ', code);
-  console.log('client ids and secrets: ', process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_ID, process.env.NEXT_PUBLIC_INSTAGRAM_CLIENT_SECRET)
-  console.log('redirect URI: ', process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI)
 
   try {
-
     // Construct the request body as a FormData object
     const body = new FormData();
-    
-    if (typeof process.env.INSTAGRAM_CLIENT_ID === 'string') { // Type guard to check if the code variable is defined
-      body.append('client_id', process.env.INSTAGRAM_CLIENT_ID);
-    }
-    
-    if (typeof process.env.INSTAGRAM_CLIENT_SECRET === 'string') { // Type guard to check if the code variable is defined
-      body.append('client_secret', process.env.INSTAGRAM_CLIENT_SECRET);
-    }
-    
+        
     body.append('grant_type', 'authorization_code');
+    body.append('client_id', process.env.INSTAGRAM_CLIENT_ID?.toString() ?? '');
+    body.append('client_secret', process.env.INSTAGRAM_CLIENT_SECRET?.toString() ?? '');
+    body.append('redirect_uri', process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI?.toString() ?? '');    
+    body.append('code', code?.toString() ?? '');
 
-    if (typeof process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI === 'string') { // Type guard to check if the code variable is defined
-    body.append('redirect_uri', process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI);
-    }
-    
-    if (typeof code === 'string') { // Type guard to check if the code variable is defined
-      body.append('code', code);
-    }
-    
-    // Make a request to exchange the authorization code for an access token
     const response = await fetch('https://api.instagram.com/oauth/access_token', {
       method: 'POST',
       body,
     });
 
     const data = await response.json();
+    const instagram_accessToken = data?.access_token;
+    const instagram_oauth_user_id = data?.user_id.toString();
     console.log('instagram data callback: ', data)
 
     // Check if the response was successful
@@ -59,58 +40,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error(`Failed to exchange Instagram authorization code. Status: ${response.status}`);
     }
 
-    // Parse the response JSON and store the access token in the user's session or database
-    // token
-    const instagram_accessToken = data?.access_token;
-    const instagram_oauth_user_id = data?.user_id;
+    // if so, then exchange for a long-lived access token
+    const response2 = await fetch(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.INSTAGRAM_CLIENT_SECRET}&access_token=${instagram_accessToken}`);
+    const data2 = await response2.json();
+    const instagram_longLivedAccessToken = data2?.access_token;
+    console.log('instagram data2 callback: ', data2)
 
-    // // // removing this for right now
-    // // see if user already has an instagram account connected
-    const user_instagram = await client.$transaction ([
-      client.instagram.findFirst({
-        where: {
-          userId: session_user_id
-        }
-      })
-    ])
-
-    console.log('user instagram: ', user_instagram)
-
-    // if user_instagram is null, then create a new instagram Id for the user
-    if (user_instagram === null) {
-      await client.$transaction ([
-        client.instagram.create({
-          //@ts-expect-error
-          data: {
-            igtoken: instagram_accessToken,
-            igoauthid: instagram_oauth_user_id,
-            userId: session_user_id
-          }
-        })
-      ])
-    } 
-    else {
-      // if user_instagram is not null, then update the instagram account
-      await client.$transaction ([
-        client.instagram.update({
-          where: {
+    try {
+      const datapush = await client.$transaction ([
+          client.instagram.create({
             //@ts-expect-error
-            userId: session_user_id
-          },
-          data: {
-            igtoken: instagram_accessToken,
-            igoauthid: instagram_oauth_user_id
-          }
-        })
-      ])
+            data: {
+              igtoken: instagram_longLivedAccessToken,
+              igoauthid: instagram_oauth_user_id,
+              userId: session_user_id,
+              tokencreated: new Date()
+            }
+          })
+        ])
+    } catch (error) {
+      console.log('error: ', error)
     }
 
     // Return a success response to the client with the access token
-    res.status(200).json({ message: 'user IG info added succesfully to DB', instagram_access_token: instagram_accessToken, instagram_user_id: instagram_oauth_user_id, user: session?.user });
+    // res.status(200).json({ message: 'user IG info added succesfully to DB', instagram_access_token: instagram_accessToken, instagram_user_id: instagram_oauth_user_id, user: session?.user });
   
+    // Redirect the user to the home page
+    res.redirect('/settings');
+
   } catch (error) {
     console.error('Error while exchanging Instagram authorization code:', error);
-    // Return an error response to the client
-    res.status(500).json({ error: 'Failed to exchange Instagram authorization code. Please try again later.' });
+    res.status(500).json({ error: 'You big dog. Something went wrong.' });
   }
 }

@@ -62,6 +62,7 @@ model VerificationToken {
 model Instagram {
   id            String    @id @default(cuid())
   userId        String
+  tokencreated  DateTime?
   igusername  String? @unique // this is the instagram username
   igoauthid String? // this is the instagram oauth id
   igtoken String? // this is the instagram token
