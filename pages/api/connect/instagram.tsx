@@ -66,6 +66,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // // // removing this for right now
     // // see if user already has an instagram account connected
     const user_instagram = await await client.$transaction ([
+      //@ts-ignore
       client.instagram.findUnique({
         where: {
           //@ts-expect-error
