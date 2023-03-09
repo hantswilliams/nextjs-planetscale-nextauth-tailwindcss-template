@@ -1,8 +1,10 @@
 
 export default async function UserSocialAccounts () {
-    return(
 
-            // <div className="bg-white shadow-xl mt-8 mr-0 mb-0 ml-0 pt-4 pr-10 pb-4 pl-10 flow-root rounded-lg sm:py-2">
+    const client_id = process.env.INSTAGRAM_CLIENT_ID;
+    const redirect_uri = 'https://socialcomprehend.com/api/connect/instagram';
+
+    return(
               <div className="pt--10 pr-0 pb-10 pl-0">
                 <div className="pt-5 pr-0 pb-0 pl-0 mt-5 mr-0 mb-0 ml-0">
                   <div className="sm:flex sm:items-center sm:justify-between sm:space-x-5">
@@ -15,8 +17,9 @@ export default async function UserSocialAccounts () {
                       </div>
                     </div>
                     <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-14 flex items-center sm:space-x-6 sm:pl-0 sm:mt-0">
-                      <a href="" className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
-                          duration-200 hover:bg-gray-700 rounded-lg">Disconnect</a>
+                      <a href={`https://api.instagram.com/oauth/authorize?client_id=${client_id}&scope=user_profile,user_media&redirect_uri=${redirect_uri}&response_type=code`} 
+                          className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
+                          duration-200 hover:bg-gray-700 rounded-lg">Connect</a>
                     </div>
                   </div>
                 </div>
@@ -89,7 +92,6 @@ export default async function UserSocialAccounts () {
                   </div>
                 </div>
               </div>
-            // </div>
 
     )
 }
