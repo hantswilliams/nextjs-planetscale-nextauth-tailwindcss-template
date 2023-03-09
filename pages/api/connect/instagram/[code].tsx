@@ -4,6 +4,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+
+  // Get the authorization code from the query string
   const { code } = req.query;
 
   // Make a request to exchange the authorization code for an access token
@@ -16,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       client_id: process.env.INSTAGRAM_CLIENT_ID,
       client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
       grant_type: 'authorization_code',
-      redirect_uri: 'https://socialcomprehend.com/api/connect/instagram/',
+      redirect_uri: 'https://socialcomprehend.appliedhealthinformatics.com/api/connect/instagram',
       code,
     }),
   });
