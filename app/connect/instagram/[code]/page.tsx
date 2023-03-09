@@ -1,6 +1,3 @@
-
-
-
 export default async function({params}: {params: { slug: string }}) {
 
   // Get the authorization code from the query string
@@ -16,7 +13,7 @@ export default async function({params}: {params: { slug: string }}) {
       client_id: process.env.INSTAGRAM_CLIENT_ID,
       client_secret: process.env.INSTAGRAM_CLIENT_SECRET,
       grant_type: 'authorization_code',
-      redirect_uri: 'https://socialcomprehend.appliedhealthinformatics.com/api/connect/instagram',
+      redirect_uri: 'https://socialcomprehend.appliedhealthinformatics.com/connect/instagram',
       code,
     }),
   });
