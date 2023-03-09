@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
-import client from '../../../lib/prismadb'
+import client from '../../../lib/prismadb';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -66,10 +66,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // // // removing this for right now
     // // see if user already has an instagram account connected
     const user_instagram = await await client.$transaction ([
-      //@ts-ignore
       client.instagram.findUnique({
         where: {
-          //@ts-expect-error
           userId: session_user_id
         }
       })
@@ -80,7 +78,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // update the instagram access token
       await client.instagram.update({
         where: {
-          //@ts-expect-error
           userId: session_user_id
         },
         data: {
@@ -91,7 +88,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // add the instagram access token
       await client.instagram.update({
         where: {
-          //@ts-expect-error
           userId: session_user_id
         },
         data: {
