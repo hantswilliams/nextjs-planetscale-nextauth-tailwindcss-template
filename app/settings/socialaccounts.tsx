@@ -36,7 +36,7 @@ export default async function UserSocialAccounts () {
 
 
     return(
-              <div className="pt--10 pr-0 pb-10 pl-0">
+              <div className="pt--10 pr-0 pb-10 pl-0" >
                 <div className="pt-5 pr-0 pb-0 pl-0 mt-5 mr-0 mb-0 ml-0">
                   <div className="sm:flex sm:items-center sm:justify-between sm:space-x-5">
                     <div className="flex items-center flex-1 min-w-0">
@@ -52,14 +52,14 @@ export default async function UserSocialAccounts () {
                         }
                       </div>
                     </div>
-                    <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-14 flex items-center sm:space-x-6 sm:pl-0 sm:mt-0">
+                    <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-0 flex items-center flex-shrink-0 sm:space-x-6 sm:pl-0 sm:mt-0">
                       {igStatus == 'connected' ?
                       <a href={'/settings/manage/instagram'} 
-                          className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
-                          duration-200 hover:bg-gray-700 rounded-lg">Manage Account</a> :
+                          className="bg-blue-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
+                          duration-200 hover:bg-blue-900 rounded-lg">Manage Account</a> :
                       <a href={`https://api.instagram.com/oauth/authorize?client_id=${client_id}&scope=user_profile,user_media&redirect_uri=${redirect_uri}&response_type=code`} 
-                        className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
-                          duration-200 hover:bg-gray-700 rounded-lg">Connect</a>
+                        className="bg-blue-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
+                          duration-200 hover:bg-blue-900 rounded-lg">Connect</a>
                       }
                     </div>
                   </div>
@@ -76,7 +76,7 @@ export default async function UserSocialAccounts () {
                     </div>
                     <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-14 flex items-center sm:space-x-6 sm:pl-0 sm:justify-end
                         sm:mt-0">
-                      <a href="" className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
+                      <a href="" className="bg-blue-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
                           duration-200 hover:bg-gray-700 rounded-lg">Disconnect</a>
                     </div>
                   </div>
@@ -93,7 +93,7 @@ export default async function UserSocialAccounts () {
                     </div>
                     <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-14 flex items-center sm:space-x-6 sm:pl-0 sm:justify-end
                         sm:mt-0">
-                      <a href="" className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
+                      <a href="" className="bg-blue-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
                           duration-200 hover:bg-gray-700 rounded-lg">Connect</a>
                     </div>
                   </div>
@@ -110,7 +110,7 @@ export default async function UserSocialAccounts () {
                     </div>
                     <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-14 flex items-center sm:space-x-6 sm:pl-0 sm:justify-end
                         sm:mt-0">
-                      <a href="" className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
+                      <a href="" className="bg-blue-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
                           duration-200 hover:bg-gray-700 rounded-lg">Disconnect</a>
                     </div>
                   </div>
@@ -127,7 +127,7 @@ export default async function UserSocialAccounts () {
                     </div>
                     <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-14 flex items-center sm:space-x-6 sm:pl-0 sm:justify-end
                         sm:mt-0">
-                      <a href="" className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
+                      <a href="" className="bg-blue-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
                           duration-200 hover:bg-gray-700 rounded-lg">Connect</a>
                     </div>
                   </div>

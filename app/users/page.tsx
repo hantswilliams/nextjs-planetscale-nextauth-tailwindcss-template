@@ -46,7 +46,7 @@ export default async function IndexPage({
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
       <Title>Users</Title>
       <Text>
-        A list of users retrieved from a MySQL database (PlanetScale).
+        A list of demo/pilot users on Social Comprehend.
       </Text>
       <Search />
       <Card marginTop="mt-6">

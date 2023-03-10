@@ -16,7 +16,7 @@ export default function Instructions() {
 
       <button 
         onClick={handleClick}
-        className={`bg-${showComponent ? 'purple' : 'purple'}-500 hover:bg-${showComponent ? 'purple' : 'purple'}-700 text-white font-bold py-2 px-4 rounded block mx-auto`}
+        className={`bg-${showComponent ? 'blue' : 'blue'}-500 hover:bg-${showComponent ? 'blue' : 'blue'}-700 text-white font-bold py-2 px-4 rounded block mx-auto`}
       >
         {showComponent ? 'Hide X' : 'Read instructions +'}
       </button>
@@ -24,7 +24,7 @@ export default function Instructions() {
         {showComponent && 
 
                  <div className="container mx-auto max-w-xl py-1">
-                 <section className="rounded-xl py-10 bg-purple-100 sm:py-16 lg:py-10">
+                 <section className="rounded-xl py-10 bg-blue-100 sm:py-16 lg:py-10">
                      <div className="px-4 mx-auto sm:px-6 lg:px-8">
                          <div className="max-w-2xl mx-auto text-center">
                              <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Should you post it? Is it appropriate? 🤔 </h2>
@@ -72,7 +72,7 @@ export default function Instructions() {
 
                             <button 
                                 onClick={handleClick}
-                                className={`bg-${showComponent ? 'purple' : 'purple'}-500 hover:bg-${showComponent ? 'purple' : 'purple'}-700 text-white font-bold py-2 px-4 rounded block mx-auto`}
+                                className={`bg-${showComponent ? 'blue' : 'blue'}-500 hover:bg-${showComponent ? 'blue' : 'blue'}-700 text-white font-bold py-2 px-4 rounded block mx-auto`}
                             >
                                 {showComponent ? 'Close X' : 'Instructions'}
                             </button>
