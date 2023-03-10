@@ -23,7 +23,7 @@ export default async function UserDetailsTable ({ userdetails }: { userdetails: 
             </div>
             <div className="flex flex-col items-center justify-center">
             <p className="text-2xl font-bold text-navy-700 dark:text-white">
-                3
+                3.2k
             </p>
             <p className="text-sm font-normal text-gray-600">Accounts</p>
             </div>

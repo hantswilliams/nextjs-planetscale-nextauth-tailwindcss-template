@@ -76,8 +76,8 @@ export default async function InstagramSettingsPage() {
                 <ColGrid numColsSm={ 2 } numColsLg={ 3 } gapX="gap-x-6" gapY="gap-y-6">
                     <Card>
                         <Block textAlignment="text-center">
-                            <CameraIcon className="h-5 w-5 text-purple-500"/>
-                            <Metric textAlignment="text-center" marginTop="mt-2"> {instagramDetails[0]?.igmediacount}</Metric>
+                             <CameraIcon className="h-5 w-5 text-purple-500"/>
+                             <Metric textAlignment="text-center" marginTop="mt-2"> {instagramDetails[0]?.igmediacount}</Metric>
                             <Text textAlignment="text-center"> # Instagram Posts </Text>
                         </Block>
                     </Card>

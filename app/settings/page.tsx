@@ -29,6 +29,8 @@ export default async function SettingsPage() {
         userid: JSON.stringify(session?.user?.id).replace(/['"]+/g, ''),
     }
 
+    console.log('userDetails: ', userDetails)
+
     return(
         <main className="p-1 md:p-12 mx-auto max-w-7xl">
             { session && (
