@@ -33,11 +33,21 @@ interface CognitionTable {
   mediaId: string;
 }
 
+interface InstagramTable {
+  userId: string;
+  igusername: string;
+  igmediacount: number;
+  igaccounttype: string;
+  tokencreated: Date;
+
+}
+
 
 interface Database {
   User: UserTable;
   Media: MediaTable;
   Cognition: CognitionTable;
+  Instagram: InstagramTable;
   // https://github.com/nextauthjs/next-auth/issues/4922
 }
 

@@ -1,6 +1,7 @@
 import client from '../../lib/prismadb'
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
+import { Card, Text, Title } from '@tremor/react'
 
 export default async function UserSocialAccounts () {
 
@@ -16,7 +17,7 @@ export default async function UserSocialAccounts () {
     // console.log('redirect_uri: ', redirect_uri)
 
     const ig_status_check = async () => {
-      const response = await fetch(`${process.env.NEXTAUTH_URL}/api/status/connection/instagram/${session_user_id}`)
+      const response = await fetch(`${process.env.NEXTAUTH_URL}/api/status/connection/instagram/${session_user_id}`, {cache: 'no-cache'})
       const data = await response.json()
       console.log('data: ', data)
       let ig_status;
@@ -45,16 +46,20 @@ export default async function UserSocialAccounts () {
                         <p className="text-lg font-bold text-gray-800 truncate">Instagram</p>
                         {/* if ig_status is not null, display a green connected, else to a red not connected   */}
                         {igStatus == 'connected' ?
-                          <p className="text-gray-600 text-md">Connected</p>
+                          <p className="text-green-600 text-md">Connected</p>
                           :
                           <p className="text-gray-600 text-md">Not Connected</p>
                         }
                       </div>
                     </div>
                     <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-14 flex items-center sm:space-x-6 sm:pl-0 sm:mt-0">
-                      <a href={`https://api.instagram.com/oauth/authorize?client_id=${client_id}&scope=user_profile,user_media&redirect_uri=${redirect_uri}&response_type=code`} 
+                      {igStatus == 'connected' ?
+                      <a href={'/settings/manage/instagram'} 
                           className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
+                          duration-200 hover:bg-gray-700 rounded-lg">Manage Account</a> :
+                      <a href="" className="bg-purple-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
                           duration-200 hover:bg-gray-700 rounded-lg">Connect</a>
+                      }
                     </div>
                   </div>
                 </div>
