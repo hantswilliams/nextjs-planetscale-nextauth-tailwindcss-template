@@ -46,6 +46,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const instagram_longLivedAccessToken = data2?.access_token;
     console.log('instagram data2 callback: ', data2)
 
+    // then also capture the user's IG basic id and handle
+    const response3 = await fetch(`https://graph.instagram.com/me?fields=id,username,account_type,media_count&access_token=${instagram_longLivedAccessToken}`);
+    const data3 = await response3.json();
+    console.log('instagram data3 callback: ', data3)
+    const instagram_username = data3?.username;
+    const instagram_user_id = data3?.id;
+    const instagram_media_count = data3?.media_count;
+    const instagram_account_type = data3?.account_type;
+    
+
     try {
       await client.$transaction ([
           client.instagram.create({
@@ -53,6 +63,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             data: {
               igtoken: instagram_longLivedAccessToken,
               igoauthid: instagram_oauth_user_id,
+              igusername: instagram_username,
+              iguserid: instagram_user_id,
+              igmediacount: instagram_media_count,
+              igaccounttype: instagram_account_type,
               userId: session_user_id,
               tokencreated: new Date()
             }

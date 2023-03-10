@@ -40,7 +40,7 @@ export default async function InstagramMePage() {
         console.log('error getting igtoken from db: ', e)
     })
 
-    console.log('igtoken_user_request: ', igtoken_user_request)
+    // console.log('igtoken_user_request: ', igtoken_user_request)
 
     // if igtoken_user_request is null, return message that you need to first connect IG 
     if (!igtoken_user_request) {
@@ -63,6 +63,7 @@ export default async function InstagramMePage() {
     
     const ig_status_check = async () => {
         const response = await fetch('http://localhost:5005' + '/instagram/official/me', {
+            cache: 'no-store',
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

@@ -208,6 +208,15 @@ export default function Navbar({ user }: { user: any }) {
                   <div className="mt-3 space-y-1">
                     <Disclosure.Button
                       // @ts-ignore
+                      onClick={() => {window.location.href = '/settings'}}
+                      className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+                    >
+                      Settings
+                    </Disclosure.Button>
+                  </div>
+                  <div className="mt-3 space-y-1">
+                    <Disclosure.Button
+                      // @ts-ignore
                       onClick={() => signOut()}
                       className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
                     >
