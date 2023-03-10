@@ -51,3 +51,9 @@ This template uses the new `app` directory in Next.js 13 (beta). This includes s
   - NEXTAUTH_URL_INTERNAL=https://localhost:3000
   - NEXTAUTH_SECRET=e413b27215fc907234974408d5fd4008 
   - NODE_TLS_REJECT_UNAUTHORIZED=0
+
+
+## Prisma with Vercel 
+- Fun note, looks like need to update the package.json build script to include `prisma generate` 
+- so it should look like: 
+  - ` "build": "prisma generate && next build", ` 

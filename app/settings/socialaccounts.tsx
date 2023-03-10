@@ -8,7 +8,7 @@ export default async function UserSocialAccounts () {
 
     // if session, get user id
     const session_user_id = session?.user?.id
-    // console.log('session_user_id: ', session_user_id)
+    console.log('session_user_id: ', session_user_id)
         
     const client_id = process.env.INSTAGRAM_CLIENT_ID;
     const redirect_uri = process.env.NEXT_PUBLIC_INSTAGRAM_REDIRECT_URI;
