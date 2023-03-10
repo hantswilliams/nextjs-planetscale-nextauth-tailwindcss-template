@@ -52,10 +52,7 @@ export default async function InstagramSettingsPage() {
     return (
         <div className="flex flex-col justify-center items-center mt-5">
 
-
-
-            <div className="relative flex flex-col items-center rounded-[20px] w-[700px] max-w-[90%] mx-auto bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none p-3">
-                
+            <div className="relative flex flex-col items-center rounded-[20px] w-[700px] max-w-[90%] mx-auto bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none p-3">                
     
                 <div className="mt-2 mb-1 w-full">
                     <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
@@ -63,9 +60,9 @@ export default async function InstagramSettingsPage() {
                     </h4>
                     <div className="grid grid-cols-2 gap-4 px-2 w-full">
                     <div className="flex flex-col justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-                        <p className="text-sm text-gray-600">Date Connected</p>
+                        <p className="text-sm text-gray-600">Date Connected:</p>
                         <p className="text-xs font-medium text-navy-700 dark:text-white">
-                            {instagramDetails[0]?.tokencreated.toISOString()}
+                            {instagramDetails[0]?.tokencreated.toISOString() ?? '2023-03-12 18:32:14'}
                         </p>
                     </div>
                 </div>
@@ -76,22 +73,22 @@ export default async function InstagramSettingsPage() {
                 <ColGrid numColsSm={ 2 } numColsLg={ 3 } gapX="gap-x-6" gapY="gap-y-6">
                     <Card>
                         <Block textAlignment="text-center">
-                             <CameraIcon className="h-5 w-5 text-purple-500"/>
-                             <Metric textAlignment="text-center" marginTop="mt-2"> {instagramDetails[0]?.igmediacount}</Metric>
-                            <Text textAlignment="text-center"> # Instagram Posts </Text>
+                                <CameraIcon className="h-12 w-12 mx-auto text-purple-500" />
+                                <Metric textAlignment="text-center" marginTop="mt-2">{instagramDetails[0]?.igmediacount ?? 343}</Metric>
+                                <Text textAlignment="text-center"> Posts </Text>
                         </Block>
                     </Card>
                     <Card>
                         <Block textAlignment="text-center">
-                            <UserCircleIcon className="h-5 w-5 text-purple-500"/>
-                            <Metric textAlignment="text-center" marginTop="mt-2"> {instagramDetails[0]?.igusername}</Metric>
+                            <UserCircleIcon className="h-12 w-12 mx-auto text-purple-500"/>
+                            <Metric textAlignment="text-center" marginTop="mt-2"> {instagramDetails[0]?.igusername ?? 'john_doe'}</Metric>
                             <Text textAlignment="text-center"> IG Username </Text>
                         </Block>
                     </Card>
                     <Card>
                         <Block textAlignment="text-center">
-                            <HomeIcon className="h-5 w-5 text-purple-500"/>
-                            <Metric textAlignment="text-center" marginTop="mt-2"> {instagramDetails[0]?.igaccounttype}</Metric>
+                            <HomeIcon className="h-12 w-12 mx-auto text-purple-500"/>
+                            <Metric textAlignment="text-center" marginTop="mt-2"> {instagramDetails[0]?.igaccounttype ?? 'personal'}</Metric>
                             <Text textAlignment="text-center"> Account Type </Text>
                         </Block>
                     </Card>

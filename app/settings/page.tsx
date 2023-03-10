@@ -32,11 +32,11 @@ export default async function SettingsPage() {
     console.log('userDetails: ', userDetails)
 
     return(
-        <main className="p-1 md:p-12 mx-auto max-w-7xl">
+        <main className="p-1 md:p-12 mx-auto max-w-7xl overflow-x-hidden">
             { session && (
                     <div className="flex flex-row">
                         {/* Second Column */}
-                            <div className="flex-1 p-4">
+                            <div className="flex-1 p-0">
                                 <div className="mb-8">
                                 {/* <h2 className="text-lg font-bold">Element 1</h2>
                                     <p className="mt-2">User Details</p> */}
