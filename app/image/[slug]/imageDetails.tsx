@@ -3,8 +3,8 @@
 import { Json } from "aws-sdk/clients/robomaker";
 import toast, { Toaster } from 'react-hot-toast'
 import { useState } from 'react';
-import ResultsCategory from './resultsCategory';
-import ResultsCategory2 from './resultsCategory2';
+import ResultsCategory from './resultsCategoryOld';
+import ResultsCategoryComponent from './resultsCategory';
 import { useRouter } from 'next/router';
 
 interface UserMedia {
@@ -99,7 +99,7 @@ return (
                     />
                 </div>
                 <div className="mt-5 mb-5"> 
-                    <ResultsCategory2 
+                    <ResultsCategoryComponent 
                             modelmetadata={JSON.stringify(users?.cognitions[0]?.output)}
                             modelcleandata={JSON.stringify(users?.cognitions[0]?.outputcleaned)}
                             modelversion={users?.cognitions[0]?.model}

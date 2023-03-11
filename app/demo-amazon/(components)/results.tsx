@@ -4,6 +4,7 @@ import React from 'react';
 import { CognitionResults } from '../typesAmazon';
 import ResultsCategory from './resultsCategory';
 import AccuracyCapture from './resultsAccuracy';
+import ResultsCategoryComponent from '../../image/[slug]/resultsCategory';
 
 type Props = {
   results: CognitionResults;
@@ -61,17 +62,17 @@ const DisplayResults: React.FC<Props> = ({ results, url, uuid }) => {
             }`} alt="Image" />
 
             {/* add in the imageName as small text directly under the image */}
-            <div className="px-6 py-4">
+            {/* <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2"> {results.analytics?.dateProcessed} </div>
                 <div className="text-gray-700 text-base"> Client ID for troubleshooting: {uuid} </div>
                 <div className="text-gray-700 text-base"> Server ID for troubleshooting: {results.analytics?.serverUUID} </div>
-            </div>
+            </div> */}
 
             {/* this is the div section that contains the result details */}
             <div className="px-6 py-4">
 
                 {/* this is the div tag for the SLIDER */}
-                <div className="bg-gray-300 h-6 rounded-full mt-2">
+                {/* <div className="bg-gray-300 h-6 rounded-full mt-2">
                     <div
                         className={`${
                             results.analytics.totalConfidence >= 10
@@ -82,27 +83,21 @@ const DisplayResults: React.FC<Props> = ({ results, url, uuid }) => {
                         } h-full rounded-full`}
                         style={{ width: `${results.analytics.totalConfidence * 100}%` }}
                     />
-                </div>
+                </div> */}
 
-                {/* this is the div tag for the text for the SLIDER */}
-                <div className="flex justify-between items-center mb-2">
-                    {/* only show the below span is total score <= 30 */}
+                {/* <div className="flex justify-between items-center mb-2">
                     {results.analytics.totalConfidence <= 8 ? (
                     <span className="text-gray-700"> ✅ Good to go </span>
                     ) : (
                     <span className="text-gray-700">  </span>
                     )}
-
-                    {/* only show the below span is total score >= 30 */}
                     {results.analytics.totalConfidence >= 3 ? (
                     <span className="text-gray-700"> Should review ⛔ </span>
                     ) : (
                     <span className="text-gray-700">  </span>
                     )}
                 </div>
-
-                {/* div tag for the concern level */}
-                <div className="font-bold text-xl mb-2 mt-2">Concern level: {results.analytics.totalConfidence / 100} </div>
+                <div className="font-bold text-xl mb-2 mt-2">Concern level: {results.analytics.totalConfidence / 100} </div> */}
 
 
             
@@ -138,17 +133,33 @@ const DisplayResults: React.FC<Props> = ({ results, url, uuid }) => {
                     <ResultsCategory categoryName="Rude Gestures" categoryScore={results?.analytics?.numeric?.['Rude Gestures']} />
                 )} */}
                     
-                
-                <ResultsCategory categoryName="Explicit Nudity" categoryScore={results?.analytics?.numeric?.['Explicit Nudity']} />
-                <ResultsCategory categoryName="Drug Content" categoryScore={results?.analytics?.numeric?.['Drugs']} />
-                <ResultsCategory categoryName="Violence" categoryScore={results?.analytics?.numeric?.['Violence']} />
-                <ResultsCategory categoryName="Visually Disturbing" categoryScore={results?.analytics?.numeric?.['Visually Disturbing']} />
-                <ResultsCategory categoryName="Hate Symbols" categoryScore={results?.analytics?.numeric?.['Hate Symbols']} />
-                <ResultsCategory categoryName="Suggestive Content" categoryScore={results?.analytics?.numeric?.['Suggestive']} />
-                <ResultsCategory categoryName="Tabacco" categoryScore={results?.analytics?.numeric?.['Tabacco']} />
-                <ResultsCategory categoryName="Alcohol Content" categoryScore={results?.analytics?.numeric?.['Alcohol']} />
-                <ResultsCategory categoryName="Gambling" categoryScore={results?.analytics?.numeric?.['Gambling']} />
-                <ResultsCategory categoryName="Rude Gestures" categoryScore={results?.analytics?.numeric?.['Rude Gestures']} />
+                <ResultsCategoryComponent 
+                            modelmetadata=""
+                            modelcleandata=""
+                            modelversion=""
+                            modelsubtype=""
+                            imageuid=""
+                            categoryName1="Explicit Nudity" 
+                            categoryScore1={results?.analytics?.numeric?.['Explicit Nudity']}
+                            categoryName2="Drug Content" 
+                            categoryScore2={results?.analytics?.numeric?.['Drugs']}
+                            categoryName3="Violence"
+                            categoryScore3={results?.analytics?.numeric?.['Violence']}
+                            categoryName4="Visually Disturbing"
+                            categoryScore4={results?.analytics?.numeric?.['Visually Disturbing']}
+                            categoryName5="Hate Symbols"
+                            categoryScore5={results?.analytics?.numeric?.['Hate Symbols']} 
+                            categoryName6="Suggestive Content"
+                            categoryScore6={results?.analytics?.numeric?.['Suggestive']}
+                            categoryName7="Tabacco"
+                            categoryScore7={results?.analytics?.numeric?.['Tabacco']} 
+                            categoryName8="Alcohol Content"
+                            categoryScore8={results?.analytics?.numeric?.['Alcohol']} 
+                            categoryName9="Gambling"
+                            categoryScore9={results?.analytics?.numeric?.['Gambling']}
+                            categoryName10="Rude Gestures"
+                            categoryScore10={results?.analytics?.numeric?.['Rude Gestures']}
+                        />
 
             </div>
 
