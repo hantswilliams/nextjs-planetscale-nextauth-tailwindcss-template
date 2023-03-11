@@ -227,7 +227,7 @@ const ResultsCategory2 = ({
                 <Block spaceY="space-y-2">
                     <Flex>
                         <Text><Bold>{ item.title }</Bold></Text>
-                        <Text>{ item.metric }</Text>
+                        <Text>{ item?.metric?.toString().slice(0, 5)}</Text> 
                     </Flex>
                     <RangeBar
                         percentageValue={ item.percentageValue }
