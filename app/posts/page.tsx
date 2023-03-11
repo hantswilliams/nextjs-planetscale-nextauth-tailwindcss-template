@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
 import { queryBuilder } from '../../lib/planetscale';
 import UsersMediaTable from './tableGallery';
+import Link from 'next/link';
 
 export default async function GalleryPage() {
 
@@ -18,9 +19,9 @@ export default async function GalleryPage() {
                 To see your posts, please log in.
               </Text>
               <div className="flex justify-center">
-                <a href="/api/auth/signin" className="group mt-5 rounded-2xl h-12 w-40 bg-blue-500 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
+                <Link href="/api/auth/signin" className="group mt-5 rounded-2xl h-12 w-40 bg-blue-500 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
                    Login 
-                </a>
+                </Link>
               </div>
             </Card>
           </main>
@@ -53,10 +54,10 @@ export default async function GalleryPage() {
                             Please upload images manually or connect to Instagram.
                         </Text>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-5 mt-5">
-                                <a href="/settings/"> Connect to Instagram </a>
+                                <Link href="/settings/"> Connect to Instagram </Link>
                             </button>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                <a href="/demo-amazon"> Upload Images Manually </a>
+                                <Link href="/demo-amazon"> Upload Images Manually </Link>
                             </button>
                     </div>
                     </Card>
