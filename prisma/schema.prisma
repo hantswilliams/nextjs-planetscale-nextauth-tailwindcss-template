@@ -63,7 +63,7 @@ model Instagram {
   id            String    @id @default(cuid())
   userId        String
   tokencreated  DateTime?
-  igusername  String? @unique // this is the instagram username
+  igusername  String? // @unique // >-- should add back UNIQUE once ready to go live - e.g., 1 account per person? this is the instagram username
   igoauthid String? // this is the instagram oauth id
   igtoken String? // this is the instagram token
   iguserid String? // this is the id of the instagram user 

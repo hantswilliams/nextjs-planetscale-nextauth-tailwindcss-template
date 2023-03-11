@@ -24,7 +24,7 @@ export default async function IndexPage() {
         </Text>
         <div className="flex justify-center">
           <Link legacyBehavior href="/demo-amazon">
-            <button className="group mt-5 rounded-2xl h-12 w-40 bg-purple-500 font-bold text-sm text-white relative overflow-hidden">
+            <button className="group mt-5 rounded-2xl h-12 w-40 bg-blue-500 font-bold text-sm text-white relative overflow-hidden">
               Get started!
             </button>
           </Link>
