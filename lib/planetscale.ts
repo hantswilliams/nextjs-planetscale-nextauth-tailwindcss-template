@@ -36,6 +36,8 @@ interface CognitionTable {
 interface InstagramTable {
   userId: string;
   igusername: string;
+  iguserid: string;
+  igtoken: string;
   igmediacount: number;
   igaccounttype: string;
   tokencreated: Date;

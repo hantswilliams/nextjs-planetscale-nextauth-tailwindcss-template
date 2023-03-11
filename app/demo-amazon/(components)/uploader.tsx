@@ -70,7 +70,7 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
   }
 
   return (
-    <div className="container mx-auto max-w-md py-1 bg-blue-100 rounded-xl">
+    <div className="container mx-auto max-w-md py-1 bg-zinc-100 rounded-xl">
       <Toaster />
       <form className="grid grid-cols-1 gap-y-6 shadow-lg p-8 rounded-lg" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="text-3xl font-medium my-5">Select a single image</h1>

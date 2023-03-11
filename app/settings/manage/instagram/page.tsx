@@ -38,7 +38,7 @@ export default async function InstagramSettingsPage() {
 
     const instagramDetails = await queryBuilder
     .selectFrom('Instagram')
-    .select(['userId', 'igusername', 'igmediacount', 'igaccounttype', 'tokencreated'])
+    .select(['userId', 'igusername', 'iguserid', 'igtoken', 'igmediacount', 'igaccounttype', 'tokencreated'])
     .where('userId', 'like', `%${userId}%`)
     .execute();
 
@@ -47,6 +47,10 @@ export default async function InstagramSettingsPage() {
     return (
         <div className="flex flex-col justify-center items-center mt-5">
 
+            <IntegrationActions 
+              iguserid = {instagramDetails[0]?.iguserid}
+              igusertoken = {instagramDetails[0]?.igtoken}
+            />
 
             <IntegrationDetails 
                 dateconnected = {instagramDetails[0]?.tokencreated.toISOString() ?? '2023-03-12 18:32:14'}
@@ -55,7 +59,7 @@ export default async function InstagramSettingsPage() {
                 mediacount= {instagramDetails[0]?.igmediacount ?? 343}
             />
 
-            <IntegrationActions />
+
 
 
 

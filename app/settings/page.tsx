@@ -35,11 +35,8 @@ export default async function SettingsPage() {
         <main className="p-0 md:p-12 mx-auto max-w-7xl overflow-x-hidden">
             { session && (
                     <div className="flex flex-row">
-                        {/* Second Column */}
                             <div className="flex-1 p-0">
                                 <div className="mb-1">
-                                {/* <h2 className="text-lg font-bold">Element 1</h2>
-                                    <p className="mt-2">User Details</p> */}
                                     {/* @ts-expect-error Server Component */}
                                     <UserDetailsTable userdetails={userDetails} />
                                 </div>
@@ -50,9 +47,7 @@ export default async function SettingsPage() {
                                     </div>
                                 </div>
                                 <div>
-                                    {/* <h2 className="text-lg font-bold">Element 2</h2>
-                                    <p className="mt-2">Account Type and Payment.</p> */}
-                                    <div className="mt-2 relative flex flex-col items-center rounded-[20px] w-[400px] mx-auto p-4 bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none">
+                                    {/* <div className="mt-2 relative flex flex-col items-center rounded-[20px] w-[400px] mx-auto p-4 bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none">
                                         <div className="relative flex w-full justify-center rounded-xl bg-cover" >
                                             <button
                                                 type="button"
@@ -61,7 +56,7 @@ export default async function SettingsPage() {
                                                 Change membership type
                                             </button>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                     </div>

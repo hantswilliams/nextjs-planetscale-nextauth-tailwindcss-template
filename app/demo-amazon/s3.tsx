@@ -59,7 +59,7 @@ export const uploadImage = async (file: File): Promise<{fields: Record<string, s
     const metaData = {
         media_uid: media_uid_frontend,
         media_type: 'image',
-        origin: 'manual upload',
+        origin: 'manualupload',
         medial_url: data.url + '/' + filename,
         s3bucket_key: data.s3bucket_key,
         permalink: data.url + '/' + filename,
