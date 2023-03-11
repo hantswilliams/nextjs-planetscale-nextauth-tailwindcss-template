@@ -50,14 +50,15 @@ export default async function InstagramSettingsPage() {
             <IntegrationActions 
               iguserid = {instagramDetails[0]?.iguserid}
               igusertoken = {instagramDetails[0]?.igtoken}
+              currentuserid = {session?.user?.id ?? 'not-logged-in'}
             />
 
-            <IntegrationDetails 
+            {/* <IntegrationDetails 
                 dateconnected = {instagramDetails[0]?.tokencreated.toISOString() ?? '2023-03-12 18:32:14'}
                 username = {instagramDetails[0]?.igusername ?? 'john_doe'}
                 accounttype= {instagramDetails[0]?.igaccounttype ?? 'personal'}
                 mediacount= {instagramDetails[0]?.igmediacount ?? 343}
-            />
+            /> */}
 
 
 

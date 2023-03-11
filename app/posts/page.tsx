@@ -18,8 +18,8 @@ export default async function GalleryPage() {
                 To see your posts, please log in.
               </Text>
               <div className="flex justify-center">
-                <a href="/api/auth/signin"target="_blank" className="group mt-5 rounded-2xl h-12 w-40 bg-blue-500 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
-                   Get started! 
+                <a href="/api/auth/signin" className="group mt-5 rounded-2xl h-12 w-40 bg-blue-500 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
+                   Login 
                 </a>
               </div>
             </Card>
@@ -42,12 +42,24 @@ export default async function GalleryPage() {
     console.log('userImages from PlanetDB: ', userImages);
     console.log('userImages length: ', userImages.length);
 
-    if (!userImages) {
+    // if userImages length is 0, return no images found
+    if (userImages.length === 0) {
         return (
-            <main className="p-4 md:p-10 mx-auto max-w-7xl">
-                <Text>
-                    No images found.
-                </Text>
+            <main className="p-10 md:p-10 mx-auto max-w-2xl">
+                <Card>
+                    <div className="flex flex-col justify-center items-center"> 
+                        <Title> No Images Found </Title>
+                        <Text>
+                            Please upload images manually or connect to Instagram.
+                        </Text>
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-5 mt-5">
+                                <a href="/settings/"> Connect to Instagram </a>
+                            </button>
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                <a href="/demo-amazon"> Upload Images Manually </a>
+                            </button>
+                    </div>
+                    </Card>
             </main>
         )
     }

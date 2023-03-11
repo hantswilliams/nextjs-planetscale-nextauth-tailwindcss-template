@@ -80,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // res.status(200).json({ message: 'user IG info added succesfully to DB', instagram_access_token: instagram_accessToken, instagram_user_id: instagram_oauth_user_id, user: session?.user });
   
     // Redirect the user to the home page
-    res.redirect('/settings');
+    res.redirect('/settings/manage/instagram');
 
   } catch (error) {
     console.error('Error while exchanging Instagram authorization code:', error);

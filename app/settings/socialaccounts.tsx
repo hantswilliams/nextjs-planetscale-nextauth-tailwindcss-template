@@ -55,7 +55,7 @@ export default async function UserSocialAccounts () {
                     <div className="mt-4 mr-0 mb-0 ml-0 pt-0 pr-0 pb-0 pl-0 flex items-center flex-shrink-0 sm:space-x-6 sm:pl-0 sm:mt-0">
                       {igStatus == 'connected' ?
                       <a href={'/settings/manage/instagram'} 
-                          className="bg-blue-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
+                          className="bg-gradient-to-r from-sky-400 to-blue-500 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all
                           duration-200 hover:bg-blue-900 rounded-lg">Manage Account</a> :
                       <a href={`https://api.instagram.com/oauth/authorize?client_id=${client_id}&scope=user_profile,user_media&redirect_uri=${redirect_uri}&response_type=code`} 
                         className="bg-blue-600 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-gray-100 transition-all

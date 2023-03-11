@@ -1,17 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowPathIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import { ArrowPathIcon } from '@heroicons/react/24/solid';
 
 
 type igUserFields = {
     iguserid: string;
     igusertoken: string;
+    currentuserid: string;
 };
 
-const IntegrationActions = ({ iguserid, igusertoken }: igUserFields) => {
+const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFields) => {
 
     const [buttonStatus, setButtonStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+    const [percentComplete, setPercentComplete] = useState<number>(0);
     const [igData, setIgData] = useState<any>([]);
     const [stage1, setStage1] = useState<'idle' | 'success'>('idle');
     const [stage2, setStage2] = useState<'idle' | 'success'>('idle');
@@ -20,15 +22,18 @@ const IntegrationActions = ({ iguserid, igusertoken }: igUserFields) => {
 
     console.log('from action page: iguserid: ', iguserid)
     console.log('from action page: igusertoken: ', igusertoken)
+    console.log('from action page: currentuserid: ', currentuserid)
 
     const handleIgDataPull = () => {
         console.log('handleIgDataPull clicked')
         setButtonStatus('loading'); // set button status to 'loading'
+
         fetch('/api/retrieve/instagram/get', {
             method: 'POST',
             body: JSON.stringify({
-                userId: iguserid,
-                userToken: igusertoken
+                iguserId: iguserid,
+                iguserToken: igusertoken,
+                currentuserid: currentuserid
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +41,6 @@ const IntegrationActions = ({ iguserid, igusertoken }: igUserFields) => {
         })
         .then((res) => res.json())
         .then((data) => {
-            console.log('data: ', data)
             setIgData(data?.ig_media)
             setButtonStatus('success'); // set button status to 'success'
             setStage1('success'); // set stage 1 to 'success'
@@ -73,7 +77,7 @@ const IntegrationActions = ({ iguserid, igusertoken }: igUserFields) => {
                 <p className="text-sm">Get your your IG posts...</p>
                 <button onClick={handleIgDataPull} disabled={buttonStatus === 'loading' || buttonStatus === 'success'} className={`mt-2 px-4 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${buttonStatus === 'success' ? 'bg-green-500 cursor-default' : 'bg-blue-600 hover:bg-blue-500'}`}>
                     {buttonStatus === 'idle' && 'Retrieve'}
-                    {buttonStatus === 'loading' && <ArrowPathIcon className="animate-spin h-5 w-5 mr-2" />}
+                    {buttonStatus === 'loading' && <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/>}
                     {buttonStatus === 'success' && `Completed: retrieved ${igData?.length} posts`} 
                 </button>           
             </li>

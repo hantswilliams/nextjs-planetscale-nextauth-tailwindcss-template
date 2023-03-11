@@ -53,6 +53,9 @@ This template uses the new `app` directory in Next.js 13 (beta). This includes s
   - NODE_TLS_REJECT_UNAUTHORIZED=0
 
 
+## Tailwind
+- Components: https://blog.bitsrc.io/best-tailwind-component-libraries-7ca0f99ec815
+
 ## Prisma with Vercel 
 - Fun note, looks like need to update the package.json build script to include `prisma generate` 
 - so it should look like: 

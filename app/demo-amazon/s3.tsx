@@ -19,7 +19,7 @@ export const uploadImage = async (file: File): Promise<{fields: Record<string, s
     // console.log('frontend_media_uid: ', media_uid_frontend)
     
     // #1 Uploading to S3 bucket 
-    const res = await fetch(`/api/images/upload-image-s3?file=${filename}`)
+    const res = await fetch(`/api/images/upload-image-s3-from-manual?file=${filename}`)
     const data = await res.json()
     const formData = new FormData()
 
@@ -30,11 +30,6 @@ export const uploadImage = async (file: File): Promise<{fields: Record<string, s
     })
     console.log('Data view from S3 file: ', data)
   
-
-
-
-
-
     toast.promise(
       fetch(data.url, {
         method: 'POST',
@@ -46,12 +41,6 @@ export const uploadImage = async (file: File): Promise<{fields: Record<string, s
         error: `Something happened with that image 😥 Please try again`,
       },
     )
-
-
-
-
-
-
 
     console.log('Data URL: ', data.url + '/' + filename)
 
