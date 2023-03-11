@@ -4,8 +4,8 @@ import { Json } from "aws-sdk/clients/robomaker";
 import toast, { Toaster } from 'react-hot-toast'
 import { useState } from 'react';
 import ResultsCategory from './resultsCategory';
+import ResultsCategory2 from './resultsCategory2';
 import { useRouter } from 'next/router';
-
 
 interface UserMedia {
     users: User[];
@@ -88,8 +88,8 @@ return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
         <div className="overflow-hidden bg-white shadow sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6">
-                <h3 className="text-base font-semibold leading-6 text-gray-900">Post Information</h3>
-                <p className="mt-1 max-w-2xl text-sm text-gray-500">Content details and meta data.</p>
+                {/* <h3 className="text-base font-semibold leading-6 text-gray-900">Post Information</h3>
+                <p className="mt-1 max-w-2xl text-sm text-gray-500">Content details and meta data.</p> */}
                 {/* center image */}
                 <div className="flex justify-center">
                     <img 
@@ -98,8 +98,44 @@ return (
                         alt="Image" 
                     />
                 </div>
+                <div className="mt-5 mb-5"> 
+                    <ResultsCategory2 
+                            modelmetadata={JSON.stringify(users?.cognitions[0]?.output)}
+                            modelcleandata={JSON.stringify(users?.cognitions[0]?.outputcleaned)}
+                            modelversion={users?.cognitions[0]?.model}
+                            modelsubtype={users?.cognitions[0]?.modelsubtype}
+                            imageuid={users?.users[0]?.media_uid}
+                            categoryName1="Explicit Nudity" 
+                            categoryScore1={users?.cognitions[0]?.outputcleaned?.numeric?.['Explicit Nudity']} 
+                            categoryName2="Drug Content" 
+                            categoryScore2={users?.cognitions[0]?.outputcleaned?.numeric?.['Drugs']} 
+                            categoryName3="Violence"
+                            categoryScore3={users?.cognitions[0]?.outputcleaned?.numeric?.['Violence']}
+                            categoryName4="Visually Disturbing"
+                            categoryScore4={users?.cognitions[0]?.outputcleaned?.numeric?.['Visually Disturbing']}
+                            categoryName5="Hate Symbols"
+                            categoryScore5={users?.cognitions[0]?.outputcleaned?.numeric?.['Hate Symbols']}
+                            categoryName6="Suggestive Content"
+                            categoryScore6={users?.cognitions[0]?.outputcleaned?.numeric?.['Suggestive']}
+                            categoryName7="Tabacco"
+                            categoryScore7={users?.cognitions[0]?.outputcleaned?.numeric?.['Tabacco']}
+                            categoryName8="Alcohol Content"
+                            categoryScore8={users?.cognitions[0]?.outputcleaned?.numeric?.['Alcohol']}
+                            categoryName9="Gambling"
+                            categoryScore9={users?.cognitions[0]?.outputcleaned?.numeric?.['Gambling']}
+                            categoryName10="Rude Gestures"
+                            categoryScore10={users?.cognitions[0]?.outputcleaned?.numeric?.['Rude Gestures']}
+                        />
+                </div>
+
             </div>
-            <div className="border-t border-gray-200">
+
+
+
+
+
+
+            {/* <div className="border-t border-gray-200">
                 <dl>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt className="text-sm font-medium text-gray-500">Contains NSFW content?</dt>
@@ -156,7 +192,6 @@ return (
                     <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"> {JSON.stringify(users?.cognitions[0]?.outputcleaned)} </dd>
                 </div>
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    {/* <dt className="text-sm font-medium text-gray-500">Clean Interpretations</dt> */}
                         <ResultsCategory categoryName="Explicit Nudity" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Explicit Nudity']} />
                         <ResultsCategory categoryName="Drug Content" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Drugs']} />
                         <ResultsCategory categoryName="Violence" categoryScore={users?.cognitions[0]?.outputcleaned?.numeric?.['Violence']} />
@@ -203,7 +238,12 @@ return (
                     </dd>
                 </div>
                 </dl>
-            </div>
+            </div> */}
+
+
+
+
+            
         </div>
     </main>
 
