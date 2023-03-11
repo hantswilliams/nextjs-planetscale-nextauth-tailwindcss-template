@@ -28,6 +28,22 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
         console.log('handleIgDataPull clicked')
         setButtonStatus('loading'); // set button status to 'loading'
 
+
+        // const source = new EventSource('/api/retrieve/instagram/get');
+        
+        // source.addEventListener('progress', (event) => {
+        //   const data = JSON.parse(event.data);
+        //   console.log('progress data: ', data)
+        // //   console.log('progress:', data.progress); // log the progress to the console
+        //   // Update the UI with the progress information
+        //   // For example, you could update a progress bar or display a message
+        // });
+        // source.addEventListener('error', (event) => {
+        //   console.error('EventSource error:', event);
+        //   source.close();
+        // });
+
+
         fetch('/api/retrieve/instagram/get', {
             method: 'POST',
             body: JSON.stringify({
