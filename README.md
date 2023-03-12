@@ -60,3 +60,9 @@ This template uses the new `app` directory in Next.js 13 (beta). This includes s
 - Fun note, looks like need to update the package.json build script to include `prisma generate` 
 - so it should look like: 
   - ` "build": "prisma generate && next build", ` 
+
+## To look at, tailwind component libraries: 
+- https://blog.bitsrc.io/best-tailwind-component-libraries-7ca0f99ec815 
+- https://daisyui.com/components/tab/ 
+- https://tailwindtemplates.co/templates 
+

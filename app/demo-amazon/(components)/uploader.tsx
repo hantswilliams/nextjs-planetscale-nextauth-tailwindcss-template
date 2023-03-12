@@ -85,6 +85,7 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
           />
         </label>
 
+
         {errors.image && <span className="text-red-500">Image is required</span>}
 
         {url && (

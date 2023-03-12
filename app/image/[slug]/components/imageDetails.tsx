@@ -2,10 +2,9 @@
 
 import { Json } from "aws-sdk/clients/robomaker";
 import toast, { Toaster } from 'react-hot-toast'
-import { useState } from 'react';
-import ResultsCategory from './resultsCategoryOld';
 import ResultsCategoryComponent from './resultsCategory';
-import { useRouter } from 'next/router';
+import ResultsNoCognition from './resultsNoCognition'
+
 
 interface UserMedia {
     users: User[];
@@ -56,9 +55,8 @@ interface UseroutputCleaned {
     };        
 }
 
-
-
 export default function ImageDetailsTable(users: UserMedia) {
+
 
     // console.log('users from client side: ', users);
     // console.log('cognitions from client side: ', users.cognitions[0]);
@@ -84,6 +82,12 @@ export default function ImageDetailsTable(users: UserMedia) {
           )
     }
 
+    const handleBackButtonClick = () => {
+        console.log('handleBackButtonClick');
+        window.history.back();
+    }
+
+
 return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
         <div className="overflow-hidden bg-white shadow sm:rounded-lg">
@@ -91,6 +95,12 @@ return (
                 {/* <h3 className="text-base font-semibold leading-6 text-gray-900">Post Information</h3>
                 <p className="mt-1 max-w-2xl text-sm text-gray-500">Content details and meta data.</p> */}
                 {/* center image */}
+                <div className="flex justify-between items-center">
+                    <button onClick={handleBackButtonClick} type="button" className="mb-3 text-white bg-slate-400 hover:bg-slate-600 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-slate-500 dark:hover:bg-slate-600 dark:focus:ring-slate-700">
+                        <svg aria-hidden="true" className="w-5 h-5 transform" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L5.414 9H17a1 1 0 010 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd"></path></svg>
+                        <span className="sr-only">Back</span>
+                    </button>
+                </div>
                 <div className="flex justify-center">
                     <img 
                         src={users?.users[0]?.medial_url} 
@@ -99,33 +109,41 @@ return (
                     />
                 </div>
                 <div className="mt-5 mb-5"> 
-                    <ResultsCategoryComponent 
-                            modelmetadata={JSON.stringify(users?.cognitions[0]?.output)}
-                            modelcleandata={JSON.stringify(users?.cognitions[0]?.outputcleaned)}
-                            modelversion={users?.cognitions[0]?.model}
-                            modelsubtype={users?.cognitions[0]?.modelsubtype}
-                            imageuid={users?.users[0]?.media_uid}
-                            categoryName1="Explicit Nudity" 
-                            categoryScore1={users?.cognitions[0]?.outputcleaned?.numeric?.['Explicit Nudity']} 
-                            categoryName2="Drug Content" 
-                            categoryScore2={users?.cognitions[0]?.outputcleaned?.numeric?.['Drugs']} 
-                            categoryName3="Violence"
-                            categoryScore3={users?.cognitions[0]?.outputcleaned?.numeric?.['Violence']}
-                            categoryName4="Visually Disturbing"
-                            categoryScore4={users?.cognitions[0]?.outputcleaned?.numeric?.['Visually Disturbing']}
-                            categoryName5="Hate Symbols"
-                            categoryScore5={users?.cognitions[0]?.outputcleaned?.numeric?.['Hate Symbols']}
-                            categoryName6="Suggestive Content"
-                            categoryScore6={users?.cognitions[0]?.outputcleaned?.numeric?.['Suggestive']}
-                            categoryName7="Tabacco"
-                            categoryScore7={users?.cognitions[0]?.outputcleaned?.numeric?.['Tabacco']}
-                            categoryName8="Alcohol Content"
-                            categoryScore8={users?.cognitions[0]?.outputcleaned?.numeric?.['Alcohol']}
-                            categoryName9="Gambling"
-                            categoryScore9={users?.cognitions[0]?.outputcleaned?.numeric?.['Gambling']}
-                            categoryName10="Rude Gestures"
-                            categoryScore10={users?.cognitions[0]?.outputcleaned?.numeric?.['Rude Gestures']}
-                        />
+
+                    {/* if cognitions is not null, display resultscategorycomponent */}
+                    {users?.cognitions[0]?.outputcleaned ? (
+                        <ResultsCategoryComponent 
+                                modelmetadata={JSON.stringify(users?.cognitions[0]?.output)}
+                                modelcleandata={JSON.stringify(users?.cognitions[0]?.outputcleaned)}
+                                modelversion={users?.cognitions[0]?.model}
+                                modelsubtype={users?.cognitions[0]?.modelsubtype}
+                                imageuid={users?.users[0]?.media_uid}
+                                medial_url={users?.users[0]?.medial_url}
+                                displayReload={true}
+                                categoryName1="Explicit Nudity" 
+                                categoryScore1={users?.cognitions[0]?.outputcleaned?.numeric?.['Explicit Nudity']} 
+                                categoryName2="Drug Content" 
+                                categoryScore2={users?.cognitions[0]?.outputcleaned?.numeric?.['Drugs']} 
+                                categoryName3="Violence"
+                                categoryScore3={users?.cognitions[0]?.outputcleaned?.numeric?.['Violence']}
+                                categoryName4="Visually Disturbing"
+                                categoryScore4={users?.cognitions[0]?.outputcleaned?.numeric?.['Visually Disturbing']}
+                                categoryName5="Hate Symbols"
+                                categoryScore5={users?.cognitions[0]?.outputcleaned?.numeric?.['Hate Symbols']}
+                                categoryName6="Suggestive Content"
+                                categoryScore6={users?.cognitions[0]?.outputcleaned?.numeric?.['Suggestive']}
+                                categoryName7="Tabacco"
+                                categoryScore7={users?.cognitions[0]?.outputcleaned?.numeric?.['Tabacco']}
+                                categoryName8="Alcohol Content"
+                                categoryScore8={users?.cognitions[0]?.outputcleaned?.numeric?.['Alcohol']}
+                                categoryName9="Gambling"
+                                categoryScore9={users?.cognitions[0]?.outputcleaned?.numeric?.['Gambling']}
+                                categoryName10="Rude Gestures"
+                                categoryScore10={users?.cognitions[0]?.outputcleaned?.numeric?.['Rude Gestures']}
+                            />
+                    ) : (
+                        <ResultsNoCognition imageuid={users?.users[0]?.media_uid} medial_url={users?.users[0]?.medial_url} />
+                    )}
                 </div>
 
             </div>

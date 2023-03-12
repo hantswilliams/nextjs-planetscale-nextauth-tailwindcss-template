@@ -4,7 +4,7 @@ import React from 'react';
 import { CognitionResults } from '../typesAmazon';
 import ResultsCategory from './resultsCategory';
 import AccuracyCapture from './resultsAccuracy';
-import ResultsCategoryComponent from '../../image/[slug]/resultsCategory';
+import ResultsCategoryComponent from '../../image/[slug]/components/resultsCategory';
 
 type Props = {
   results: CognitionResults;
@@ -24,13 +24,13 @@ const DisplayResults: React.FC<Props> = ({ results, url, uuid }) => {
             {/* this div section is the review tag summary right above the image */}
             <div className="flex items-center justify-between mb-2">
                 <div className={`${
-                    results.analytics.totalConfidence >= 10
+                    results.analytics.totalConfidence >= 50
                     ? 'bg-red-500 text-white'
                     : results.analytics.totalConfidence >= 3 && results.analytics.totalConfidence <= 9
                     ? 'bg-yellow-500 text-white'
                     : 'bg-green-500 text-white'
                 } rounded-full px-3 py-1 text-sm`}>
-                    {results.analytics.totalConfidence >= 3 ? (
+                    {results.analytics.totalConfidence >= 50 ? (
                     <div className="flex items-center">
                         <span className="mr-2 text-sm">
                         <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@ const DisplayResults: React.FC<Props> = ({ results, url, uuid }) => {
 
             {/* this first part is for the image and its border color */}
             <img src={url} className={`${
-                results.analytics.totalConfidence >= 10
+                results.analytics.totalConfidence >= 50
                 ? 'w-full border-solid border-4 border-red-500'
                 : results.analytics.totalConfidence >= 3 && results.analytics?.totalConfidence <= 9
                 ? 'w-full border-solid border-4 border-yellow-500'
@@ -139,6 +139,8 @@ const DisplayResults: React.FC<Props> = ({ results, url, uuid }) => {
                             modelversion=""
                             modelsubtype=""
                             imageuid=""
+                            medial_url=""
+                            displayReload={false}
                             categoryName1="Explicit Nudity" 
                             categoryScore1={results?.analytics?.numeric?.['Explicit Nudity']}
                             categoryName2="Drug Content" 

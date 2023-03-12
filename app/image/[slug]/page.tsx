@@ -1,5 +1,5 @@
 // import { queryBuilder } from '../../../lib/planetscale';
-import ImageDetailsTable from './imageDetails';
+import ImageDetailsTable from './components/imageDetails';
 
 export default async function({params}: {params: { slug: string }}) {
 
