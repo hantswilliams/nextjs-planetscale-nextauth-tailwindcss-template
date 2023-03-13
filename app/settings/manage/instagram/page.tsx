@@ -7,8 +7,8 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import { queryBuilder } from '../../../../lib/planetscale';
 import { json } from 'stream/consumers';
-import IntegrationDetails from './integrationDetails';
-import IntegrationActions from './integrationActions';
+import IntegrationDetails from './components/integrationDetails';
+import IntegrationActions from './components/integrationActions';
 
 
 export default async function InstagramSettingsPage() {

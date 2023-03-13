@@ -4,6 +4,12 @@ import ig_me_media from './get_retrieve';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
+    //// EXPERIMETNAL: THIS PART IS EXPERIMENTAL UP UNTIL res.flushHeaders() /
+    // res.setHeader('Content-Type', 'text/event-stream')
+    // res.setHeader('Cache-Control', 'no-cache')
+    // res.setHeader('Connection', 'keep-alive')
+    // res.flushHeaders()
+
     const session = await getSession({ req });
     console.log('FromAPIendpoint: ', session)
 
@@ -47,11 +53,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             throw new Error(data?.error || 'Failed to upload file');
         }
         console.log('finished with: ', ig_media[i].media_url)
-  
+
+        // EXPERIMETNAL: this part here is also experimental
+        console.log(`${i + 1}/${ig_media.length}\n\n`)
+
     }
     
     res.status(200).json({ ig_media })
-    
+
+    // EXPERIMETNAL: this part here is also experimental 
+    // res.end(200).json({ ig_media })
+
 }
 
 

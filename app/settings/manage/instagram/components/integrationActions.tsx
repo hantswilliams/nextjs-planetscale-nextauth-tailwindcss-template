@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowPathIcon } from '@heroicons/react/24/solid';
 
 
@@ -13,7 +13,6 @@ type igUserFields = {
 const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFields) => {
 
     const [buttonStatus, setButtonStatus] = useState<'idle' | 'loading' | 'success'>('idle');
-    const [percentComplete, setPercentComplete] = useState<number>(0);
     const [igData, setIgData] = useState<any>([]);
     const [stage1, setStage1] = useState<'idle' | 'success'>('idle');
     const [stage2, setStage2] = useState<'idle' | 'success'>('idle');
@@ -91,6 +90,7 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                 
                 <h3 className="font-medium leading-tight">1. Retrieve</h3>
                 <p className="text-sm">Get your your IG posts...</p>
+                                
                 <button onClick={handleIgDataPull} disabled={buttonStatus === 'loading' || buttonStatus === 'success'} className={`mt-2 px-4 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${buttonStatus === 'success' ? 'bg-green-500 cursor-default' : 'bg-blue-600 hover:bg-blue-500'}`}>
                     {buttonStatus === 'idle' && 'Retrieve'}
                     {buttonStatus === 'loading' && <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/>}
