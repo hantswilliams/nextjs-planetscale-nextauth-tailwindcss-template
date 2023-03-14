@@ -222,10 +222,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-  console.log('request body: ', req.body)
+  console.log('request method: ', req.method)
 
-  const param1 = req.body.param1
-  const param2 = req.body.param2
+  const param1 = req.query.param1
+  const param2 = req.query.param2
+  const param3 = req.query.param3
 
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
@@ -246,23 +247,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   sendEvent("progress", { data: {param1: param1, param2: param2} });
 
   // Send initial message to client
-  sendEvent("progress", { data: "progress 1...yes" });
+  sendEvent('progress', { type: 'progress', message: 'progress 1' });
   console.log('message 1 sent')
   await wait(1500);
 
-  sendEvent("progress", { data: `progress 2...it,` });
+  sendEvent('progress', { type: 'progress', message: 'progress 2' });
   console.log('progress 2 sent')
   await wait(1500);
 
-  sendEvent("progress", { data: "progress 3...is" });
+  sendEvent('progress', { type: 'progress', message: 'progress 3' });
   console.log('progress 3 sent')
   await wait(1500);
 
-  sendEvent("progress", { data: "progress 4...now working!!!!!" });
+  sendEvent('progress', { type: 'progress', message: `finished with parameters: ${param1} and ${param2}` });
   console.log('progress 4 sent')
   await wait(1500);
 
-  sendEvent("complete", { data: `finished with parameters: ${param1} and ${param2}` });
+  sendEvent("complete", { data: "finished" });
   console.log(`finished with request`)
   await wait(1500);
 
