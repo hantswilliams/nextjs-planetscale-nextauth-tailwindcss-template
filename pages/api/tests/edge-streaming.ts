@@ -9,8 +9,9 @@ export const config = {
 const handler = async (req: Request): Promise<Response> => {
 
 
-  const { prompt } = (await req.json()) as {
+  const { prompt, promptUser } = (await req.json()) as {
     prompt?: string;
+    promptUser?: string;
   };
 
   if (!prompt) {
@@ -20,25 +21,33 @@ const handler = async (req: Request): Promise<Response> => {
   const encoder = new TextEncoder();
 
   let counter = 0;
+
+  console.log('Complete Prompt: ', prompt)
+  console.log('User provided: ', promptUser)
   
   const resultStream = new ReadableStream(
     {
       async pull(controller) {
         if (counter < 10) {
-          const queue = encoder.encode(
+            const queue3 = encoder.encode(
+            JSON.stringify({ userprovidedPromt: promptUser }) + "\n"
+            );
+            controller.enqueue(queue3);
+            await new Promise(resolve => setTimeout(resolve, 5000)); // add delay
+            const queue = encoder.encode(
             JSON.stringify({ foo: "bar", james: "cameron" }) + "\n"
-          );
-          controller.enqueue(queue);
-          await new Promise(resolve => setTimeout(resolve, 5000)); // add delay
-          const queue2 = encoder.encode(
+            );
+            controller.enqueue(queue);
+            await new Promise(resolve => setTimeout(resolve, 5000)); // add delay
+            const queue2 = encoder.encode(
             JSON.stringify({ foo: "22bar", james: "22cameron" }) + "\n"
-          );
-          controller.enqueue(queue2);
-          await new Promise(resolve => setTimeout(resolve, 5000)); // add delay
-          counter++;
-        } else {
-          controller.close();
-        }
+            );
+            controller.enqueue(queue2);
+            await new Promise(resolve => setTimeout(resolve, 5000)); // add delayy
+            counter++;
+            } else {
+                controller.close();
+            }
       },
     }
   );
