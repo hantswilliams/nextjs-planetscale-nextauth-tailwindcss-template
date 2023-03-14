@@ -72,10 +72,10 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
   return (
     <div className="container mx-auto max-w-md py-1 bg-zinc-100 rounded-xl">
       <Toaster />
-      <form className="grid grid-cols-1 gap-y-6 shadow-lg p-8 rounded-lg" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="text-3xl font-medium my-5">Select a single image</h1>
-        <label className="block">
-          <span className="text-gray-700">Upload a .png or .jpg image (max 10MB).</span>
+      <form className="grid grid-cols-1 gap-y-6 shadow-lg p-8 rounded-lg place-items-center" onSubmit={handleSubmit(onSubmit)}>
+        <h1 className="text-3xl font-medium my-5">Select a image</h1>
+        <label className="block ">
+          <span className="text-gray-700 ">Upload a .png or .jpg image (max 10MB).</span>
           <input
             {...register('image', { required: true })}
             onChange={uploadPhoto}
@@ -91,7 +91,7 @@ export const ImageUpload: React.FC<Props> = ({ onResults }) => {
         {url && (
           <button
             type="submit"
-            className={`my-1 capitalize bg-blue-600 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-900 animate-pulse`}
+            className={`my-1 capitalize bg-slate-900 text-white font-medium py-2 px-4 rounded-md hover:bg-slate-600 animate-pulse`}
           >
               <span>Get your results!</span>
           </button>

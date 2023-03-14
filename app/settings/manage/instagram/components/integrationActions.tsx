@@ -12,9 +12,14 @@ type igUserFields = {
 
 const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFields) => {
 
+    const [userIguserId, setUserIguserId] = useState<string>('');
+    const [userIguserToken, setUserIguserToken] = useState<string>('');
+    const [userCurrentuserId, setUserCurrentuserId] = useState<string>('');
+
     const [buttonStatus, setButtonStatus] = useState<'idle' | 'loading' | 'success'>('idle');
     const [igData, setIgData] = useState<any>([]);
     const [stage1, setStage1] = useState<'idle' | 'success'>('idle');
+    const [stage1Messages, setStage1Messages] = useState<String>("");
     const [stage2, setStage2] = useState<'idle' | 'success'>('idle');
     const [stage3, setStage3] = useState<'idle' | 'success'>('idle');
     const [stage4, setStage4] = useState<'idle' | 'success'>('idle');
@@ -23,44 +28,75 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
     console.log('from action page: igusertoken: ', igusertoken)
     console.log('from action page: currentuserid: ', currentuserid)
 
-    const handleIgDataPull = () => {
+    useEffect(() => {
+        setUserIguserId(iguserid);
+        setUserIguserToken(igusertoken);
+        setUserCurrentuserId(currentuserid);
+    }, [iguserid, igusertoken, currentuserid])
+
+    // // This below version is depcreated for the new streaming version
+    // const handleIgDataPull = () => {
+    //     console.log('handleIgDataPull clicked')
+    //     setButtonStatus('loading'); // set button status to 'loading'
+
+    //     fetch('/api/retrieve/instagram/get-streaming', {
+    //         method: 'POST',
+    //         body: JSON.stringify({
+    //             iguserId: iguserid,
+    //             iguserToken: igusertoken,
+    //             currentuserid: currentuserid
+    //         }),
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //     })
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //         setIgData(data?.ig_media)
+    //         setButtonStatus('success'); // set button status to 'success'
+    //         setStage1('success'); // set stage 1 to 'success'
+    //     })
+    // }
+
+    const handleIgDataPullv2 = async () => {
         console.log('handleIgDataPull clicked')
+        console.log('parameters: ', iguserid, igusertoken, currentuserid)
         setButtonStatus('loading'); // set button status to 'loading'
-
-
-        // const source = new EventSource('/api/retrieve/instagram/get');
-        
-        // source.addEventListener('progress', (event) => {
-        //   const data = JSON.parse(event.data);
-        //   console.log('progress data: ', data)
-        // //   console.log('progress:', data.progress); // log the progress to the console
-        //   // Update the UI with the progress information
-        //   // For example, you could update a progress bar or display a message
-        // });
-        // source.addEventListener('error', (event) => {
-        //   console.error('EventSource error:', event);
-        //   source.close();
-        // });
-
-
-        fetch('/api/retrieve/instagram/get', {
+        const response = await fetch('/api/retrieve/instagram/get-streaming', {
             method: 'POST',
             body: JSON.stringify({
-                iguserId: iguserid,
-                iguserToken: igusertoken,
-                currentuserid: currentuserid
+                userIguserId,
+                userIguserToken,
+                userCurrentuserId
             }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
         })
-        .then((res) => res.json())
-        .then((data) => {
-            setIgData(data?.ig_media)
+
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+
+        // This data is a ReadableStream
+        const data = response.body;
+        if (!data) {
+        return;
+        }
+
+        const reader = data.getReader();
+        const decoder = new TextDecoder();
+        let done = false;
+
+        while (!done) {
+            const { value, done: doneReading } = await reader.read();
+            done = doneReading;
+            const chunkValue = decoder.decode(value);
+            setStage1Messages((prev) => prev + chunkValue);
+            setIgData('completed')
             setButtonStatus('success'); // set button status to 'success'
             setStage1('success'); // set stage 1 to 'success'
-        })
+        }
     }
+
+
 
     return  (
         <div className="mt-5 relative flex flex-col items-center rounded-[20px] w-[700px] max-w-[90%] mx-auto bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none p-3">
@@ -91,11 +127,20 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                 <h3 className="font-medium leading-tight">1. Retrieve</h3>
                 <p className="text-sm">Get your your IG posts...</p>
                                 
-                <button onClick={handleIgDataPull} disabled={buttonStatus === 'loading' || buttonStatus === 'success'} className={`mt-2 px-4 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${buttonStatus === 'success' ? 'bg-green-500 cursor-default' : 'bg-blue-600 hover:bg-blue-500'}`}>
+                <button onClick={handleIgDataPullv2} disabled={buttonStatus === 'loading' || buttonStatus === 'success'} className={`mt-2 px-4 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${buttonStatus === 'success' ? 'bg-slate-500 cursor-default' : 'bg-slate-600 hover:bg-slate-500'}`}>
                     {buttonStatus === 'idle' && 'Retrieve'}
                     {buttonStatus === 'loading' && <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/>}
                     {buttonStatus === 'success' && `Completed: retrieved ${igData?.length} posts`} 
-                </button>           
+                </button>
+
+                <div className="flex items-center justify-center">
+                    <div className="w-7 h-10">
+                        <code style={{ overflowWrap: "break-word" }}>{stage1Messages}</code>
+                    </div>
+                </div>
+
+
+
             </li>
             <li className="mb-10 ml-6">
                 <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700">
@@ -119,43 +164,7 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                 <p className="text-sm">Setup custom SMS alerts for future flagged content</p>
             </li>
         </ol>
-
-
-
-    
-        {/* <ColGrid numColsSm={ 2 } numColsLg={ 3 } gapX="gap-x-6" gapY="gap-y-6">
-            <Card>
-                <Block textAlignment="text-center">
-                        <button 
-                            onClick={ handleIgDataPull }
-                            className="bg-white-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            <FolderArrowDownIcon className="h-10 w-10 text-blue-700 mr-1" />
-                            <span>Get Content from IG</span>
-                        </button>
-                </Block>
-            </Card>
-            <Card>
-            <Block textAlignment="text-center">
-                        <button className="bg-white-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            <BoltIcon className="h-10 w-10 text-blue-700 mr-1" />
-                            <span>Analyze for NSFW</span>
-                        </button>
-                </Block>
-            </Card>
-            <Card>
-            <Block textAlignment="text-center">
-                        <button className="bg-white-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            <ChartBarSquareIcon className="h-10 w-10 text-blue-700 mr-1" />
-                            <span>Generate your report</span>
-                        </button>
-                </Block>
-            </Card>
-        </ColGrid> */}
-
-
     </div> 
-
-
     )
 
 }

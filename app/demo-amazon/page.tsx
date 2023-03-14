@@ -65,7 +65,7 @@ export default function DemoPage() {
                 {results && 
                   <button
                     type="button"
-                    className={`my-4 capitalize bg-blue-600 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-900 animate-pulse`}
+                    className={`my-4 capitalize bg-slate-900 text-white font-medium py-2 px-4 rounded-md hover:bg-slate-600 animate-pulse`}
                     onClick={clearResults}
                   >
                   Clear Output
