@@ -4,12 +4,6 @@ import ig_me_media from './get_retrieve';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    //// EXPERIMETNAL: THIS PART IS EXPERIMENTAL UP UNTIL res.flushHeaders() /
-    // res.setHeader('Content-Type', 'text/event-stream')
-    // res.setHeader('Cache-Control', 'no-cache')
-    // res.setHeader('Connection', 'keep-alive')
-    // res.flushHeaders()
-
     const session = await getSession({ req });
     console.log('FromAPIendpoint: ', session)
 
