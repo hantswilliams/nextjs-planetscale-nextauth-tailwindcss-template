@@ -66,3 +66,12 @@ This template uses the new `app` directory in Next.js 13 (beta). This includes s
 - https://daisyui.com/components/tab/ 
 - https://tailwindtemplates.co/templates 
 
+
+## Vercel Edge functions - streaming 
+- https://www.beskar.co/blog/streaming-openai-completions-vercel-edge --> this for pollling
+- https://developer.chrome.com/articles/fetch-streaming-requests/ 
+- https://github.com/orgs/vercel/discussions/1037
+- https://developer.mozilla.org/en-US/docs/Web/API/Streams_API
+- good example with openAI: https://github.com/Nutlope/twitterbio/blob/main/utils/OpenAIStream.ts 
+- simple hello stream example: https://github.com/jamespantalones/next-js-stream-bug/blob/main/pages/api/hello.tsx 
+
