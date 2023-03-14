@@ -76,3 +76,10 @@ This template uses the new `app` directory in Next.js 13 (beta). This includes s
 - simple hello stream example: https://github.com/jamespantalones/next-js-stream-bug/blob/main/pages/api/hello.tsx 
 - error: https://github.com/vercel/next.js/issues/38736 
 
+## Examples: 
+- within app/examples, there are 2 endpoints which currently work testing/playing around with streaming results from APIs
+  - 1: examples/streaming-edge
+    - this has a version of streaming that currently works with deployment of vercel/Edge functionality for running lambda's for each API 
+    - this goes to: api/tests/edge-streaming-chained OR can set it to api/tests/edge-streaming depending on what you want to look at 
+  - 2: examples/polling 
+    - this is a version of streaming via POLLING, sending a bunch of res.write commands, that will not work with vercel deployment, but will work if you choose a different deployment, self-hosting option for this application; obviously the more scalability way is to go with the edge functionality (example 1)
