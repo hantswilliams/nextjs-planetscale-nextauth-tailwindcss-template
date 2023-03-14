@@ -29,7 +29,7 @@ const Home: NextPage = () => {
     e.preventDefault();
     setGeneratedBios("");
     setLoading(true);
-    const response = await fetch("/api/tests/edge-streaming-open-ai", {
+    const response = await fetch("/api/open-ai/edge-streaming-open-ai", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
