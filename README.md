@@ -74,4 +74,5 @@ This template uses the new `app` directory in Next.js 13 (beta). This includes s
 - https://developer.mozilla.org/en-US/docs/Web/API/Streams_API
 - good example with openAI: https://github.com/Nutlope/twitterbio/blob/main/utils/OpenAIStream.ts 
 - simple hello stream example: https://github.com/jamespantalones/next-js-stream-bug/blob/main/pages/api/hello.tsx 
+- error: https://github.com/vercel/next.js/issues/38736 
 

@@ -1,5 +1,3 @@
-import { OpenAIStream, OpenAIStreamPayload } from "../../../utils/StreamingEdgeTest";
-
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
@@ -9,6 +7,8 @@ export const config = {
 };
 
 const handler = async (req: Request): Promise<Response> => {
+
+
   const { prompt } = (await req.json()) as {
     prompt?: string;
   };
@@ -16,21 +16,35 @@ const handler = async (req: Request): Promise<Response> => {
   if (!prompt) {
     return new Response("No prompt in the request", { status: 400 });
   }
+  
+  const encoder = new TextEncoder();
 
-  const payload: OpenAIStreamPayload = {
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: prompt }],
-    temperature: 0.7,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-    max_tokens: 200,
-    stream: true,
-    n: 1,
-  };
+  let counter = 0;
+  
+  const resultStream = new ReadableStream(
+    {
+      async pull(controller) {
+        if (counter < 10) {
+          const queue = encoder.encode(
+            JSON.stringify({ foo: "bar", james: "cameron" }) + "\n"
+          );
+          controller.enqueue(queue);
+          await new Promise(resolve => setTimeout(resolve, 5000)); // add delay
+          const queue2 = encoder.encode(
+            JSON.stringify({ foo: "22bar", james: "22cameron" }) + "\n"
+          );
+          controller.enqueue(queue2);
+          await new Promise(resolve => setTimeout(resolve, 5000)); // add delay
+          counter++;
+        } else {
+          controller.close();
+        }
+      },
+    }
+  );
+  
+  return new Response(resultStream);
 
-  const stream = await OpenAIStream(payload);
-  return new Response(stream);
 };
 
 export default handler;
