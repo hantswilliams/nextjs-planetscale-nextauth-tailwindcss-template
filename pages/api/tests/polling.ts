@@ -228,11 +228,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const param2 = req.query.param2
   const param3 = req.query.param3
 
-  res.setHeader("Content-Type", "text/event-stream");
-  res.setHeader("Cache-Control", "no-cache, no-transform");
-  res.setHeader("Connection", "keep-alive");
-  // res.setHeader("Transfer-Encoding", "chunked");
-  res.setHeader("Content-Encoding", "none");
+  // res.setHeader("Content-Type", "text/event-stream");
+  // res.setHeader("Cache-Control", "no-cache, no-transform");
+  // res.setHeader("Connection", "keep-alive");
+  // // res.setHeader("Transfer-Encoding", "chunked");
+  // res.setHeader("Content-Encoding", "none");
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'text/event-stream;charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-transform');
+  res.setHeader('X-Accel-Buffering', 'no');
 
 
   console.log('handler function executed')
