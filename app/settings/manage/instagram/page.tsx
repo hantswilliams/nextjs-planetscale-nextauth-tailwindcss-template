@@ -9,6 +9,7 @@ import { queryBuilder } from '../../../../lib/planetscale';
 import { json } from 'stream/consumers';
 import IntegrationDetails from './components/integrationDetails';
 import IntegrationActions from './components/integrationActions';
+import Link from 'next/link';
 
 
 export default async function InstagramSettingsPage() {
@@ -24,9 +25,11 @@ export default async function InstagramSettingsPage() {
                 To see dashboard, please log in.
               </Text>
               <div className="flex justify-center">
-                <a href="/api/auth/signin" className="group mt-5 rounded-2xl h-12 w-40 bg-slate-900 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
-                   Get started! 
+              <Link href="/api/auth/signin">
+                <a className="group mt-5 rounded-2xl h-12 w-40 bg-slate-900 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
+                  Get started!
                 </a>
+              </Link>
               </div>
             </Card>
           </main>
