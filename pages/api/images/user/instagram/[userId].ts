@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import client from '../../../../lib/prismadb'
+import client from '../../../../../lib/prismadb'
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -17,6 +17,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 where: {
                     //@ts-expect-error
                     userId: userId,
+                    origin: 'instagram',
+                },
+                orderBy: {
+                    timestampMedia: 'desc',
+                },
+                select: {
+                    media_uid: true,
+                    medial_url: true,
                 },
             })
         ])

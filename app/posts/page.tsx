@@ -1,4 +1,3 @@
-
 import { Title, Text, Card } from "@tremor/react"
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
@@ -7,6 +6,7 @@ import UsersMediaTable from './tableGallery';
 import Link from 'next/link';
 
 export default async function GalleryPage() {
+
 
     const session = await getServerSession(authOptions);
 
@@ -72,7 +72,7 @@ export default async function GalleryPage() {
                 <Text> A list of images uploaded by the user. </Text>
                     <Text> Gallery for: {userId} </Text>
                     {/* @ts-expect-error Server Component */}
-                    <UsersMediaTable users={userImages} />
+                    <UsersMediaTable users={userImages} limit={10} />
             </div>
         </main>
     )

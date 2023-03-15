@@ -4,7 +4,7 @@ import ig_me_media from './get_retrieve';
 export const config = {
     runtime: "edge",
   };
-  
+
 const handler = async (req: Request) => {
 
     // this part here is for streaming
@@ -69,10 +69,9 @@ const handler = async (req: Request) => {
 
                 // EXPERIMETNAL: this part here is also experimental
                 console.log(`${i + 1}/${ig_media.length}\n\n`)
-                const progressValue = i + 1
+                const progressValue = ((i + 1) / ig_media.length)*100;
                 const progressUpdates = encoder.encode(JSON.stringify({ progressStep: progressValue }));
                 controller.enqueue(progressUpdates);
-                setTimeout(() => { }, 200); // add delay
 
                 ///Send client side update that one of the X images has uploaded succesfully
                 const progressDetailed = encoder.encode(JSON.stringify({ status: 'completed a upload!', progress: ig_media[i].media_url }));

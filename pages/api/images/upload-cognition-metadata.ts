@@ -4,15 +4,20 @@ import { getSession } from 'next-auth/react';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    const session = await getSession({ req });
-    console.log('FromAPIendpoint: ', session)
+    // const session = await getSession({ req });
+    // console.log('FromAPIendpoint: ', session)
 
-    if (!session) {
-        res.status(401).json({ error: 'Not authenticated' })
-        return
-    }
+    // if (!session) {
+    //     res.status(401).json({ error: 'Not authenticated' })
+    //     return
+    // }
 
     console.log('request body: ', req.body)
+
+    if (!req.body) {
+        res.status(400).json({ error: 'No body, expecting: imageUUID, raw output, and analytics' })
+        return
+    }
 
     try {
         const media = await client.$transaction ([
