@@ -238,11 +238,11 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                     {buttonStatusStage1 === 'idle' && 'Retrieve'}
                     {buttonStatusStage1 === 'loading' && 
                         <div className="flex items-center"> <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/> 
-                            {igProgressPercentage.map((progress, index) => (
+                            {/* {igProgressPercentage.map((progress, index) => (
                                 <div key={index}>
                                 Progress step: {progress.progressStep}
                                 </div>
-                            ))}
+                            ))} */}
                         </div> 
                     }
                     {buttonStatusStage1 === 'success' && `IG posts total: ${igDataLength} (only 5 received for demo)`} 
@@ -290,11 +290,11 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                     {buttonStatusStage1 === 'success' && buttonStatusStage2 === 'idle' && 'Perform cognition'}
                     {buttonStatusStage2 === 'loading' && 
                         <div className="flex items-center"> <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/> 
-                            {cognitionProgressPercentage.map((progress, index) => (
+                            {/* {cognitionProgressPercentage.map((progress, index) => (
                                 <div key={index}>
                                 Progress step: {progress.progressStep}
                                 </div>
-                            ))}
+                            ))} */}
                         </div> 
                     }
                     {buttonStatusStage1 === 'success' && buttonStatusStage2 === 'success' && 'Cognition completed (only 5 analyzed for demo)'}
