@@ -64,8 +64,8 @@ export default async function UserSocialAccounts () {
                           className="bg-slate-900 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-slate-100 transition-all
                           duration-200 hover:bg-slate-600 rounded-lg">Manage Account</a> :
                       <a href={`https://api.instagram.com/oauth/authorize?client_id=${client_id}&scope=user_profile,user_media&redirect_uri=${redirect_uri}&response_type=code`} 
-                        className="bg-slate-900 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-slate-600 transition-all
-                          duration-200 hover:bg-slate-600 rounded-lg">Connect</a>
+                        className="bg-slate-900 pt-2 pr-6 pb-2 pl-6 text-sm font-medium text-slate-50 transition-all
+                          duration-200 hover:bg-slate-300 rounded-lg">Connect +</a>
                       }
                     </div>
                   </div>

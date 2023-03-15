@@ -53,10 +53,10 @@ export default async function GalleryPage() {
                         <Text>
                             Please upload images manually or connect to Instagram.
                         </Text>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-5 mt-5">
+                            <button className="bg-slate-900 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded mb-5 mt-5">
                                 <Link href="/settings/"> Connect to Instagram </Link>
                             </button>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <button className="bg-slate-900 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded">
                                 <Link href="/demo-amazon"> Upload Images Manually </Link>
                             </button>
                     </div>

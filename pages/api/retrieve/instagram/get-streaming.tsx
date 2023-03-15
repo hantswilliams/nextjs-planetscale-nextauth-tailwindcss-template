@@ -52,7 +52,7 @@ const handler = async (req: Request) => {
                 const response = await fetch(`${process.env.NEXTAUTH_URL}/api/images/upload-image-s3-from-instagram`, {
                     method: 'POST',
                     body: JSON.stringify({
-                        user_id: userIguserId,
+                        user_id: userCurrentuserId,
                         ig_url: ig_media[i].media_url,
                         ig_caption: ig_media[i].caption,
                         ig_mediatype: ig_media[i].media_type,
