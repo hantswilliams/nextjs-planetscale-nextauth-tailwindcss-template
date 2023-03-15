@@ -67,9 +67,9 @@ const handler = async (req: Request) => {
                 }
                 console.log("cognitionMetaDataToSave: ", cognitionMetaData)
 
-                ///// Step 3 Send the results to the client
-                const igAnalyze = encoder.encode(JSON.stringify({ IgAnalyze: cognitionMetaData }));
-                controller.enqueue(igAnalyze);
+                // ///// Step 3 Send the results to the client
+                // const igAnalyze = encoder.encode(JSON.stringify({ IgAnalyze: cognitionMetaData }));
+                // controller.enqueue(igAnalyze);
 
                 const cognition = await fetch(`${process.env.NEXTAUTH_URL}/api/images/upload-cognition-metadata`, {
                     method: 'POST',

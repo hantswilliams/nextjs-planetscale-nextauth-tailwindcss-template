@@ -73,9 +73,9 @@ const handler = async (req: Request) => {
                 const progressUpdates = encoder.encode(JSON.stringify({ progressStep: progressValue }));
                 controller.enqueue(progressUpdates);
 
-                ///Send client side update that one of the X images has uploaded succesfully
-                const progressDetailed = encoder.encode(JSON.stringify({ status: 'completed a upload!', progress: ig_media[i].media_url }));
-                controller.enqueue(progressDetailed);
+                // ///Send client side update that one of the X images has uploaded succesfully
+                // const progressDetailed = encoder.encode(JSON.stringify({ status: 'completed a upload!', progress: ig_media[i].media_url }));
+                // controller.enqueue(progressDetailed);
 
             }
   
