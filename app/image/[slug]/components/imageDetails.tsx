@@ -4,6 +4,7 @@ import { Json } from "aws-sdk/clients/robomaker";
 import toast, { Toaster } from 'react-hot-toast'
 import ResultsCategoryComponent from './resultsCategory';
 import ResultsNoCognition from './resultsNoCognition'
+import Image from 'next/image';
 
 
 interface UserMedia {
@@ -102,10 +103,12 @@ return (
                     </button>
                 </div>
                 <div className="flex justify-center">
-                    <img 
-                        src={users?.users[0]?.medial_url} 
-                        className='w-100 h-80 rounded-tl-3xl object-cover border-solid border-4 border-grey-500' 
-                        alt="Image" 
+                    <Image
+                        src={users?.users[0]?.medial_url}
+                        alt="Image"
+                        className='w-100 h-80 rounded-tl-3xl object-cover border-solid border-4 border-grey-500'
+                        width={600}
+                        height={480}
                     />
                 </div>
                 <div className="mt-5 mb-5"> 

@@ -1,4 +1,5 @@
 import { UserDetails } from './types'
+import Image from 'next/image'
 
 export default async function UserDetailsTable ({ userdetails }: { userdetails: UserDetails }) {
     return (
@@ -8,7 +9,13 @@ export default async function UserDetailsTable ({ userdetails }: { userdetails: 
         <div className="relative flex h-32 w-full justify-center rounded-xl bg-gradient-to-tr from-zinc-200 via-neutral-200 to-gray-200" >
             {/* <img src='https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/banner.ef572d78f29b0fee0a09.png' className="absolute flex h-32 w-full justify-center rounded-xl bg-cover" />  */}
             <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
-                <img className="h-full w-full rounded-full" src={userdetails.image} alt="" />
+                <Image
+                    className="h-full w-full rounded-full"
+                    src={userdetails.image}
+                    alt="User Image"
+                    width={300}
+                    height={300}
+                />            
             </div>
         </div> 
         <div className="mt-16 flex flex-col items-center">

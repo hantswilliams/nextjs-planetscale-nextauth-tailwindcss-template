@@ -5,6 +5,8 @@ import { CognitionResults } from '../typesAmazon';
 import ResultsCategory from './resultsCategory';
 import AccuracyCapture from './resultsAccuracy';
 import ResultsCategoryComponent from '../../image/[slug]/components/resultsCategory';
+import Image from 'next/image';
+
 
 type Props = {
   results: CognitionResults;
@@ -53,13 +55,19 @@ const DisplayResults: React.FC<Props> = ({ results, url, uuid }) => {
             </div>
 
             {/* this first part is for the image and its border color */}
-            <img src={url} className={`${
-                results.analytics.totalConfidence >= 50
-                ? 'w-full border-solid border-4 border-red-500'
-                : results.analytics.totalConfidence >= 3 && results.analytics?.totalConfidence <= 9
-                ? 'w-full border-solid border-4 border-yellow-500'
-                : 'w-full border-solid border-4 border-green-500'
-            }`} alt="Image" />
+            <Image
+                src={url}
+                alt="Image"
+                className={`${
+                    results.analytics.totalConfidence >= 50
+                    ? 'w-full border-solid border-4 border-red-500'
+                    : results.analytics.totalConfidence >= 3 && results.analytics?.totalConfidence <= 9
+                    ? 'w-full border-solid border-4 border-yellow-500'
+                    : 'w-full border-solid border-4 border-green-500'
+                }`}
+                width={300}
+                height={300}
+            />
 
             {/* add in the imageName as small text directly under the image */}
             {/* <div className="px-6 py-4">
