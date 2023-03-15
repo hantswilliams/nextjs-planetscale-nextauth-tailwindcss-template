@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { ArrowPathIcon } from '@heroicons/react/24/solid';
+import TextBlock from './actionUpdates';
+import { Toaster, toast } from "react-hot-toast";
 
 
 type igUserFields = {
@@ -18,6 +20,9 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
 
     const [buttonStatus, setButtonStatus] = useState<'idle' | 'loading' | 'success'>('idle');
     const [igData, setIgData] = useState<any>([]);
+    const [igDataLength, setIgDataLength] = useState<number>(0);
+    const [igProgressPercentage, setIgProgressPercentage] = useState<number>(0);
+
     const [stage1, setStage1] = useState<'idle' | 'success'>('idle');
     const [stage1Messages, setStage1Messages] = useState<String>("");
     const [stage2, setStage2] = useState<'idle' | 'success'>('idle');
@@ -90,17 +95,30 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
             done = doneReading;
             const chunkValue = decoder.decode(value);
             setStage1Messages((prev) => prev + chunkValue);
-            setIgData('completed')
-            setButtonStatus('success'); // set button status to 'success'
-            setStage1('success'); // set stage 1 to 'success'
+
+            // if json value has IGretrievedMedia, set igData to that value
+            if (chunkValue.includes('IGretrievedMedia')) {
+                const jsonValue = JSON.parse(chunkValue);
+                setIgDataLength(jsonValue.IGretrievedMedia);
+            }
+
+            // // if json value has progress, set setIgProgressPercentage to that value
+            // if (chunkValue.includes('progressStep')) {
+            //     const jsonValue = JSON.parse(chunkValue);
+            //     setIgProgressPercentage(jsonValue.progressStep);
+            // }
+
         }
+        setIgData('completed')
+        setButtonStatus('success'); // set button status to 'success'
+        setStage1('success'); // set stage 1 to 'success'
     }
 
 
 
     return  (
-        <div className="mt-5 relative flex flex-col items-center rounded-[20px] w-[700px] max-w-[90%] mx-auto bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none p-3">
-        <div className="mt-2 mb-1 w-full">
+        <div className="mt-5 relative flex flex-col items-center rounded-[20px] w-[700px] max-w-[95%] mx-auto bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none p-3">
+        <div className="mt-2 mb-1 ">
             <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
             Instagram Actions
             </h4>
@@ -127,17 +145,35 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                 <h3 className="font-medium leading-tight">1. Retrieve</h3>
                 <p className="text-sm">Get your your IG posts...</p>
                                 
-                <button onClick={handleIgDataPullv2} disabled={buttonStatus === 'loading' || buttonStatus === 'success'} className={`mt-2 px-4 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${buttonStatus === 'success' ? 'bg-slate-500 cursor-default' : 'bg-slate-600 hover:bg-slate-500'}`}>
+                <button onClick={handleIgDataPullv2} disabled={buttonStatus === 'loading' || buttonStatus === 'success'} className={`mt-2 px-4 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${buttonStatus === 'success' ? 'bg-green-400 cursor-default' : 'bg-slate-600 hover:bg-slate-500'}`}>
                     {buttonStatus === 'idle' && 'Retrieve'}
-                    {buttonStatus === 'loading' && <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/>}
-                    {buttonStatus === 'success' && `Completed: retrieved ${igData?.length} posts`} 
+                    {buttonStatus === 'loading' && <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"> {igProgressPercentage} </ArrowPathIcon> }
+                    {buttonStatus === 'success' && `IG posts total: ${igDataLength}`} 
                 </button>
 
-                <div className="flex items-center justify-center">
-                    <div className="w-7 h-10">
-                        <code style={{ overflowWrap: "break-word" }}>{stage1Messages}</code>
+                {stage1Messages && (
+                    <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        <TextBlock text={stage1Messages} />
                     </div>
-                </div>
+                )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

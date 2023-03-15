@@ -29,7 +29,7 @@ export default async function IndexPage() {
     </div>
       <Card>
         <Text>
-          What is it? It's a sophisticated content moderation tool for social media. Identify existing content from your social media feeds that may not be professionally appropriate to share, and receive SMS alerts for future content that should be reviewed.
+          What is it? Its a sophisticated content moderation tool for social media. Identify existing content from your social media feeds that may not be professionally appropriate to share, and receive SMS alerts for future content that should be reviewed.
         </Text>
         <div className="flex justify-center">
           <Link legacyBehavior href="/demo-amazon">

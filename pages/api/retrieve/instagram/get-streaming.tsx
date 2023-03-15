@@ -69,10 +69,14 @@ const handler = async (req: Request) => {
 
                 // EXPERIMETNAL: this part here is also experimental
                 console.log(`${i + 1}/${ig_media.length}\n\n`)
+                const progressValue = i + 1
+                const progressUpdates = encoder.encode(JSON.stringify({ progressStep: progressValue }));
+                controller.enqueue(progressUpdates);
+                setTimeout(() => { }, 200); // add delay
 
                 ///Send client side update that one of the X images has uploaded succesfully
-                const progressUpdate = encoder.encode(JSON.stringify({ status: 'completed a upload', progress: ig_media[i].media_url }));
-                controller.enqueue(progressUpdate);
+                const progressDetailed = encoder.encode(JSON.stringify({ status: 'completed a upload!', progress: ig_media[i].media_url }));
+                controller.enqueue(progressDetailed);
 
             }
   
