@@ -12,6 +12,10 @@ type igUserFields = {
     currentuserid: string;
 };
 
+interface StreamChunk {
+    progressStep: number;
+  }
+
 const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFields) => {
 
     const [userIguserId, setUserIguserId] = useState<string>('');
@@ -24,8 +28,9 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
     const [igData, setIgData] = useState<any>([]);
     const [igDataLength, setIgDataLength] = useState<number>(0);
 
-    const [igProgressPercentage, setIgProgressPercentage] = useState<number>();
-    const [cognitionProgressPercentage, setCognitionProgressPercentage] = useState<number>();
+    // const [igProgressPercentage, setIgProgressPercentage] = useState<number>();
+    const [igProgressPercentage, setIgProgressPercentage] = useState<StreamChunk[]>([]);
+    const [cognitionProgressPercentage, setCognitionProgressPercentage] = useState<StreamChunk[]>([]);
 
     const [stage1, setStage1] = useState<'idle' | 'success'>('idle');
     const [stage1Messages, setStage1Messages] = useState<String>("");
@@ -89,12 +94,29 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
             // if json value has progress, set setIgProgressPercentage to that value
             if (chunkValue.includes('progressStep')) {
                 console.log('chunkValue Progress: ', chunkValue)
-                const parts = chunkValue.split('}{');
-                const fixedData = '[' + parts.join('},{') + ']';
-                const jsonData = JSON.parse(fixedData);
-                // keep only the value for progressStep
-                const progressStep = jsonData[0].progressStep;
-                setIgProgressPercentage(progressStep);
+                const handleStreamChunkIg = (chunkValue: string) => {
+                    try {
+                      const jsonData = JSON.parse(chunkValue);
+                
+                      if (jsonData.progressStep !== undefined) {
+                        const progressStep = jsonData.progressStep;
+                
+                        setIgProgressPercentage((prevProgress) => [
+                          ...prevProgress,
+                          { progressStep },
+                        ]);
+                      }
+                    } catch (e) {
+                      console.error('Invalid JSON received from stream', e);
+                    }
+                  };
+                  handleStreamChunkIg(chunkValue);
+                // const parts = chunkValue.split('}{');
+                // const fixedData = '[' + parts.join('},{') + ']';
+                // const jsonData = JSON.parse(fixedData);
+                // // keep only the value for progressStep
+                // const progressStep = jsonData[0].progressStep;
+                // setIgProgressPercentage(progressStep);
             }
 
         }
@@ -135,15 +157,32 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
             const chunkValue = decoder.decode(value);
             setStage2Messages((prev) => prev + chunkValue);
 
-            // if json value has progress, set setIgProgressPercentage to that value
+            // if json value has progress, set setCognitionProgressPercentage to that value
             if (chunkValue.includes('progressStep')) {
                 console.log('chunkValue Progress Cognition: ', chunkValue)
-                const parts = chunkValue.split('}{');
-                const fixedData = '[' + parts.join('},{') + ']';
-                const jsonData = JSON.parse(fixedData);
-                // keep only the value for progressStep
-                const progressStep = jsonData[0].progressStep;
-                setCognitionProgressPercentage(progressStep);
+                const handleStreamChunkCognition = (chunkValue: string) => {
+                    try {
+                      const jsonData = JSON.parse(chunkValue);
+                
+                      if (jsonData.progressStep !== undefined) {
+                        const progressStep = jsonData.progressStep;
+                
+                        setCognitionProgressPercentage((prevProgress) => [
+                          ...prevProgress,
+                          { progressStep },
+                        ]);
+                      }
+                    } catch (e) {
+                      console.error('Invalid JSON received from stream', e);
+                    }
+                  };
+                  handleStreamChunkCognition(chunkValue);
+                // const parts = chunkValue.split('}{');
+                // const fixedData = '[' + parts.join('},{') + ']';
+                // const jsonData = JSON.parse(fixedData);
+                // // keep only the value for progressStep
+                // const progressStep = jsonData[0].progressStep;
+                // setCognitionProgressPercentage(progressStep);
             }
 
 
@@ -197,7 +236,15 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                 {/* This part here is for the button action statuses  */}
                 <button onClick={handleIgDataPullv2} disabled={buttonStatusStage1 === 'loading' || buttonStatusStage1 === 'success'} className={`mt-2 px-4 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${buttonStatusStage1 === 'success' ? 'bg-green-400 cursor-default' : 'bg-slate-600 hover:bg-slate-500'}`}>
                     {buttonStatusStage1 === 'idle' && 'Retrieve'}
-                    {buttonStatusStage1 === 'loading' && <div className="flex items-center"> <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/> {igProgressPercentage}% </div> }
+                    {buttonStatusStage1 === 'loading' && 
+                        <div className="flex items-center"> <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/> 
+                            {igProgressPercentage.map((progress, index) => (
+                                <div key={index}>
+                                Progress step: {progress.progressStep}
+                                </div>
+                            ))}
+                        </div> 
+                    }
                     {buttonStatusStage1 === 'success' && `IG posts total: ${igDataLength} (only 5 received for demo)`} 
                 </button>
 
@@ -241,12 +288,15 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                     >
                     {buttonStatusStage1 !== 'success' && 'Available after IG retrieval'}
                     {buttonStatusStage1 === 'success' && buttonStatusStage2 === 'idle' && 'Perform cognition'}
-                    {buttonStatusStage2 === 'loading' && (
-                        <div className="flex items-center">
-                            <ArrowPathIcon className="animate-spin h-5 w-5 mr-2" /> 
-                            {cognitionProgressPercentage}% complete
-                        </div>
-                    )}
+                    {buttonStatusStage2 === 'loading' && 
+                        <div className="flex items-center"> <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/> 
+                            {cognitionProgressPercentage.map((progress, index) => (
+                                <div key={index}>
+                                Progress step: {progress.progressStep}
+                                </div>
+                            ))}
+                        </div> 
+                    }
                     {buttonStatusStage1 === 'success' && buttonStatusStage2 === 'success' && 'Cognition completed (only 5 analyzed for demo)'}
                 </button>
                 {stage2Messages && (
