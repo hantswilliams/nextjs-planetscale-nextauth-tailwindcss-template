@@ -65,6 +65,7 @@ This template uses the new `app` directory in Next.js 13 (beta). This includes s
 - https://blog.bitsrc.io/best-tailwind-component-libraries-7ca0f99ec815 
 - https://daisyui.com/components/tab/ 
 - https://tailwindtemplates.co/templates 
+- https://www.tailwindawesome.com/?price=free&technology=7&type=template
 
 
 ## Vercel Edge functions - streaming 
@@ -83,3 +84,19 @@ This template uses the new `app` directory in Next.js 13 (beta). This includes s
     - this goes to: api/tests/edge-streaming-chained OR can set it to api/tests/edge-streaming depending on what you want to look at 
   - 2: examples/polling 
     - this is a version of streaming via POLLING, sending a bunch of res.write commands, that will not work with vercel deployment, but will work if you choose a different deployment, self-hosting option for this application; obviously the more scalability way is to go with the edge functionality (example 1)
+
+
+## Additional tech to add? 
+- Logging - datadog / perhaps just vercel is good enough? 
+- CMS - Strappi? Is there something else for free? 
+- Stripe for payment 
+
+
+## Tempaltes to look at for landing: 
+- requirements: 
+  - single page 
+- https://precedent.dev/ 
+- the official components from tailwind also look good, perhaps easy to style 
+- really like the twitter ex app font got for chatGPT page - perhaps relicate that 
+- https://www.tailwindawesome.com/resources/wicked-bundle 
+- https://www.tailwindawesome.com/?price=free&type=template 
