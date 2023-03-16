@@ -117,7 +117,7 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
         return;
       }
 
-      const chunk = decoder.decode(value);
+      var chunk = decoder.decode(value);
       console.log('chunk received: ', chunk)
 
       try {
@@ -127,14 +127,17 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
         console.error('Error while parsing JSON:', error);
         if (chunkShort === null) {
           setChunkShort(chunk);
+          console.log('chunkShort: ', chunkShort)
         } else {
           setNewChunk(chunk);
           const combinedChunk = chunkShort + newChunk;
+          console.log('combinedChunk: ', combinedChunk)
           const [firstPart, ...rest] = combinedChunk.split(/(.*?}})/);
           const candidateChunk = firstPart + "}";
-
+          console.log('candidateChunk: ', candidateChunk)
           try {
             const parsedCandidate = JSON.parse(candidateChunk);
+            console.log('parsedCandidate: ', parsedCandidate)
             handleParsedChunk(parsedCandidate);
           } catch (error) {
             console.error('Error while parsing combined JSON:', error);
@@ -153,11 +156,14 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
     if (parsedChunk.starting) {
       setStatus('Starting...');
     } else if (parsedChunk.IGretrievedMedia) {
+      console.log('parsedChunk.IGretrievedMedia: ', parsedChunk.IGretrievedMedia)
       setStatus(`Retrieved ${parsedChunk.IGretrievedMedia} media from Instagram`);
     } else if (parsedChunk.progressStep) {
+      console.log('parsedChunk.progressStep: ', parsedChunk.progressStep)
       setStatus('Uploading to S3 and saving to database...');
       setProgress(parsedChunk.progressStep);
     } else if (parsedChunk.finished) {
+      console.log('parsedChunk.finished: ', parsedChunk.finished)
       setStatus('Finished!');
     }
   }
