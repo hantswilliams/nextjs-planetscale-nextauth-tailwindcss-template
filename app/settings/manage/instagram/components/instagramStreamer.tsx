@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 // import { useCallback, useEffect, useState } from 'react';
 
@@ -80,7 +80,6 @@
 // export default InstagramStreamer;
 
 
-
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
@@ -95,7 +94,8 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
   const [progress, setProgress] = useState<number | null>(null);
   const [status, setStatus] = useState<string>('');
   const [streamStarted, setStreamStarted] = useState<boolean>(false);
-  const [previousChunk, setPreviousChunk] = useState<string>('');
+  const [chunkShort, setChunkShort] = useState<string | null>(null);
+  const [newChunk, setNewChunk] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
     const response = await fetch('/api/retrieve/instagram/get-streaming/', {
@@ -120,51 +120,49 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
       const chunk = decoder.decode(value);
       console.log('chunk received: ', chunk)
 
-      const tryParseJSON = (input: string) => {
-        try {
-          return JSON.parse(input);
-        } catch (error) {
-          return null;
-        }
-      };
-
-      let parsedChunk = tryParseJSON(chunk);
-
-      if (!parsedChunk && previousChunk) {
-        const combinedChunk = previousChunk + chunk;
-        const bracketIndex = combinedChunk.indexOf('}');
-        const validJson = combinedChunk.slice(0, bracketIndex + 1);
-        parsedChunk = tryParseJSON(validJson);
-
-        if (parsedChunk) {
-          setPreviousChunk(combinedChunk.slice(bracketIndex + 1));
+      try {
+        const parsedChunk = JSON.parse(chunk);
+        handleParsedChunk(parsedChunk);
+      } catch (error) {
+        console.error('Error while parsing JSON:', error);
+        if (chunkShort === null) {
+          setChunkShort(chunk);
         } else {
-          console.error('Error while parsing JSON: Could not combine chunks');
-          setPreviousChunk(combinedChunk);
-          return reader.read().then(processText);
-        }
-      } else if (!parsedChunk) {
-        console.error('Error while parsing JSON: Chunk is not valid JSON');
-        setPreviousChunk(chunk);
-        return reader.read().then(processText);
-      }
+          setNewChunk(chunk);
+          const combinedChunk = chunkShort + newChunk;
+          const [firstPart, ...rest] = combinedChunk.split(/(.*?}})/);
+          const candidateChunk = firstPart + "}";
 
-      if (parsedChunk.starting) {
-        setStatus('Starting...');
-      } else if (parsedChunk.IGretrievedMedia) {
-        setStatus(`Retrieved ${parsedChunk.IGretrievedMedia} media from Instagram`);
-      } else if (parsedChunk.progressStep) {
-        setStatus('Uploading to S3 and saving to database...');
-        setProgress(parsedChunk.progressStep);
-      } else if (parsedChunk.finished) {
-        setStatus('Finished!');
+          try {
+            const parsedCandidate = JSON.parse(candidateChunk);
+            handleParsedChunk(parsedCandidate);
+          } catch (error) {
+            console.error('Error while parsing combined JSON:', error);
+          } finally {
+            setChunkShort(null);
+            setNewChunk(null);
+          }
+        }
       }
 
       return reader.read().then(processText);
     });
-  }, [userIguserId, userIguserToken, userCurrentuserId, previousChunk]);
+  }, [userIguserId, userIguserToken, userCurrentuserId]);
 
-  useEffect(() => {
+  const handleParsedChunk = (parsedChunk: any) => {
+    if (parsedChunk.starting) {
+      setStatus('Starting...');
+    } else if (parsedChunk.IGretrievedMedia) {
+      setStatus(`Retrieved ${parsedChunk.IGretrievedMedia} media from Instagram`);
+    } else if (parsedChunk.progressStep) {
+      setStatus('Uploading to S3 and saving to database...');
+      setProgress(parsedChunk.progressStep);
+    } else if (parsedChunk.finished) {
+      setStatus('Finished!');
+    }
+  }
+
+    useEffect(() => {
     if (streamStarted) {
       fetchData();
     }
