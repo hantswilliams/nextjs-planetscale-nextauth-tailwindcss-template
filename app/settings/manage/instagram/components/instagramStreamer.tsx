@@ -127,7 +127,7 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
         console.error('Error while parsing JSON:', error);
         if (chunkShort === null) {
           setChunkShort(chunk);
-          console.log('chunkShort: ', chunkShort)
+          console.log('chunkShort: ', chunk)
         } else {
           setNewChunk(chunk);
           const combinedChunk = chunkShort + newChunk;
