@@ -112,6 +112,13 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({
           const candidateChunk = match ? match[0] : 'No match found';
           console.log('candidateChunkv2: ', candidateChunk)
 
+          if (candidateChunk !== null && candidateChunk.includes('finished')) {
+            setStatus('Finished!');
+            setProgress(null);
+            setStreamStarted(false);
+            return;
+          }
+
           try {
             const parsedCandidate = JSON.parse(candidateChunk);
             console.log('parsedCandidate: ', parsedCandidate);
