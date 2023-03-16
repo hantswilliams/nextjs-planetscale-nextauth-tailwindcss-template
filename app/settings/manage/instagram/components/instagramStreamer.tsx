@@ -128,7 +128,8 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
         if (chunkShort === null && newChunk === null) {
           setChunkShort(chunk);
           console.log('chunkShort: ', chunk)
-        } else if (chunkShort !== null && newChunk === null) {
+        } 
+        else if (chunkShort !== null && newChunk === null) {
           setNewChunk(chunk);
           const combinedChunk = chunkShort + newChunk;
           console.log('combinedChunk: ', combinedChunk)
