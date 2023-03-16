@@ -80,8 +80,8 @@ const handler = async (req: Request) => {
 
             }
             //// FINISHING
-            // const finishedMessage = encoder.encode(JSON.stringify({ finished: true }));
-            // controller.enqueue(finishedMessage);
+            const finishedMessage = encoder.encode(JSON.stringify({ finished: true }));
+            controller.enqueue(finishedMessage);
             controller.close();
   
           }

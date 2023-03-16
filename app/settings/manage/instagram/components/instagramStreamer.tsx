@@ -103,13 +103,10 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({
     const chunkShortRef = useRef(null); // Add a ref to store the value of chunkShort
 
     useEffect(() => {
+
         if (chunkShort !== null && newChunk !== null) {
           const combinedChunk = chunkShort + newChunk;
           console.log('combinedChunk: ', combinedChunk);
-
-        //   const [firstPart, ...rest] = combinedChunk.split(/(.*?}})/);
-        //   const candidateChunk = firstPart + '}';
-        //   console.log('candidateChunk: ', candidateChunk);
 
           const match = combinedChunk.match(/{[^}]*}/);
           const candidateChunk = match ? match[0] : 'No match found';
@@ -145,8 +142,6 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({
         reader.read().then(async function processText({ done, value }) {
           if (done) {
             console.log('Stream complete.');
-            setProgress(100)
-            setStatus('Finished!');
             return;
           }
     
