@@ -177,15 +177,7 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                     }
                   };
                   handleStreamChunkCognition(chunkValue);
-                // const parts = chunkValue.split('}{');
-                // const fixedData = '[' + parts.join('},{') + ']';
-                // const jsonData = JSON.parse(fixedData);
-                // // keep only the value for progressStep
-                // const progressStep = jsonData[0].progressStep;
-                // setCognitionProgressPercentage(progressStep);
             }
-
-
         }
 
         // at the end...set things to complete
