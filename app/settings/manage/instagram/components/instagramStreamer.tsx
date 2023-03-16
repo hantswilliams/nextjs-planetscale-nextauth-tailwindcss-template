@@ -82,7 +82,7 @@
 
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface InstagramStreamerProps {
   userIguserId: string;
@@ -90,67 +90,80 @@ interface InstagramStreamerProps {
   userCurrentuserId: string;
 }
 
-const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, userIguserToken, userCurrentuserId }) => {
-  const [progress, setProgress] = useState<number | null>(null);
-  const [status, setStatus] = useState<string>('');
-  const [streamStarted, setStreamStarted] = useState<boolean>(false);
-  const [chunkShort, setChunkShort] = useState<string | null>(null);
+const InstagramStreamer: React.FC<InstagramStreamerProps> = ({
+    userIguserId,
+    userIguserToken,
+    userCurrentuserId,
+  }) => {
+    const [progress, setProgress] = useState<number | null>(null);
+    const [status, setStatus] = useState<string>('');
+    const [streamStarted, setStreamStarted] = useState<boolean>(false);
+    const [chunkShort, setChunkShort] = useState<string | null>(null);
+    const [newChunk, setNewChunk] = useState<string | null>(null);
+    const chunkShortRef = useRef(null); // Add a ref to store the value of chunkShort
 
-  const fetchData = useCallback(async () => {
-    const response = await fetch('/api/retrieve/instagram/get-streaming/', {
-      method: 'POST',
-      body: JSON.stringify({
-        userIguserId,
-        userIguserToken,
-        userCurrentuserId,
-      }),
-    });
-
-    const reader = response.body!.getReader();
-    const decoder = new TextDecoder();
-
-    //@ts-expect-error
-    reader.read().then(async function processText({ done, value }) {
-      if (done) {
-        console.log('Stream complete.');
-        return;
-      }
-
-      var chunk = decoder.decode(value);
-      console.log('chunk received: ', chunk)
-
-      try {
-        const parsedChunk = JSON.parse(chunk);
-        handleParsedChunk(parsedChunk);
-      } catch (error) {
-        console.error('Error while parsing JSON:', error);
-        if (chunkShort === null) {
-          setChunkShort(chunk);
-          console.log('chunkShort set: ', chunk)
-        } 
-        else {
-          console.log('previously received chunk: ', chunkShort)
-          console.log('newChunk set: ', chunk)
-          const combinedChunk = chunkShort + chunk;
-          console.log('combinedChunk: ', combinedChunk)
+    useEffect(() => {
+        if (chunkShort !== null && newChunk !== null) {
+          const combinedChunk = chunkShort + newChunk;
+          console.log('combinedChunk: ', combinedChunk);
           const [firstPart, ...rest] = combinedChunk.split(/(.*?}})/);
-          const candidateChunk = firstPart + "}";
-          console.log('candidateChunk: ', candidateChunk)
+          const candidateChunk = firstPart + '}';
+          console.log('candidateChunk: ', candidateChunk);
           try {
             const parsedCandidate = JSON.parse(candidateChunk);
-            console.log('parsedCandidate: ', parsedCandidate)
+            console.log('parsedCandidate: ', parsedCandidate);
             handleParsedChunk(parsedCandidate);
           } catch (error) {
             console.error('Error while parsing combined JSON:', error);
           } finally {
             setChunkShort(null);
+            setNewChunk(null);
           }
         }
-      }
+      }, [chunkShort, newChunk]);    
 
-      return reader.read().then(processText);
-    });
-  }, [userIguserId, userIguserToken, userCurrentuserId]);
+      const fetchData = useCallback(async () => {
+        const response = await fetch('/api/retrieve/instagram/get-streaming/', {
+          method: 'POST',
+          body: JSON.stringify({
+            userIguserId,
+            userIguserToken,
+            userCurrentuserId,
+          }),
+        });
+    
+        const reader = response.body!.getReader();
+        const decoder = new TextDecoder();
+    
+        //@ts-expect-error
+        reader.read().then(async function processText({ done, value }) {
+          if (done) {
+            console.log('Stream complete.');
+            return;
+          }
+    
+          var chunk = decoder.decode(value);
+          console.log('chunk received: ', chunk);
+    
+          try {
+            const parsedChunk = JSON.parse(chunk);
+            handleParsedChunk(parsedChunk);
+          } catch (error) {
+            console.error('Error while parsing JSON:', error);
+            if (chunkShortRef.current === null) {
+              //@ts-expect-error
+              chunkShortRef.current = chunk;
+              setChunkShort(chunk);
+              console.log('chunkShort set: ', chunk);
+            } else {
+              setNewChunk(chunk);
+              console.log('newChunk set: ', chunk);
+            }
+          }
+    
+          return reader.read().then(processText);
+        });
+      }, [userIguserId, userIguserToken, userCurrentuserId]);
 
   const handleParsedChunk = (parsedChunk: any) => {
     if (parsedChunk.starting) {
@@ -168,7 +181,7 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
     }
   }
 
-    useEffect(() => {
+  useEffect(() => {
     if (streamStarted) {
       fetchData();
     }
