@@ -75,6 +75,8 @@ const handler = async (req: Request) => {
                 const encodedData = encoder.encode(progressUpdates);
                 console.log('progressUpdates: ', progressUpdates);
                 controller.enqueue(encodedData);
+                // add 100ms delay 
+                await new Promise(resolve => setTimeout(resolve, 1000)); // add delay
 
                 // ///Send client side update that one of the X images has uploaded succesfully
                 // const progressDetailed = encoder.encode(JSON.stringify({ status: 'completed a upload!', progress: ig_media[i].media_url }));
