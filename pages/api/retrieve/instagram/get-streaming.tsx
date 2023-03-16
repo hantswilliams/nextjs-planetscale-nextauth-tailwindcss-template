@@ -71,7 +71,7 @@ const handler = async (req: Request) => {
                 console.log(`${i + 1}/${ig_media.length}\n\n`);
                 const progressValue = ((i + 1) / ig_media.length)*100;
                 // const progressUpdates = JSON.stringify({ progressStep: progressValue });
-                const progressUpdates = JSON.stringify("progressStep: " + progressValue + "\n\n")
+                const progressUpdates = JSON.stringify({ progressStep: progressValue }) + "\n\n";
                 const encoder = new TextEncoder();
                 const encodedData = encoder.encode(progressUpdates);
                 console.log('progressUpdates: ', progressUpdates);

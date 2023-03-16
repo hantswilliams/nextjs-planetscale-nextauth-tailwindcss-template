@@ -82,7 +82,7 @@ const handler = async (req: Request) => {
                 ///// Step 4 Send the progress to the client
                 const progressValue = ((i + 1) / mediaJsonSlice.length)*100;
                 // const progressUpdates = JSON.stringify({ progressStep: progressValue });
-                const progressUpdates = JSON.stringify("progressStep: " + progressValue + "\n\n")
+                const progressUpdates = JSON.stringify({ progressStep: progressValue }) + "\n\n";
                 const encoder = new TextEncoder();
                 controller.enqueue(encoder.encode(progressUpdates));
                 console.log('progressUpdates: ', progressUpdates);
