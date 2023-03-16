@@ -25,11 +25,11 @@ export default async function InstagramSettingsPage() {
               <Text>
                 To see dashboard, please log in.
               </Text>
-              <div className="flex justify-center">
+              {/* <div className="flex justify-center">
                 <a href="/api/auth/signin" className="group mt-5 rounded-2xl h-12 w-40 bg-slate-900 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
                   Get started!
                 </a>
-              </div>
+              </div> */}
             </Card>
           </main>
         )
