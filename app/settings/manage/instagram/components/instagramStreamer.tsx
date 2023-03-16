@@ -81,7 +81,6 @@
 
 
 
-
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
@@ -146,6 +145,7 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
         }
       } else if (!parsedChunk) {
         console.error('Error while parsing JSON: Chunk is not valid JSON');
+        setPreviousChunk(chunk);
         return reader.read().then(processText);
       }
 
@@ -185,4 +185,4 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
   );
 };
 
-export default InstagramStreamer
+export default InstagramStreamer;
