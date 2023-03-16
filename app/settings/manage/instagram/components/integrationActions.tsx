@@ -82,7 +82,7 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
         while (!done) {
             const { value, done: doneReading } = await reader.read();
             done = doneReading;
-            const chunkValue = decoder.decode(value);
+            const chunkValue = decoder.decode(value, { stream: !done }); // Add the stream option
             setStage1Messages((prev) => prev + chunkValue);
 
             // if json value has IGretrievedMedia, set igData to that value
@@ -111,14 +111,7 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                     }
                   };
                   handleStreamChunkIg(chunkValue);
-                // const parts = chunkValue.split('}{');
-                // const fixedData = '[' + parts.join('},{') + ']';
-                // const jsonData = JSON.parse(fixedData);
-                // // keep only the value for progressStep
-                // const progressStep = jsonData[0].progressStep;
-                // setIgProgressPercentage(progressStep);
             }
-
         }
         setIgData('completed')
         setButtonStatusStage1('success'); // set button status to 'success'
@@ -187,9 +180,6 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
 
     }
 
-
-
-
     return  (
         <div className="mt-5 relative flex flex-col items-center rounded-[20px] w-[700px] max-w-[95%] mx-auto bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none p-3">
         <div className="mt-2 mb-1 ">
@@ -202,13 +192,7 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
         </div>
         </div> 
 
-
-
-
         <ol className="relative text-gray-500 border-l border-gray-200 dark:border-gray-700 dark:text-gray-400">  
-
-
-
 
             {/* STEP 1 STEP 1 STEP 1 STEP 1 STEP 1  */}
             <li className="mb-10 ml-6"> 

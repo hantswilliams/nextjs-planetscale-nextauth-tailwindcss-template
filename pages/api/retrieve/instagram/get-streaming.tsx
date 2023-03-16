@@ -71,22 +71,17 @@ const handler = async (req: Request) => {
                 // EXPERIMETNAL: this part here is also experimental
                 console.log(`${i + 1}/${ig_media.length}\n\n`);
                 const progressValue = ((i + 1) / ig_media.length)*100;
-                // const progressUpdates = JSON.stringify({ progressStep: progressValue });
-                const progressUpdates = JSON.stringify({ progressStep: progressValue }) + "\n\n";
+                const progressUpdates = JSON.stringify({ progressStep: progressValue });
+                // const progressUpdates = JSON.stringify({ progressStep: progressValue }) + "\n\n";
                 const encoder = new TextEncoder();
                 const encodedData = encoder.encode(progressUpdates);
                 console.log('progressUpdates: ', progressUpdates);
                 controller.enqueue(encodedData);
 
-                // ///Send client side update that one of the X images has uploaded succesfully
-                // const progressDetailed = encoder.encode(JSON.stringify({ status: 'completed a upload!', progress: ig_media[i].media_url }));
-                // controller.enqueue(progressDetailed);
-
             }
-  
             //// FINISHING
-            const finishedMessage = encoder.encode(JSON.stringify({ finished: true }));
-            controller.enqueue(finishedMessage);
+            // const finishedMessage = encoder.encode(JSON.stringify({ finished: true }));
+            // controller.enqueue(finishedMessage);
             controller.close();
   
           }
