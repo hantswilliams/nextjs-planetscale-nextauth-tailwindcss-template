@@ -106,11 +106,6 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({
         if (chunkShort !== null && newChunk !== null) {
           const combinedChunk = chunkShort + newChunk;
           console.log('combinedChunk: ', combinedChunk);
-
-        //   const [firstPart, ...rest] = combinedChunk.split(/(.*?}})/);
-        //   const candidateChunk = firstPart + '}';
-        //   console.log('candidateChunk: ', candidateChunk);
-
           const match = combinedChunk.match(/{[^}]*}/);
           const candidateChunk = match ? match[0] : 'No match found';
           console.log('candidateChunkv2: ', candidateChunk)
@@ -154,6 +149,8 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({
           try {
             const parsedChunk = JSON.parse(chunk);
             handleParsedChunk(parsedChunk);
+            setChunkShort(null);
+            setNewChunk(null);
           } catch (error) {
             console.error('Error while parsing JSON:', error);
             if (chunkShortRef.current === null) {

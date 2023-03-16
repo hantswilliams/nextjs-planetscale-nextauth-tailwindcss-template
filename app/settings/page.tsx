@@ -1,9 +1,10 @@
-import { Title, Text } from "@tremor/react"
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
 import { UserDetails } from './types';
 import UserDetailsTable from './userDetails';
 import UserSocialAccounts from './socialaccounts';
+import Link from 'next/link';
+import {Card, Title, Text} from '@tremor/react';
 
 // export default async function SettingsPage({ user }: { user: any }) {
 export default async function SettingsPage() {
@@ -13,10 +14,17 @@ export default async function SettingsPage() {
     if (!session) {
         return (
             <main className="p-4 md:p-10 mx-auto max-w-7xl">
-                <div className="flex flex-col justify-center items-center">
-                    <Title> Settings </Title>
-                    <Text> You are not logged in. </Text>
-                </div>
+            <Card>
+              <Title >You are not logged in</Title>
+              <Text>
+                Please log in.
+              </Text>
+              <div className="flex justify-center">
+                <Link href="/api/auth/signin" className="group mt-5 rounded-2xl h-12 w-40 bg-slate-900 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
+                   Login 
+                </Link>
+              </div>
+            </Card>
             </main>
         )
     }

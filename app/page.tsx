@@ -9,17 +9,7 @@ export default async function IndexPage() {
 
   const session = await getServerSession(authOptions);
 
-  // // if no session, show a toast message that tells them they are not logged in
-  // if (!session) {
-  //   return
-  // }
-
   return (
-
-
-
-
-
 
     <main className="p-10 md:p-10 mx-auto max-w-2xl" >
       <div className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">

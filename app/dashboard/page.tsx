@@ -86,17 +86,17 @@ export default async function DashboardPage() {
   if (!session) {
       return (
           <main className="p-10 md:p-10 mx-auto max-w-2xl">
-          <Card>
-            <Title >You are not logged in</Title>
-            <Text>
-              To see dashboard, please log in.
-            </Text>
-            <div className="flex justify-center">
-              <Link href="/api/auth/signin" className="group mt-5 rounded-2xl h-12 w-40 bg-slate-900 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
-                 Get started! 
-              </Link>
-            </div>
-          </Card>
+            <Card>
+              <Title >You are not logged in</Title>
+              <Text>
+                Please log in.
+              </Text>
+              <div className="flex justify-center">
+                <Link href="/api/auth/signin" className="group mt-5 rounded-2xl h-12 w-40 bg-slate-900 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
+                   Login 
+                </Link>
+              </div>
+            </Card>
         </main>
       )
   }

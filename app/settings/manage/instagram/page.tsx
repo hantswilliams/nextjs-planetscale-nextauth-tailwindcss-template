@@ -23,13 +23,13 @@ export default async function InstagramSettingsPage() {
             <Card>
               <Title >You are not logged in</Title>
               <Text>
-                To see dashboard, please log in.
+                Please log in.
               </Text>
-              {/* <div className="flex justify-center">
-                <a href="/api/auth/signin" className="group mt-5 rounded-2xl h-12 w-40 bg-slate-900 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
-                  Get started!
-                </a>
-              </div> */}
+              <div className="flex justify-center">
+                <Link href="/api/auth/signin" className="group mt-5 rounded-2xl h-12 w-40 bg-slate-900 font-bold text-sm text-white relative overflow-hidden flex items-center justify-center">
+                   Login 
+                </Link>
+              </div>
             </Card>
           </main>
         )
