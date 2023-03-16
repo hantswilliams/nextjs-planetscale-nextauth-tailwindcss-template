@@ -109,11 +109,12 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({
           const match = combinedChunk.match(/{[^}]*}/);
           const candidateChunk = match ? match[0] : 'No match found';
           console.log('candidateChunkv2: ', candidateChunk)
-
           try {
             const parsedCandidate = JSON.parse(candidateChunk);
             console.log('parsedCandidate: ', parsedCandidate);
             handleParsedChunk(parsedCandidate);
+            setChunkShort(null);
+            setNewChunk(null);
           } catch (error) {
             console.error('Error while parsing combined JSON:', error);
           } finally {
@@ -132,20 +133,16 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({
             userCurrentuserId,
           }),
         });
-    
         const reader = response.body!.getReader();
         const decoder = new TextDecoder();
-    
         //@ts-expect-error
         reader.read().then(async function processText({ done, value }) {
           if (done) {
             console.log('Stream complete.');
             return;
           }
-    
           var chunk = decoder.decode(value);
           console.log('chunk received: ', chunk);
-    
           try {
             const parsedChunk = JSON.parse(chunk);
             handleParsedChunk(parsedChunk);
@@ -163,7 +160,6 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({
               console.log('newChunk set: ', chunk);
             }
           }
-    
           return reader.read().then(processText);
         });
       }, [userIguserId, userIguserToken, userCurrentuserId]);
