@@ -28,32 +28,46 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
 
     //@ts-expect-error
     reader.read().then(async function processText({ done, value }) {
-      if (done) {
-        console.log('Stream complete.');
-        return;
-      }
-
-      const chunk = decoder.decode(value);
-      console.log('chunk received: ', chunk)
-
-      try {
-        const parsedChunk = JSON.parse(chunk);
-        if (parsedChunk.starting) {
-          setStatus('Starting...');
-        } else if (parsedChunk.IGretrievedMedia) {
-          setStatus(`Retrieved ${parsedChunk.IGretrievedMedia} media from Instagram`);
-        } else if (parsedChunk.progressStep) {
-          setStatus('Uploading to S3 and saving to database...');
-          setProgress(parsedChunk.progressStep);
-        } else if (parsedChunk.finished) {
-          setStatus('Finished!');
+        if (done) {
+          console.log('Stream complete.');
+          return;
         }
-      } catch (error) {
-        console.error('Error while parsing JSON:', error);
-      }
-
-      return reader.read().then(processText);
-    });
+      
+        const chunk = decoder.decode(value, { stream: true });
+        console.log('chunk received: ', chunk);
+      
+        // Accumulate received chunks
+        let accumulatedChunks = chunk;
+      
+        // Keep looping until no more valid JSON objects can be extracted
+        while (true) {
+          try {
+            // Attempt to parse a JSON object from the accumulatedChunks
+            const parsedChunk = JSON.parse(accumulatedChunks);
+      
+            // If parsing is successful, process the parsed JSON object
+            if (parsedChunk.starting) {
+              setStatus('Starting...');
+            } else if (parsedChunk.IGretrievedMedia) {
+              setStatus(`Retrieved ${parsedChunk.IGretrievedMedia} media from Instagram`);
+            } else if (parsedChunk.progressStep) {
+              setStatus('Uploading to S3 and saving to database...');
+              setProgress(parsedChunk.progressStep);
+            } else if (parsedChunk.finished) {
+              setStatus('Finished!');
+            }
+      
+            // Clear accumulatedChunks since the JSON object was successfully processed
+            accumulatedChunks = '';
+          } catch (error) {
+            // If accumulatedChunks contains an incomplete JSON object, break the loop
+            // and wait for the next chunk
+            break;
+          }
+        }
+      
+        return reader.read().then(processText);
+      });      
   }, [userIguserId, userIguserToken, userCurrentuserId]);
 
   useEffect(() => {
