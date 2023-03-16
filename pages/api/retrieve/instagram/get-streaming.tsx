@@ -1,5 +1,6 @@
 import ig_me_media from './get_retrieve';
 
+
 // this is for edge streaming, this API will be on the edge
 export const config = {
     runtime: "edge",
@@ -76,8 +77,6 @@ const handler = async (req: Request) => {
                 const encodedData = encoder.encode(progressUpdates);
                 console.log('progressUpdates: ', progressUpdates);
                 controller.enqueue(encodedData);
-                // add 100ms delay 
-                await new Promise(resolve => setTimeout(resolve, 1000)); // add delay
 
                 // ///Send client side update that one of the X images has uploaded succesfully
                 // const progressDetailed = encoder.encode(JSON.stringify({ status: 'completed a upload!', progress: ig_media[i].media_url }));

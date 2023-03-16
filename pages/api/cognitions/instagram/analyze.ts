@@ -86,8 +86,6 @@ const handler = async (req: Request) => {
                 const encoder = new TextEncoder();
                 controller.enqueue(encoder.encode(progressUpdates));
                 console.log('progressUpdates: ', progressUpdates);
-                // add 100ms delay 
-                await new Promise(resolve => setTimeout(resolve, 1000)); // add delay
 
             }
 

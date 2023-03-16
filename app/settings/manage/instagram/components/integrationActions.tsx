@@ -154,7 +154,7 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
         while (!done) {
             const { value, done: doneReading } = await reader.read();
             done = doneReading;
-            const chunkValue = decoder.decode(value);
+            const chunkValue = decoder.decode(value, { stream: !done }); // Add the stream option
             setStage2Messages((prev) => prev + chunkValue);
 
             // if json value has progress, set setCognitionProgressPercentage to that value
