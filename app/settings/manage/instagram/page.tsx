@@ -10,7 +10,6 @@ import { json } from 'stream/consumers';
 import IntegrationDetails from './components/integrationDetails';
 import IntegrationActions from './components/integrationActions';
 import Link from 'next/link';
-import InstagramStreamer from './components/instagramStreamer';
 
 
 export default async function InstagramSettingsPage() {
@@ -63,15 +62,6 @@ export default async function InstagramSettingsPage() {
             /> */}
 
             <br />
-
-            <InstagramStreamer 
-              userIguserId = {instagramDetails[0]?.iguserid}
-              userIguserToken = {instagramDetails[0]?.igtoken}
-              userCurrentuserId = {session?.user?.id ?? 'not-logged-in'}
-            />
-
-
-
 
         </div>
     );

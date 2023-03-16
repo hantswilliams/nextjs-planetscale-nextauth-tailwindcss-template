@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { ArrowPathIcon } from '@heroicons/react/24/solid';
 import TextBlock from './actionUpdates';
 import { Toaster, toast } from "react-hot-toast";
+import InstagramStreamer from './streamerInstagram';
+import CognitionStreamer from './streamerCognition';
 
 
 type igUserFields = {
@@ -207,28 +209,17 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                         <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path></svg>
                     </span>
                 )}
+
                 <h3 className="font-medium leading-tight">1. Retrieve</h3>
                 <p className="text-sm">Get your your IG posts...</p>
-                {/* This part here is for the button action statuses  */}
-                <button onClick={handleIgDataPullv2} disabled={buttonStatusStage1 === 'loading' || buttonStatusStage1 === 'success'} className={`mt-2 px-4 py-2 text-sm font-medium text-white rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${buttonStatusStage1 === 'success' ? 'bg-green-400 cursor-default' : 'bg-slate-600 hover:bg-slate-500'}`}>
-                    {buttonStatusStage1 === 'idle' && 'Retrieve'}
-                    {buttonStatusStage1 === 'loading' && 
-                        <div className="flex items-center"> <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/> 
-                            {/* {igProgressPercentage.map((progress, index) => (
-                                <div key={index}>
-                                Progress step: {progress.progressStep}
-                                </div>
-                            ))} */}
-                        </div> 
-                    }
-                    {buttonStatusStage1 === 'success' && `IG posts total: ${igDataLength} (only 5 received for demo)`} 
-                </button>
 
-                {stage1Messages && (
-                    <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                        <TextBlock text={stage1Messages} />
-                    </div>
-                )}
+                {/* iguserid, igusertoken, currentuserid */}
+                <InstagramStreamer 
+                userIguserId = {iguserid}
+                userIguserToken = {igusertoken}
+                userCurrentuserId = {currentuserid}
+                />
+
             </li>
 
 
@@ -248,7 +239,13 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                 <h3 className="font-medium leading-tight">2. Analyze</h3>
                 <p className="text-sm">Click here to begin the processing of your IG content</p>
                 {/* This part here is for the button action statuses  */}
-                <button
+
+                <CognitionStreamer
+                userCurrentuserId = {currentuserid}
+                />
+
+
+                {/* <button
                     onClick={handleCognitionRequest}
                     disabled={
                         buttonStatusStage2 === 'loading' ||
@@ -266,20 +263,20 @@ const IntegrationActions = ({ iguserid, igusertoken, currentuserid }: igUserFiel
                     {buttonStatusStage1 === 'success' && buttonStatusStage2 === 'idle' && 'Perform cognition'}
                     {buttonStatusStage2 === 'loading' && 
                         <div className="flex items-center"> <ArrowPathIcon className="animate-spin h-5 w-5 mr-2"/> 
-                            {/* {cognitionProgressPercentage.map((progress, index) => (
-                                <div key={index}>
-                                Progress step: {progress.progressStep}
-                                </div>
-                            ))} */}
                         </div> 
                     }
                     {buttonStatusStage1 === 'success' && buttonStatusStage2 === 'success' && 'Cognition completed (only 5 analyzed for demo)'}
-                </button>
+                </button> */}
+
+                
                 {stage2Messages && (
                     <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                         <TextBlock text={stage2Messages} />
                     </div>
                 )}
+
+
+                
             </li>
 
 

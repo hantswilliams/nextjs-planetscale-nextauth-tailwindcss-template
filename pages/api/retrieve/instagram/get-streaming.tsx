@@ -46,7 +46,6 @@ const handler = async (req: Request) => {
             /// For testing purpsoses, just keep the first 5 items
             ig_media = ig_media.slice(0, 5);
 
-
             /// Step 2 - Loop through the data and save each item to S3 bucket and the database
             for (let i = 0; i < ig_media.length; i++) {
 
