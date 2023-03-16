@@ -95,7 +95,6 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
   const [status, setStatus] = useState<string>('');
   const [streamStarted, setStreamStarted] = useState<boolean>(false);
   const [chunkShort, setChunkShort] = useState<string | null>(null);
-  const [newChunk, setNewChunk] = useState<string | null>(null);
 
   const fetchData = useCallback(async () => {
     const response = await fetch('/api/retrieve/instagram/get-streaming/', {
@@ -129,9 +128,10 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
           setChunkShort(chunk);
           console.log('chunkShort set: ', chunk)
         } 
-        else if (chunkShort !== '') {
-          setNewChunk(chunk);
-          const combinedChunk = chunkShort + newChunk;
+        else {
+          console.log('previously received chunk: ', chunkShort)
+          console.log('newChunk set: ', chunk)
+          const combinedChunk = chunkShort + chunk;
           console.log('combinedChunk: ', combinedChunk)
           const [firstPart, ...rest] = combinedChunk.split(/(.*?}})/);
           const candidateChunk = firstPart + "}";
@@ -144,7 +144,6 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({ userIguserId, use
             console.error('Error while parsing combined JSON:', error);
           } finally {
             setChunkShort(null);
-            setNewChunk(null);
           }
         }
       }
