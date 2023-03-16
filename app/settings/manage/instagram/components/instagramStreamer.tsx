@@ -149,6 +149,10 @@ const InstagramStreamer: React.FC<InstagramStreamerProps> = ({
         reader.read().then(async function processText({ done, value }) {
           if (done) {
             console.log('Stream complete.');
+            setStreamStarted(false);
+            setStatus('Finished!');
+            setProgress(null);
+            setStreamStarted(false);
             return;
           }
     
