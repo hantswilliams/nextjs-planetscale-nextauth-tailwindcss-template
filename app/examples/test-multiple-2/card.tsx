@@ -9,7 +9,7 @@ type CardProps = {
 
 const Card = ({ name, email, lat, lng }: CardProps) => {
   return (
-    <TremorCard marginTop='mt-4'>
+    <TremorCard>
       <Title>{name}</Title>
       <Text>{email}</Text>
       <Text>LAT: {lat}</Text>
