@@ -50,7 +50,7 @@ export default async function IndexPage({
         A list of demo/pilot users on Social Comprehend.
       </Text>
       <Search />
-      <Card marginTop="mt-6">
+      <Card>
         {/* @ts-expect-error Server Component */}
         <UsersTable users={users} />
       </Card>
