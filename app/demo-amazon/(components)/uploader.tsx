@@ -7,7 +7,6 @@ import toast, { Toaster } from 'react-hot-toast'
 import { fetchCognitionResults } from '../cognition';
 import { uploadImage } from '../s3';
 import { CognitionResults } from '../typesAmazon';
-import { Text } from '@tremor/react';
 
 type FormValues = {
   image: FileList;

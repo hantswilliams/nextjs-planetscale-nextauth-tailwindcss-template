@@ -1,10 +1,10 @@
-import { Card, Title, Text, BarList, ProgressBar, Divider} from '@tremor/react';
+import { Card, Title, Text, Divider} from '@tremor/react';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
 import Link from 'next/link';
 
-import Chart from './components/chart';
-import Donut from './components/donut';
+// import Chart from './components/chart';
+// import Donut from './components/donut';
 import Bar from './components/barlist';
 
 export default async function ResultsPage() {

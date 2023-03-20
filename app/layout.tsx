@@ -1,6 +1,4 @@
 import './globals.css';
-// import '@tremor/react/dist/esm/tremor.css';
-
 import Nav from './nav';
 import Toast from './toast';
 import { Suspense } from 'react';

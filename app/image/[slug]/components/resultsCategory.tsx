@@ -5,9 +5,6 @@ import { useState } from 'react';
 import {
     Card,
     Text,
-    Accordion,
-    AccordionHeader,
-    AccordionBody,
     Flex,
     Button,
     Icon,

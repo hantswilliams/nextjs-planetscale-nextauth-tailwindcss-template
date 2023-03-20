@@ -2,8 +2,8 @@ import {
     Card,
     Metric,
     Text,
-    Block,
-    ColGrid,
+    Flex,
+    Grid,
 } from '@tremor/react';
 
 import { CameraIcon, UserCircleIcon, HomeIcon } from '@heroicons/react/24/solid';
@@ -25,36 +25,52 @@ const IntegrationDetails = ({ username, mediacount, dateconnected, accounttype }
             </h4>
         </div> 
 
-        <ColGrid numColsSm={ 2 } numColsLg={ 2 } gapX="gap-x-6" gapY="gap-y-6">
+        <Grid numColsSm={ 2 } numColsLg={ 2 } className="gap-2">
             <Card>
-                <Block textAlignment="text-center">
+                <Flex
+                    justifyContent="start"
+                    alignItems="baseline"
+                    className="truncate space-x-3"
+                >                        
                         <CameraIcon className="h-6 w-6 mx-auto text-blue-700" />
-                        <Text textAlignment="text-center"> Posts </Text>
-                        <Metric textAlignment="text-center" marginTop="mt-2">{mediacount}</Metric>
-                </Block>
+                        <Text> Posts </Text>
+                        <Metric>{mediacount}</Metric>
+                </Flex>
             </Card>
             <Card>
-                <Block textAlignment="text-center">
+                <Flex
+                    justifyContent="start"
+                    alignItems="baseline"
+                    className="truncate space-x-3"
+                >                     
                     <UserCircleIcon className="h-6 w-6 mx-auto text-blue-700"/>
-                    <Text textAlignment="text-center"> IG Username </Text>
-                    <Metric textAlignment="text-center" marginTop="mt-2"> {username} </Metric>
-                </Block>
+                    <Text> IG Username </Text>
+                    <Metric> {username} </Metric>
+                </Flex>
             </Card>
             <Card>
-                <Block textAlignment="text-center">
+                <Flex
+                    justifyContent="start"
+                    alignItems="baseline"
+                    className="truncate space-x-3"
+                >                         
                     <HomeIcon className="h-6 w-6 mx-auto text-blue-700"/>
-                    <Text textAlignment="text-center"> Account Type </Text>
-                    <Metric textAlignment="text-center" marginTop="mt-2"> {accounttype}</Metric>
-                </Block>
+                    <Text> Account Type </Text>
+                    <Metric> {accounttype}</Metric>
+                </Flex>
             </Card>
             <Card>
-                <Block textAlignment="text-center">
+                <Flex
+                    justifyContent="start"
+                    alignItems="baseline"
+                    className="truncate space-x-3"
+                >                     
                     <HomeIcon className="h-6 w-6 mx-auto text-blue-700"/>
-                    <Text textAlignment="text-center"> Date Connected </Text>
-                    <Metric textAlignment="text-center" marginTop="mt-2"> {dateconnected} </Metric>
-                </Block>
+                    <Text> Date Connected </Text>
+                    <Metric> {dateconnected} </Metric>
+                </Flex>
             </Card>
-        </ColGrid>
+        </Grid>
         
     </div>  
   );
