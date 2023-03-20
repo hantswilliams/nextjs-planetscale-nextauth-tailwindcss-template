@@ -34,7 +34,7 @@ export default async function ResultsPage() {
     console.log('userId: ', userId);
 
     const response = await fetch(
-      `https://localhost:3000/api/report/all/${userId}`,
+      `${process.env.NEXTAUTH_URL}/api/report/all/${userId}`,
       {
         method: 'GET',
         headers: {
