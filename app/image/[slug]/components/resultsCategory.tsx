@@ -316,10 +316,9 @@ const ResultsCategoryComponent = ({
                     { categories
                         .sort((a, b) => b.metric - a.metric) // sort the array in descending order based on metric
                         .map((item) => (
-
-                        <div>
+                        <div key={item.title}>
                             <List>
-                                <ListItem key={item.title}>
+                                <ListItem>
                                     <Flex justifyContent="start" className="truncate space-x-2.5">
                                         <Icon
                                                 icon={ item.metric > 50 ? ShieldExclamationIcon : ShieldCheckIcon}
@@ -345,10 +344,8 @@ const ResultsCategoryComponent = ({
                                 }
                                 />
                             </Flex>
-                            <Divider />
-                                                           
+                            <Divider />                              
                         </div>
-
                     )) }
 
 
