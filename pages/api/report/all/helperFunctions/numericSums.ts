@@ -72,8 +72,7 @@ export default async function SumsNumeric(PrismaResponse: PrismaResponse) {
         PrismaResponse.forEach((items) => {
             items.forEach((item) => {
             item.cognitions.forEach((cognition) => {
-                //@ts-expect-error
-                console.log(cognition?.outputcleaned?.numeric)
+                // console.log(cognition?.outputcleaned?.numeric)
                 //@ts-expect-error
                 const numeric = cognition?.outputcleaned?.numeric;
                 // Loop through each category in the numeric object and add its value to the sum

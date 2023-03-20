@@ -72,7 +72,7 @@ export default async function SumsCategorical(PrismaResponse: PrismaResponse) {
           item.cognitions.forEach((cognition) => {
             //@ts-expect-error
             const category = cognition.outputcleaned.category;
-            console.log(category)
+            // console.log(category)
             // Loop through each category in the category object and count its value
             for (const categoryKey in category) {
               if (categoryCounts[categoryKey]) {

@@ -81,10 +81,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         ])
 
         // example of going down the nest....
-        console.log("PrismaResponse: ", PrismaResponse)
+        // console.log("PrismaResponse: ", PrismaResponse)
         const Cognitions = PrismaResponse.flat()
-        console.log("Cognitions: ", Cognitions)
-        console.log("Cognitions: count: ", Cognitions.length)
+        // console.log("Cognitions: ", Cognitions)
+        // console.log("Cognitions: count: ", Cognitions.length)
 
 
         // if cognitions count is 0, then return False 
@@ -93,7 +93,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return
         }
 
-        console.log("Cognitions: first item in array, outputCleaned: ", Cognitions[0]?.cognitions[0]?.outputcleaned)
+        // console.log("Cognitions: first item in array, outputCleaned: ", Cognitions[0]?.cognitions[0]?.outputcleaned)
 
         //@ts-expect-error
         const summaryNumericSums = await SumsNumeric(PrismaResponse)
