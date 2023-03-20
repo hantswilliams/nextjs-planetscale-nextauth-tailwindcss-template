@@ -1,11 +1,5 @@
 'use client';
 
-import {
-    Text,
-    ColGrid,
-    Title,
-  } from '@tremor/react';
-
 import React, { useState } from 'react';
 import Instructions from './(components)/instructions';
 import ImageUpload from './(components)/uploader';

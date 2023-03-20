@@ -33,6 +33,7 @@ const handler = async (req: Request) => {
             const media = await fetch(`${process.env.NEXTAUTH_URL}/api/images/user/instagram/${userCurrentuserId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                cache: 'no-store',
             })
             var mediaJson = await media.json()
             const flattenedArray = JSON.parse(mediaJson).flat();

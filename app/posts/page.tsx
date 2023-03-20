@@ -68,11 +68,8 @@ export default async function GalleryPage() {
     return (
         <main className="p-4 md:p-10 mx-auto max-w-7xl">
             <div className="flex flex-col justify-center items-center">
-                <Title> Gallery </Title>
-                <Text> A list of images uploaded by the user. </Text>
-                    <Text> Gallery for: {userId} </Text>
-                    {/* @ts-expect-error Server Component */}
-                    <UsersMediaTable users={userImages} limit={10} />
+                {/* @ts-expect-error Server Component */}
+                <UsersMediaTable users={userImages} limit={10} />
             </div>
         </main>
     )

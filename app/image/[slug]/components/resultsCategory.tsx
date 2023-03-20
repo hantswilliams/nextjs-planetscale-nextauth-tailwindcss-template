@@ -5,15 +5,17 @@ import { useState } from 'react';
 import {
     Card,
     Text,
-    Footer,
+    Accordion,
+    AccordionHeader,
+    AccordionBody,
     Flex,
-    ButtonInline,
     Button,
     Icon,
     Title,
-    Bold,
+    Divider,
     RangeBar,
-    Block,
+    List, 
+    ListItem,
 } from '@tremor/react';
 
 import {
@@ -234,8 +236,12 @@ const ResultsCategoryComponent = ({
             </div>
         </div>
     ) : (        
-        <Card maxWidth="max-w-md">
-            <Flex justifyContent="justify-start" spaceX="-space-x-0.5" alignItems="items-center">
+        <Card className="max-w-md mx-auto">
+            <div className="items-center justify-center">
+            {/* maxWidth="max-w-md" */}
+
+            <Flex justifyContent="start"> 
+                    {/* spaceX="-space-x-0.5" alignItems="items-center"> */}
                 <Title> Moderation Results </Title>
                 <Icon
                     icon={ InformationCircleIcon }
@@ -244,6 +250,8 @@ const ResultsCategoryComponent = ({
                     tooltip="Shows content moderation likelihood (gray bar) that the image belongs to that particular category. The closer it is to the right, the higher the likelihood it belongs to that category. While the closer it is to the left, the lower the likelihood it belongs to that category. "
                 />
             </Flex>
+
+
             <Text> Categories:  </Text>
 
             <div className="mt-2">
@@ -265,22 +273,67 @@ const ResultsCategoryComponent = ({
                     )}
                 </dd>
             </div>
+
+            <Divider />
+
+
+
+
+                    {/* { categories
+                        .sort((a, b) => b.metric - a.metric) // sort the array in descending order based on metric
+                        .map((item) => (
+                        <Flex key={ item.title } justifyContent="start">
+                            <div className="mt-6">
+                                <Icon
+                                    icon={ item.metric > 50 ? ShieldExclamationIcon : ShieldCheckIcon}
+                                    // if item.metric is greater than 50, then color is green, else red
+                                    color={ item.metric > 50 ? 'red' : 'green' }
+                                    variant="shadow"
+                                    size="lg"
+                                />
+                                    <div className="mt-2"> 
+                                    <Flex>
+                                        <Text className=""><Bold>{ item.title }</Bold></Text>
+                                        <Text>{ item?.metric?.toString().slice(0, 5)}</Text> 
+                                    </Flex>
+                                    <RangeBar
+                                        percentageValue={ item.percentageValue }
+                                        minPercentageValue={ item.minPercentageValue }
+                                        maxPercentageValue={ item.maxPercentageValue }
+                                        markerTooltip={ `${item.percentageValue}%` }
+                                        rangeTooltip={
+                                            `${item.minMetric} (${item.minPercentageValue}%)
+                                            - ${item.maxMetric} (${item.maxPercentageValue}%)`
+                                        }
+                                    />
+                                    </div>
+                            </div>
+                        </Flex>
+                    )) } */}
+
+
+
                     { categories
                         .sort((a, b) => b.metric - a.metric) // sort the array in descending order based on metric
                         .map((item) => (
-                        <Flex key={ item.title } justifyContent="justify-start" spaceX="space-x-6" marginTop="mt-6">
-                            <Icon
-                                icon={ item.metric > 50 ? ShieldExclamationIcon : ShieldCheckIcon}
-                                // if item.metric is greater than 50, then color is green, else red
-                                color={ item.metric > 50 ? 'red' : 'green' }
-                                variant="shadow"
-                                size="lg"
-                            />
-                            <Block spaceY="space-y-2">
-                                <Flex>
-                                    <Text><Bold>{ item.title }</Bold></Text>
-                                    <Text>{ item?.metric?.toString().slice(0, 5)}</Text> 
-                                </Flex>
+
+                        <div>
+                            <List>
+                                <ListItem key={item.title}>
+                                    <Flex justifyContent="start" className="truncate space-x-2.5">
+                                        <Icon
+                                                icon={ item.metric > 50 ? ShieldExclamationIcon : ShieldCheckIcon}
+                                                // if item.metric is greater than 50, then color is green, else red
+                                                color={ item.metric > 50 ? 'red' : 'green' }
+                                                variant="shadow"
+                                                size="lg"
+                                            />                                
+                                        <Text className="truncate">{item.title}</Text>
+                                    </Flex>
+                                    <Text>{ item?.metric?.toString().slice(0, 5)} %</Text>
+                                </ListItem>
+                            </List>  
+                            <Flex> 
                                 <RangeBar
                                     percentageValue={ item.percentageValue }
                                     minPercentageValue={ item.minPercentageValue }
@@ -289,37 +342,52 @@ const ResultsCategoryComponent = ({
                                     rangeTooltip={
                                         `${item.minMetric} (${item.minPercentageValue}%)
                                         - ${item.maxMetric} (${item.maxPercentageValue}%)`
-                                    }
+                                }
                                 />
-                            </Block>
-                        </Flex>
+                            </Flex>
+                            <Divider />
+                                                           
+                        </div>
+
                     )) }
-            <Footer>
-                { displayReload && (
-                    <Button
-                        size="sm"
-                        color='blue'
-                        text="Rerun Analysis"
-                        onClick={() => performCognition(imageuid, medial_url)}
-                        icon={ ArrowPathRoundedSquareIcon }
-                        iconPosition="right"
-                        variant="secondary"
-                    />
-                )}
-                <Icon
-                    icon={ CodeBracketSquareIcon }
-                    size="sm"
-                    color="blue"
-                    tooltip={ modelmetadata }
-                />
-                <Icon
-                    icon={ CpuChipIcon }
-                    size="sm"
-                    color="blue"
-                    tooltip={ modelcleandata }
-                />
-                {/* button to rerun analysis */}
-            </Footer>
+
+
+                    { displayReload && (
+                        <Button
+                            size="sm"
+                            color='blue'
+                            onClick={() => performCognition(imageuid, medial_url)}
+                            icon={ ArrowPathRoundedSquareIcon }
+                            iconPosition="right"
+                            variant="secondary"
+                        >
+                            Rerun Analysis
+                        </Button>
+                    )}
+
+                    <div className="mt-5">
+                        <Flex justifyContent='start'>
+                            <Icon
+                                icon={ CodeBracketSquareIcon }
+                                size="sm"
+                                color="blue"
+                                tooltip={ modelmetadata }
+                            />
+                            <Icon
+                                icon={ CpuChipIcon }
+                                size="sm"
+                                color="blue"
+                                tooltip={ modelcleandata }
+                            />    
+                        </Flex>
+                    </div>
+
+
+  
+
+
+
+            </div>
         </Card>
 
     )

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { CognitionResults } from '../typesAmazon';
-import ResultsCategory from './resultsCategory';
+// import ResultsCategory from './resultsCategory';
 import AccuracyCapture from './resultsAccuracy';
 import ResultsCategoryComponent from '../../image/[slug]/components/resultsCategory';
 import Image from 'next/image';
