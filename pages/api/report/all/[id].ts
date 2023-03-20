@@ -5,6 +5,54 @@ import SumsCategorical from './helperFunctions/categoricalSum'
 
 // example call: https://localhost:3000/api/report/all/cleq5z8980004g7ns4zxj6ss4
 
+
+interface UserOutputCleaned {
+    binary: {
+        binary: string;
+    }
+    category: {
+        Alcohol: boolean;
+        Drugs: boolean;
+        'Explicit Nudity': boolean;
+        Gambling: boolean;
+        'Hate Symbols': boolean;
+        'Rude Gestures': boolean;
+        Suggestive: boolean;
+        Tabacco: boolean;
+        Violence: boolean;
+        'Visually Disturbing': boolean;
+        'Revealing Clothes'?: boolean; // added optional property to match one of the objects in the response
+        'Weapon Violence'?: boolean; // added optional property to match one of the objects in the response
+    };
+    numeric: {
+        Alcohol: number;
+        Drugs: number;
+        'Explicit Nudity': number;
+        Gambling: number;
+        'Hate Symbols': number;
+        'Rude Gestures': number;
+        Suggestive: number;
+        Tabacco: number;
+        Violence: number;
+        'Visually Disturbing': number;
+        'Weapon Violence'?: number; // added optional property to match one of the objects in the response
+    };
+    dateProcessed: string;
+    totalConfidence: number;
+}
+
+interface Cognition {
+    outputcleaned: UserOutputCleaned[];
+}
+
+interface Cognitions {
+    userId: string;
+    cognitions: Cognition[];
+}
+
+type PrismaResponse = Cognitions[][];
+
+    
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const { id } = req.query
